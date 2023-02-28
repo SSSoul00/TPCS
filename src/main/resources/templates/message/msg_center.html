@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 指定页面显示的图标 -->
+    <link rel="icon" href="../../static/icon/tpcs.ico">
+    <title>消息中心</title>
+
+    <!-- Bootstrap -->
+    <link href="../../static/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- BootStrap Theme css -->
+    <link href="../../static/node_modules/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+
+    <!-- 导入相关的js -->
+    <script src="../../static/node_modules/jquery/jquery.min.js"></script>
+    <script src="../../static/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!-- 此案例的自定义样式 -->
+    <link href="../../static/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+    <link href="../../static/css-prj/main.css" rel="stylesheet">
+    <!-- 导入外部的js文件 -->
+
+</head>
+<body>
+<div class="container">
+    <!-- 由于导航用了navbar-fixed-top,所以，先与上面定义一个间隔  -->
+    <div class="gap"></div>
+
+    <!-- 菜单提示栏:面包屑组件 -->
+    <ol class="breadcrumb">
+        <li class="active">首页</li>
+        <li class="active">消息中心</li>
+    </ol>
+
+    <!-- 信息框： 消息会由系统自动的删除已读消息  -->
+    <div class="alert alert-warning" role="alert">
+        一个月前的已读消息会被系统自动删除，以免消息冗余太多!!!
+    </div>
+    <!-- 其它内容 -->
+    <div class="row">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>发件人</th>
+                <th style="width: 70%">内容</th>
+                <th>状态</th>
+                <th>发送时间</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- 迭代数据，消息按未读在先，并且按发送时间的降序排序 -->
+            <tr>
+                <td>1</td>
+                <td>【系统】</td>
+                <td>你的学员XXX已完成了【XXXX项目】的任务三，请及时审核</td>
+                <td>
+                    <!-- 分为已读和未读 两种状态，当用户点击过内容的链接时，此消息的状态从未读改变成 已读 -->
+                    <span class="glyphicon glyphicon-folder-close" style="color: darkorange;"></span>
+                    <!--<span class="glyphicon glyphicon-folder-open" style="color: gray;">已读</span>-->
+                </td>
+                <td>2016-02-13 14:50:55</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>【系统】</td>
+                <td>你的学员【xxx】完成了【XXX项目】的任务四，请及时审核</td>
+                <td>
+                    <!-- 分为已读和未读 两种状态，当用户点击过内容的链接时，此消息的状态从未读改变成 已读 -->
+                    <!--<span class="glyphicon glyphicon-folder-close" style="color: gold;">未读</span>-->
+                    <span class="glyphicon glyphicon-folder-open" style="color: gray;"></span>
+                </td>
+                <td>2016-02-13 14:50:55</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+</body>
+<script src="../../static/js/plugins/dataTables/jquery.dataTables.js"></script>
+<script src="../../static/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+<script>
+    $(function (){
+        $.post("msgList.json", function (msgList) {
+        console.log(msgList);
+        $('.table').dataTable({
+            //注： 后面开发时，url的位置写 服务端控制器的 mapping值,服务端返回的将是json数据
+            "data": msgList,
+            //行的定义
+            "columns": [
+                // {"data": "namePhone",bAutoWidth: "false", sWidth: "20%"},
+                {"data": "id"},
+                {"data": "name", bAutoWidth: "false"},
+                {"data": "content"},
+                {"data": null,"render":function(data,type,row){
+                        var html = "<span class='glyphicon glyphicon-folder-close' style='color: darkorange;'></span>"
+                        return html;
+                    }},
+                {"data": "time" },
+                ],
+            //去掉搜索
+            "bSort": false,
+            searching: false,
+            "bPaginage": true,
+            "bAutoWidth": true,
+            lengthChange: false,
+            ordering:true,
+            columnDefs: [{
+                targets: 4,//编辑取消排序
+                "orderable": false
+            }],
+            iDisplayLength:7,
+            lengthMenu :[ 7, 25, 50, 75, 100 ],//定义每页显示记录数，可更改每页显示行数
+            language: {
+                "decimal": "",//小数的小数位符号  比如“，”作为数字的小数位符号
+                "emptyTable": "没有数据哟~~",//没有数据时要显示的字符串
+                "info": "当前 _START_ 条到 _END_ 条 共 _TOTAL_ 条",//左下角的信息，变量可以自定义，到官网详细查看
+                /*  "infoEmpty": "无记录",//当没有数据时，左下角的信息*/
+                "infoFiltered": "(从 _MAX_ 条记录过滤)",//当表格过滤的时候，将此字符串附加到主要信息
+                "infoPostFix": "",//在摘要信息后继续追加的字符串
+                "thousands": ",",//千分位分隔符
+                "lengthMenu": "每页 _MENU_ 条记录",//用来描述分页长度选项的字符串
+                "loadingRecords": "加载中...",//用来描述数据在加载中等待的提示字符串 - 当异步读取数据的时候显示
+                "processing": "处理中...",//用来描述加载进度的字符串
+                "search": "搜索",//用来描述搜索输入框的字符串
+                "zeroRecords": "没有找到",//当没有搜索到结果时，显示
+                "paginate": {
+                    "first": "首页",
+                    "previous": "上一页",
+                    "next": "下一页",
+                    "last": "尾页"
+                }
+            }
+        });
+        });
+    });
+</script>
+</html>

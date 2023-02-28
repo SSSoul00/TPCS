@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 指定页面显示的图标 -->
+    <link rel="icon" href="../../static/icon/tpcs.ico">
+    <title>班级列表</title>
+
+    <!-- Bootstrap -->
+    <link href="../../static/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- BootStrap Theme css -->
+    <link href="../../static/node_modules/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <!-- 此案例的自定义样式 -->
+    <link href="../../static/css-prj/main.css" rel="stylesheet">
+    <!-- 导入外部的js文件 -->
+    <link href="../../static/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+    <!-- Sweet Alert -->
+    <link href="../../static/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+    <script type="text/javascript" src="../../static/js-prj/main.js"></script>
+</head>
+<body>
+<div class="container">
+    <!-- 由于导航用了navbar-fixed-top,所以，先与上面定义一个间隔  -->
+    <div class="gap"></div>
+
+    <!-- 菜单提示栏:面包屑组件 -->
+    <ol class="breadcrumb">
+        <li class="active">首页</li>
+        <li class="active">班级</li>
+        <li class="active">班级详情</li>
+    </ol>
+
+    <!-- 内容区 -->
+    <div class="row">
+        <div class="col-md-offset-1 area_box_div">
+            <div class="top_txt">班级详细视图</div>
+            <!-- 班级信息基本内容 -->
+            <div class="form-horizontal" style="width: 90%;margin-top: 15px;margin-left: -20px">
+                <div class="form-group">
+                    <label class="col-md-2 control-label">班级名</label>
+                    <div class="col-md-2">
+                        <input type="text" class="form-control" value="JSD1511" readonly disabled>
+                    </div>
+
+                    <label class="col-md-2 control-label">班主任</label>
+                    <div class="col-md-2">
+                        <input type="text" class="form-control" value="周萍" readonly disabled>
+                    </div>
+
+                    <label class="col-md-2 control-label">所在教室</label>
+                    <div class="col-md-2">
+                        <input type="text" class="form-control" value="四楼A教室" readonly disabled>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">训练营日</label>
+                    <div class="col-md-2">
+                        <input type="text" class="form-control" value="2015-03-18" readonly disabled>
+                    </div>
+
+                    <label class="col-md-2 control-label">开班日期</label>
+                    <div class="col-md-2">
+                        <input type="text" class="form-control" value="2015-03-28" readonly disabled>
+                    </div>
+
+                    <label class="col-md-2 control-label">开班人数</label>
+                    <div class="col-md-2">
+                        <input type="text" class="form-control" value="43" readonly disabled>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">讲师名</label>
+                    <div class="col-md-2">
+                        <input type="text" class="form-control" value="叶加飞" readonly disabled>
+                    </div>
+
+                    <label class="col-md-2 control-label">班级状态</label>
+                    <div class="col-md-2">
+                        <input type="text" class="form-control" value="已毕业" readonly disabled>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div><!-- end of  班级详情区-->
+
+    <!-- 学员详情 -->
+    <div class="row">
+        <div class="col-md-offset-1 area_box_div" style="float: left;">
+            <div class="top_txt">班级学员区</div>
+
+            <div style="margin-top: 20px;margin-left: 20px">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#studentList" aria-controls="studentList" role="tab" data-toggle="tab">学员列表</a></li>
+                    <li role="presentation"><a href="#seatTable" aria-controls="seatTable" role="tab" data-toggle="tab">座位表</a></li>
+                    <li role="presentation"><a href="#classProcess" aria-controls="classProcess" role="tab" data-toggle="tab">教学进度</a></li>
+                    <li role="presentation"><a href="#teacherLayout" aria-controls="teacherLayout" role="tab" data-toggle="tab">教学大纲</a></li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="studentList">
+                        <!-- 如果当前班级还没有任何的学员，则提示用户导入学员，也就是有一个导入学员的超链接 -->
+                        <div class="text-center" style="margin:20px 0;">
+                            <label class="text-danger">暂时没有任何学员，如需导入，<a href="import_class.html">请点击&gt;&gt;</a></label>
+                        </div>
+
+                        <!-- 如果已经存在学中同，则直接迭代出所有当前班级的学员，不再显示上面的提示 -->
+                        <table class="table table-striped">
+                            <tr>
+                                <th>#</th>
+                                <th>学员名</th>
+                                <th>电话</th>
+                                <th>身份证</th>
+                                <th>性别</th>
+                                <th>学校</th>
+                                <th>专业</th>
+                                <th>学历</th>
+                                <th>备注</th>
+                                <th>操作</th>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>张五三</td>
+                                <td>13812751244</td>
+                                <td>345612198909120098</td>
+                                <td><span class="glyphicon glyphicon-user" style="color: green"></span> 男</td>
+                                <td>苏州大学</td>
+                                <td>计算机科学与技术</td>
+                                <td>本科</td>
+                                <td>从JSD1510班转过来的学员</td>
+                                <td>
+                                    <a class="label label-default" title="重置密码"><span class="glyphicon glyphicon-refresh"></span></a>&nbsp;
+                                    <!-- 注：只有当此学员的帐号被锁定了，此处才需要显示 解锁的按钮，否则，不显示, 而解锁成功后，则此按钮也消失 -->
+                                    <a class="label label-danger" title="解除锁定"><span class="glyphicon glyphicon-lock"></span></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>张三丰</td>
+                                <td>13812751244</td>
+                                <td>345612198909120098</td>
+                                <td><span class="glyphicon glyphicon-user" style="color: red"></span> 女</td>
+                                <td>苏州大学</td>
+                                <td>计算机科学与技术</td>
+                                <td>本科</td>
+                                <td></td>
+                                <td>
+                                    <a class="label label-default" title="重置密码"><span class="glyphicon glyphicon-refresh"></span></a>&nbsp;
+                                    <a class="label label-danger" title="解除锁定"><span class="glyphicon glyphicon-lock"></span></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>王莉莉</td>
+                                <td>13812751244</td>
+                                <td>345612198909120098</td>
+                                <td><span class="glyphicon glyphicon-user" style="color: red"></span> 女</td>
+                                <td>六安职业技术学院</td>
+                                <td>通信工程</td>
+                                <td>专科</td>
+                                <td></td>
+                                <td>
+                                    <a class="label label-default" title="重置密码"><span class="glyphicon glyphicon-refresh"></span></a>&nbsp;
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div> <!-- end of student list-->
+
+                    <!-- 座位表标签 -->
+                    <div role="tabpanel" class="tab-pane" id="seatTable" >
+                        <div class="text-center" style="margin-top: 10px">
+                            <span>讲师：</span><label class="text-primary">孙毅</label>
+                            <img src="../../static/images/u35.png" style="margin-left: 10px;margin-bottom: 10px;">
+                        </div>
+                        <!-- 所有学员座位表: 支持可拖放进行排位,每排至多8人-->
+                        <div class="orderBy">
+                            <div class="student_seat_div" id="2">
+                                <p><img src="../../static/images/u44.png" class="img-circle" style="width: 48px;height: 48px;"></p>
+                                <label>张三</label>
+                            </div>
+                            <div class="student_seat_div" id="34">
+                                <p><img src="../../static/images/u44.png" class="img-circle" style="width: 48px;height: 48px;"></p>
+                                <label>王五</label>
+                            </div>
+                            <div class="student_seat_div" id="9">
+                                <p><img src="../../static/images/u44.png" class="img-circle" style="width: 48px;height: 48px;"></p>
+                                <label>二狗</label>
+                            </div>
+                            <div class="student_seat_div" id="32">
+                                <p><img src="../../static/images/u44.png" class="img-circle" style="width: 48px;height: 48px;"></p>
+                                <label>三郎</label>
+                            </div>
+                            <div class="student_seat_div" id="8">
+                                <p><img src="../../static/images/u44.png" class="img-circle" style="width: 48px;height: 48px;"></p>
+                                <label>丰台</label>
+                            </div>
+                            <div class="student_seat_div" id="7">
+                                <p><img src="../../static/images/u44.png" class="img-circle" style="width: 48px;height: 48px;"></p>
+                                <label>武钢</label>
+                            </div>
+                            <div class="student_seat_div" id="6">
+                                <p><img src="../../static/images/u44.png" class="img-circle" style="width: 48px;height: 48px;"></p>
+                                <label>晓燕</label>
+                            </div>
+                            <div class="student_seat_div" id="5">
+                                <p><img src="../../static/images/u44.png" class="img-circle" style="width: 48px;height: 48px;"></p>
+                                <label>行至</label>
+                            </div>
+                            <div class="student_seat_div" id="4">
+                                <p><img src="../../static/images/u44.png" class="img-circle" style="width: 48px;height: 48px;"></p>
+                                <label>萨芬</label>
+                            </div>
+                            <div class="student_seat_div" id="3">
+                                <p><img src="../../static/images/u44.png" class="img-circle" style="width: 48px;height: 48px;"></p>
+                                <label>秩序</label>
+                            </div>
+                            <div class="student_seat_div" id="1">
+                                <p><img src="../../static/images/u44.png" class="img-circle" style="width: 48px;height: 48px;"></p>
+                                <label>的公司</label>
+                            </div>
+
+                        </div>
+                    </div> <!-- end of seat table-->
+
+                    <div role="tabpanel" class="tab-pane" id="classProcess">
+                        <h4>待建设...</h4>
+                    </div>
+
+                    <div role="tabpanel" class="tab-pane" id="teacherLayout">
+                        <h4>待建设...</h4>
+                    </div>
+
+                </div> <!-- end of tab pane -->
+
+            </div>
+        </div>
+    </div> <!--- end of row -->
+
+</div>
+
+<!-- 导入相关的js -->
+<script src="../../static/node_modules/jquery/jquery.min.js"></script>
+<script src="../../static/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="../../static/js/plugins/dataTables/jquery.dataTables.js"></script>
+<script src="../../static/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+<!-- Sweet alert -->
+<script src="../../static/js/plugins/sweetalert/sweetalert.min.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<!-- 新增和更新共享同一个模态框 -->
+<script type="text/javascript">
+    $(function () {
+        var arr = '';
+        $(".orderBy").sortable({
+            cursor: "move",
+            forceFallback: false,
+            items: "div", //仅仅是div能够拖动
+            opacity: 0.6, //拖动时，透明度为0.6
+            revert: true, //释放时，添加动画
+            update: function (event, ui) { //更新排序之后
+                //记录sort后的id顺序数组
+                arr = $( ".orderBy" ).sortable('toArray');
+                console.log(arr);
+                //拖拽后利用localStorage记录顺序
+                localStorage.arr = arr;
+            },
+        });
+        //如果有localst记录则，按照这个进行排序元素
+        var localSt = localStorage.arr;
+        if(localSt){
+            var resArr = localSt.split(',');
+            var resUl = $('.orderBy');
+            //li 数组
+            for(var i = 0;i < resArr.length;i++){
+                resUl.append($("#" + resArr[i]));
+            }
+        }
+
+
+// $.post("[[${#request.getContextPath()}]]/member/memberList.do", function (memberList) {
+        $.post("detailClass.json", function (detailClassList) {
+            console.log(detailClassList);
+            var count =0
+            $('.table-striped').dataTable({
+                //注： 后面开发时，url的位置写 服务端控制器的 mapping值,服务端返回的将是json数据
+                "data":detailClassList ,
+                //行的定义
+                "columns": [
+                    // {"data": "namePhone",bAutoWidth: "false", sWidth: "20%"},
+                    {"data": null,"render":function(data,type,row){
+                            return ++count;
+                        }},
+                    {"data": "name", bAutoWidth: "false"},
+                    {"data": "phone" },
+                    {"data": "identityCard" },
+                    {"data": "sex" ,"render":function(data,type,row){
+                            var html ="<span class='glyphicon glyphicon-user' style='color: red'></span>"+data+""
+                            return html;
+                        }},
+                    {"data": "school" },
+                    {"data": "profession"},
+                    {"data": "degree"},
+                    {"data": "note"},
+                    {
+                        "data": null, "orderable": false, "render": function (data, type, row) {
+                            var id = row.id
+                            var html = "<a class='label label-default' title='重置密码'><span class='glyphicon glyphicon-refresh'></span></a>&nbsp;"
+                            html += " <a class='label label-danger' title='解除锁定'><span class='glyphicon glyphicon-lock'></span></a>"
+                            return html;
+                        }
+                    }],
+                //去掉搜索
+                "bSort": false,
+                searching: false,
+                "bPaginage": true,
+                "bAutoWidth": true,
+                lengthChange: false,
+                ordering:true,
+                columnDefs: [{
+                    targets: 4,//编辑取消排序
+                    "orderable": false
+                }],
+                iDisplayLength:7,
+                lengthMenu :[ 7, 25, 50, 75, 100 ],//定义每页显示记录数，可更改每页显示行数
+                language: {
+                    "decimal": "",//小数的小数位符号  比如“，”作为数字的小数位符号
+                    "emptyTable": "没有数据哟~~",//没有数据时要显示的字符串
+                    "info": "当前 _START_ 条到 _END_ 条 共 _TOTAL_ 条",//左下角的信息，变量可以自定义，到官网详细查看
+                    /*  "infoEmpty": "无记录",//当没有数据时，左下角的信息*/
+                    "infoFiltered": "(从 _MAX_ 条记录过滤)",//当表格过滤的时候，将此字符串附加到主要信息
+                    "infoPostFix": "",//在摘要信息后继续追加的字符串
+                    "thousands": ",",//千分位分隔符
+                    "lengthMenu": "每页 _MENU_ 条记录",//用来描述分页长度选项的字符串
+                    "loadingRecords": "加载中...",//用来描述数据在加载中等待的提示字符串 - 当异步读取数据的时候显示
+                    "processing": "处理中...",//用来描述加载进度的字符串
+                    "search": "搜索",//用来描述搜索输入框的字符串
+                    "zeroRecords": "没有找到",//当没有搜索到结果时，显示
+                    "paginate": {
+                        "first": "首页",
+                        "previous": "上一页",
+                        "next": "下一页",
+                        "last": "尾页"
+                    }
+                }
+            });
+        });
+    });
+</script>
+
+</body>
+</html>

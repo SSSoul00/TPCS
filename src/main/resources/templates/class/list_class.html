@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 指定页面显示的图标 -->
+    <link rel="icon" href="../../static/icon/tpcs.ico">
+    <title>班级列表</title>
+
+    <!-- Bootstrap -->
+    <link href="../../static/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- BootStrap Theme css -->
+    <link href="../../static/node_modules/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <!-- 此案例的自定义样式 -->
+    <link href="../../static/css-prj/main.css" rel="stylesheet">
+
+
+    <!-- 导入外部的js文件 -->
+    <script type="text/javascript" src="../../static/js-prj/main.js"></script>
+    <link href="../../static/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+    <!-- Sweet Alert -->
+    <link href="../../static/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+    <!-- 由于导航用了navbar-fixed-top,所以，先与上面定义一个间隔  -->
+    <div class="gap"></div>
+
+    <!-- 菜单提示栏:面包屑组件 -->
+    <ol class="breadcrumb">
+        <li class="active">首页</li>
+        <li class="active">班级</li>
+        <li class="active">班级列表</li>
+    </ol>
+
+    <!-- 查询区 -->
+    <form class="form-horizontal" role="form" action="#">
+        <div class="form-group">
+            <label for="cname" class="col-md-1 control-label">班级名：</label>
+
+            <div class="col-md-2">
+                <input type="text" id="cname" class="form-control" placeholder="查询班级名"/>
+            </div>
+            <label for="min_nums" class="col-md-2 control-label">开班人数：</label>
+
+            <div class="col-md-1">
+                <input type="text" id="min_nums" class="form-control" placeholder="1"/>
+            </div>
+            <label for="max_nums" class="col-md-1 control-label" style="width: 40px">至</label>
+
+            <div class="col-md-1">
+                <input type="text" id="max_nums" class="form-control" placeholder="50"/>
+            </div>
+            <!-- 添加班级状态条件 -->
+            <label for="min_nums" class="col-md-1 control-label">状态：</label>
+            <div class="col-md-2">
+                <select class="form-control">
+                    <option>=请选择=</option>
+                    <option>学习中</option>
+                    <option>已毕业</option>
+                    <option>未开始</option>
+                    <option>合并班</option>
+                </select>
+            </div>
+            <div class="col-md-1">
+                <button type="submit" class="btn btn-default">
+                    <span class="glyphicon glyphicon-search"></span>
+                </button>
+            </div>
+        </div>
+    </form>
+    <hr/>
+
+    <!-- 内容区 -->
+    <div class="row">
+        <div class="col-md-1">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myClassModal"
+                    data-whatever="新增">
+                <span class="glyphicon glyphicon-plus"></span>
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>班级名</th>
+                    <th>所在教室</th>
+                    <th>训练营日期</th>
+                    <th>开班日期</th>
+                    <th>开班人数</th>
+                    <th>班主任</th>
+                    <th>训练营讲师</th>
+                    <th>班级状态</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- 模态框 中的内容 -->
+<!-- 新增或更新模态框 -->
+<div class="modal fade" id="myClassModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">班级更新</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form" action="#" id="myClassForm">
+                    <div class="form-group">
+                        <label for="classname" class="col-md-2 control-label">班级名</label>
+
+                        <div class="col-md-5">
+                            <input type="text" id="classname" class="form-control" placeholder="班级的名称"/>
+                        </div>
+                        <div class="col-md-5" id="classname_id">提示信息</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="classroom" class="col-md-2 control-label">所在教室</label>
+
+                        <div class="col-md-5">
+                            <input type="text" id="classroom" class="form-control" placeholder="教室的名称"/>
+                        </div>
+                        <div class="col-md-5" id="classroom_id"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="open_date" class="col-md-2 control-label">开班日期</label>
+
+                        <div class="col-md-5">
+                            <input type="date" id="open_date" class="form-control" placeholder="2015-01-27"/>
+                        </div>
+                        <div class="col-md-5" id="open_date_id"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="class_students" class="col-md-2 control-label">开班人数</label>
+
+                        <div class="col-md-5">
+                            <input type="number" id="class_students" class="form-control" placeholder="30"/>
+                        </div>
+                        <div class="col-md-5" id="class_students_id"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="class_adviser" class="col-md-2 control-label">班主任</label>
+
+                        <div class="col-md-5">
+                            <input type="text" id="class_adviser" class="form-control" placeholder="班主任名"/>
+                        </div>
+                        <div class="col-md-5" id="class_adviser_id"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="trainer_date" class="col-md-2 control-label">训练营日</label>
+
+                        <div class="col-md-5">
+                            <input type="date" id="trainer_date" class="form-control" placeholder="2015-01-18"/>
+                        </div>
+                        <div class="col-md-5" id="trainer_date_id"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="teachername" class="col-md-2 control-label">讲师名</label>
+
+                        <div class="col-md-5">
+                            <input type="text" id="teachername" class="form-control" placeholder="讲师名"/>
+                        </div>
+                        <div class="col-md-5" id="teachername_id"></div>
+                    </div>
+
+                    <!-- 添加班级状态的属性 -->
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">状态</label>
+
+                        <div class="col-md-5">
+                            <label class="radio-inline">
+                                <input type="radio" name="class_status" value="未开班" checked> 未开始
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="class_status" value="学习中"> 学习中
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="class_status" value="已毕业"> 已毕业
+                            </label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btn1" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" id="btn2" class="btn btn-primary" onclick="通过JS来提交表单">更新</button>
+                <button type="button" id="btn3" class="btn btn-primary" onclick="通过JS来提交表单">保存并再次新增</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 导入相关的js -->
+<script src="../../static/node_modules/jquery/jquery.min.js"></script>
+<script src="../../static/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="../../static/js/plugins/dataTables/jquery.dataTables.js"></script>
+<script src="../../static/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+<!-- Sweet alert -->
+<script src="../../static/js/plugins/sweetalert/sweetalert.min.js"></script>
+<!-- 新增和更新共享同一个模态框 -->
+<script type="text/javascript">
+    $(function () {
+        $('#myClassModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget); // 触发Modal框的按钮
+            var content = button.data('whatever'); // 提取来自于 data-*的属性，　此处我使用了 data-whatever
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var modal = $(this);
+            modal.find('.modal-title').text(content + '班级');
+            //修改按钮文字
+            $('#btn2').text(content);
+            //如果是更新的话，需要把表单中的所有元素添加上value的值
+            if (content == '更新') {
+                //通过AJAX把当前选中id的请假记录值给取出来，并依次赋值input元素的value
+                // ajax code ...
+                //下面的代码是我利用固定值填充的
+                $('#classname').val('JSD1410');
+                $('#classroom').val('A教室');
+                $('#open_date').val('2015/03/16 8:30');
+                $('#class_students').val('32');
+                $('#class_adviser').val('周萍');
+                $('#trainer_date').val('2015-03-16');
+                $('#teachername').val('孙毅');
+
+                //禁用 保存并再添加按钮
+                $('#btn3').attr('disabled', 'true');
+            } else if (content == '新增') {
+                //移除原来的禁用属性
+                $('#btn3').removeAttr('disabled');
+                //之前的设置的元素值可以考虑清除掉
+                //...
+
+            }
+        });
+
+        // $.post("[[${#request.getContextPath()}]]/member/memberList.do", function (memberList) {
+        $.post("classList.json", function (classList) {
+            console.log(classList);
+            var count =0
+            $('.table-hover').dataTable({
+                //注： 后面开发时，url的位置写 服务端控制器的 mapping值,服务端返回的将是json数据
+                "data":classList ,
+                //行的定义
+                "columns": [
+                    // {"data": "namePhone",bAutoWidth: "false", sWidth: "20%"},
+                    {"data": null,"render":function(data,type,row){
+                            return ++count;
+                        }},
+                    {"data": "className", bAutoWidth: "false","render":function(data,type,row){
+                            var className=data;
+                            var html ="<a href='detail_class.html' class='text text-primary'>"+className+"</a>"
+                            return html;
+                        }},
+                    {"data": "classroom" },
+                    {"data": "bootcampDate" },
+                    {"data": "startDate" },
+                    {"data": "startCount" },
+                    {"data": "headTeacher"},
+                    {"data": "bootcampInstructor"},
+                    {"data": null,"render":function(data,type,row){
+                        var html = "<span class='label label-primary'>未开始</span>"
+                        return html;
+                    }},
+                    {
+                        "data": null, "orderable": false, "render": function (data, type, row) {
+                            var id = row.id
+                            var html = "<a href='#' class='label label-default' data-toggle='modal' data-target='#myClassModal' data-whatever='更新'><span class='glyphicon glyphicon-refresh'></span></a>&nbsp"
+                            html += "<a class='label label-danger' onclick='delClass(1)'><span class='glyphicon glyphicon-trash'></span></a>&nbsp"
+                            return html;
+                        }
+                    }],
+                //去掉搜索
+                "bSort": false,
+                searching: false,
+                "bPaginage": true,
+                "bAutoWidth": true,
+                lengthChange: false,
+                ordering:true,
+                columnDefs: [{
+                    targets: 4,//编辑取消排序
+                    "orderable": false
+                }],
+                iDisplayLength:7,
+                lengthMenu :[ 7, 25, 50, 75, 100 ],//定义每页显示记录数，可更改每页显示行数
+                language: {
+                    "decimal": "",//小数的小数位符号  比如“，”作为数字的小数位符号
+                    "emptyTable": "没有数据哟~~",//没有数据时要显示的字符串
+                    "info": "当前 _START_ 条到 _END_ 条 共 _TOTAL_ 条",//左下角的信息，变量可以自定义，到官网详细查看
+                    /*  "infoEmpty": "无记录",//当没有数据时，左下角的信息*/
+                    "infoFiltered": "(从 _MAX_ 条记录过滤)",//当表格过滤的时候，将此字符串附加到主要信息
+                    "infoPostFix": "",//在摘要信息后继续追加的字符串
+                    "thousands": ",",//千分位分隔符
+                    "lengthMenu": "每页 _MENU_ 条记录",//用来描述分页长度选项的字符串
+                    "loadingRecords": "加载中...",//用来描述数据在加载中等待的提示字符串 - 当异步读取数据的时候显示
+                    "processing": "处理中...",//用来描述加载进度的字符串
+                    "search": "搜索",//用来描述搜索输入框的字符串
+                    "zeroRecords": "没有找到",//当没有搜索到结果时，显示
+                    "paginate": {
+                        "first": "首页",
+                        "previous": "上一页",
+                        "next": "下一页",
+                        "last": "尾页"
+                    }
+                }
+            });
+        });
+    });
+</script>
+
+</body>
+</html>

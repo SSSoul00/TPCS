@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 指定页面显示的图标 -->
+    <link rel="icon" href="../../static/icon/tpcs.ico">
+    <title>我的信息</title>
+
+    <!-- Bootstrap -->
+    <link href="../../static/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- BootStrap Theme css -->
+    <link href="../../static/node_modules/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+
+    <!-- 此案例的自定义样式 -->
+    <link href="../../static/css-prj/main.css" rel="stylesheet">
+    <!-- 导入外部的js文件 -->
+    <script type="text/javascript" src="../../static/js-prj/main.js"></script>
+
+    <!-- 导入相关的js -->
+    <script src="../../static/node_modules/jquery/jquery.min.js"></script>
+    <script src="../../static/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            //TODO ....
+
+        });
+    </script>
+</head>
+<body>
+<div class="container">
+    <!-- 由于导航用了navbar-fixed-top,所以，先与上面定义一个间隔  -->
+    <div class="gap"></div>
+
+    <!-- 菜单提示栏:面包屑组件 -->
+    <ol class="breadcrumb">
+        <li>首页</li>
+        <li>我的信息</li>
+    </ol>
+
+</div>
+
+<!-- 其它内容 -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <!-- 添加员工的表单区 -->
+            <div class="row">
+                <div class="col-md-12" style="margin-top: 10px;">
+                    <div>
+                        <strong>员工基本信息</strong>
+                        <span class="text-danger">&nbsp;【以下信息是可以个人修改的，包含修改密码】</span>
+                    </div>
+                    <hr style="margin-top: 2px;background-color:#269abc;height: 3px;"/>
+                    <form class="form-horizontal" role="form" action="#">
+                        <div class="form-group">
+                            <label for="realname" class="col-md-2 control-label"><span class="text-muted"
+                                                                                       style="font-weight: normal">姓名</span><span
+                                    style="color: red">*</span></label>
+
+                            <div class="col-md-4">
+                                <input type="text" id="realname" class="form-control" value="叶加飞"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label"><span class="text-muted" style="font-weight: normal">性别</span><span
+                                    style="color: red">*</span></label>
+
+                            <div class="col-md-4">
+                                <label class="radio-inline">
+                                    <input type="radio" name="gender" value="男" checked/>男
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="gender" value="女"/>女
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="birthDate" class="col-md-2 control-label"><span class="text-muted"
+                                                                                        style="font-weight: normal">生日</span></label>
+                            <div class="col-md-4">
+                                <input type="date" id="birthDate" class="form-control" value="1982-12-24"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label"><span class="text-muted" style="font-weight: normal">修改密码</span></label>
+
+                            <div class="col-md-1">
+                                <a href="javascript:void(0);" onclick="showPasswordInput();"><label
+                                        class="label label-danger control-label" style="cursor: pointer">修改</label> </a>
+                            </div>
+                        </div>
+                        <div id="passwordInput" style="display: none;">
+                            <div class="form-group">
+                                <label for="password" class="col-md-2 control-label"><span class="text-muted"
+                                                                                           style="font-weight: normal">新密码</span><span
+                                        style="color: red">*</span></label>
+
+                                <div class="col-md-4">
+                                    <input type="password" id="password" class="form-control" placeholder="*****"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="password2" class="col-md-2 control-label"><span class="text-muted"
+                                                                                            style="font-weight: normal">确认新密码</span><span
+                                        style="color: red">*</span></label>
+
+                                <div class="col-md-4">
+                                    <input type="password" id="password2" class="form-control" placeholder="*****"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="remark" class="col-md-2 control-label"><span class="text-muted"
+                                                                                     style="font-weight: normal">备注</span></label>
+
+                            <div class="col-md-4">
+                                <textarea id="remark" name="remark" rows="3" class="form-control">2012年入职的</textarea>
+                            </div>
+                        </div>
+                        <!-- 操作按钮 -->
+                        <div class="col-md-offset-2">
+                            <button type="submit" class="btn btn-info">更新</button>
+                            &nbsp;
+                            <button type="reset" class="btn btn-default">取消</button>
+                        </div>
+
+                        <!-- 登录的帐号信息 -->
+                        <div style="margin-top: 20px;">
+                            <strong>帐号信息</strong>
+                            <span class="text-danger">&nbsp;【下面的信息个人不可修改，由管理员维护，如有不正确的地方，请联系管理员】</span>
+                        </div>
+                        <hr style="margin-top: 2px;background-color:#269abc;height: 3px;"/>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label"><span class="text-muted" style="font-weight: normal">员工号</span></label>
+                            <div class="col-md-3">
+                                <label class="text-danger control-label">1091</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label"><span class="text-muted"
+                                                                        style="font-weight: normal">所在部门</span></label>
+                            <div class="col-md-3">
+                                <label class="text-primary control-label">教学部</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label"><span class="text-muted"
+                                                                                  style="font-weight: normal">岗位</span></label>
+                            <div class="col-md-3">
+                                <label class="text-primary control-label">JAVAEE讲师</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label"><span class="text-muted"
+                                                                                          style="font-weight: normal">移动电话</span></label>
+                            <div class="col-md-3">
+                                <label class="text-primary control-label">18908796709</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label"><span class="text-muted"
+                                                                                    style="font-weight: normal">邮箱地址</span></label>
+                            <div class="col-md-3">
+                                <label class="text-primary control-label">yejf@sz-tz.org</label>
+                            </div>
+                        </div>
+
+                        <hr/>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end row -->
+</div>
+</body>
+</html>

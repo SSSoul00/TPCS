@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 指定页面显示的图标 -->
+    <link rel="icon" href="../../static/icon/tpcs.ico">
+    <title>联系我们</title>
+
+    <!-- Bootstrap -->
+    <link href="../../static/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- BootStrap Theme css -->
+    <link href="../../static/node_modules/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+
+    <!-- 此案例的自定义样式 -->
+    <link href="../../static/css-prj/main.css" rel="stylesheet">
+    <!-- 导入外部的js文件 -->
+    <script type="text/javascript" src="../../static/js-prj/main.js"></script>
+
+    <!-- 导入相关的js -->
+    <script src="../../static/node_modules/jquery/jquery.min.js"></script>
+    <script src="../../static/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!-- 导入外部的js文件 -->
+    <script type="application/javascript" src="../../static/js-prj/login.js"></script>
+
+</head>
+<body>
+<!-- 导航栏区 -->
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mynav">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="javascript:void(0);">TPCS</a>
+        </div>
+
+        <div class="navbar-collapse collapse" id="mynav">
+            <ul class="nav navbar-nav">
+                <li><a href="../login/login.html">主页</a></li>
+                <li><a href="help.html">帮助</a></li>
+            </ul>
+            <!-- 右边 -->
+            <ul class="nav navbar-nav navbar-right">
+                <li class="active"><a href="contact.html">联系我们</a></li>
+                <li><a href="javascript:void(0);" onclick="SetHome(this,'http://192.168.3.169:8080/tpcs');">设为首页</a>
+                </li>
+                <li><a href="javascript:void(0);" onclick="AddFavorite('我的网站',location.href)">加入收藏</a></li>
+            </ul>
+
+        </div>
+        <!-- nav bar -->
+    </div>
+</nav>
+
+<!-- 帮助文档区 -->
+<div class="container">
+    <div class="page-header">
+        <h2>公司联系方式</h2>
+    </div>
+    静请期待...
+</div>
+
+<!-- 导入相关的js -->
+<script src="../../static/node_modules/jquery/jquery.min.js"></script>
+<script src="../../static/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

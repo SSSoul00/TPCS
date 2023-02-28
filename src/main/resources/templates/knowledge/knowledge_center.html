@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 指定页面显示的图标 -->
+    <link rel="icon" href="../../static/icon/tpcs.ico">
+    <title>知识中心</title>
+
+    <!-- Bootstrap -->
+    <link href="../../static/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- BootStrap Theme css -->
+    <link href="../../static/node_modules/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+
+    <!-- 此案例的自定义样式 -->
+    <link href="../../static/css-prj/main.css" rel="stylesheet">
+    <!-- 导入外部的js文件 -->
+    <script type="text/javascript" src="../../static/js-prj/main.js"></script>
+
+    <!-- 导入相关的js -->
+    <script src="../../static/node_modules/jquery/jquery.min.js"></script>
+    <script src="../../static/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- 导入jstree相关的文件 -->
+    <script src="../../static/node_modules/jstree/dist/jstree.min.js"></script>
+    <link href="../../static/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+    <link href="../../static/node_modules/jstree/dist/themes/default/style.min.css" rel="stylesheet">
+
+</head>
+<body>
+<div class="container">
+    <!-- 由于导航用了navbar-fixed-top,所以，先与上面定义一个间隔  -->
+    <div class="gap"></div>
+
+    <ol class="breadcrumb">
+        <li class="active">首页</li>
+        <li class="active">知识库</li>
+        <li class="active">知识中心</li>
+    </ol>
+
+</div>
+
+<!-- 模态框 中的内容 -->
+<!-- 添加子知识的Modal -->
+<div class="modal fade" id="addKnowledgeModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #0a6aa1">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h5 class="modal-title" id="myModalLabel">新增知识点</h5>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form" action="#" id="myDeptForm">
+                    <div class="form-group">
+                        <label for="deptName" class="col-md-2 control-label">知识名称</label>
+                        <div class="col-md-5">
+                            <input type="text" id="deptName" class="form-control" placeholder="知识名"/>
+                        </div>
+                        <div class="col-md-5" id="classname_id">&nbsp;</div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="通过JS来提交表单">添加</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //添加子知识的模态框内容结束 -->
+
+<!-- 更新知识体系的Modal -->
+<div class="modal fade" id="udpKnowledgeModel" tabindex="-1" role="dialog" aria-labelledby="myUpdModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #0a6aa1">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h5 class="modal-title" id="myUpdModalLabel">更新知识名</h5>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form" action="#" id="updDeptForm">
+                    <div class="form-group">
+                        <label for="deptName" class="col-md-2 control-label">知识名称</label>
+                        <div class="col-md-5">
+                            <input type="text" id="updDeptName" class="form-control" value="JavaSE">
+                        </div>
+                        <div class="col-md-5" id="updDeptName_id">&nbsp;</div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="通过JS来提交表单">更新</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //更新子知识的模态框内容结束 -->
+<!-- 修改知识内容的modal框 -->
+<div class="modal fade" id="udpKnowledgeContentModel" tabindex="-1" role="dialog" aria-labelledby="myUpdContentModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #0a6aa1">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h5 class="modal-title" id="myUpdContentModalLabel">更新内容</h5>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form" action="#" id="updContentForm">
+                    <div class="form-group">
+                        <label for="filetype" class="col-md-2 control-label">
+                            <span class="text-muted" style="font-weight: normal">类型</span>
+                            <span style="color: red">*</span>
+                        </label>
+                        <div class="col-md-4">
+                            <select id="filetype" name="filetype" class="form-control">
+                                <option value="word">Word文档</option>
+                                <option value="excel" selected>Excel文档</option>
+                                <option value="ppt">PPT文档</option>
+                                <option value="pdf">PDF文档</option>
+                                <option value="video">视频</option>
+                                <option value="txt">文本文档</option>
+                                <option value="other">其它</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-2 control-label"><span class="text-muted" style="font-weight: normal">重要性</span><span
+                                style="color: red">*</span></label>
+
+                        <div class="col-md-10">
+                            <label class="radio-inline">
+                                <input type="radio" name="importance" value="5" checked/>5星
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="importance" value="4"/>4星
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="importance" value="3"/>3星
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="importance" value="2"/>2星
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="importance" value="1"/>1星
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label"><span class="text-muted" style="font-weight: normal">难易度</span><span
+                                style="color: red">*</span></label>
+
+                        <div class="col-md-10">
+                            <label class="radio-inline">
+                                <input type="radio" name="difficulty" value="hard" checked/>难
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="difficulty" value="normal"/>中
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="difficulty" value="easy"/>易
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="publisher" class="col-md-2 control-label">
+                            <span class="text-muted" style="font-weight: normal">更新者</span>
+                        </label>
+                        <div class="col-md-4">
+                            <input type="text" id="publisher" name="publisher" class="form-control" value="当前登录用户" readonly>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="通过JS来提交表单">更新</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--上传资料-->
+<div class="modal fade" id="addKnowledgeContentModel" tabindex="-1" role="dialog" aria-labelledby="myUpdContentModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #0a6aa1">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h5 class="modal-title" id="addContentModalLabel">添加内容到:基础语法</h5>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form" action="#" id="addContentForm">
+                    <div class="form-group">
+                        <label for="filetype" class="col-md-2 control-label">
+                            <span class="text-muted" style="font-weight: normal">类型</span>
+                            <span style="color: red">*</span>
+                        </label>
+                        <div class="col-md-4">
+                            <select id="addfiletype" name="filetype" class="form-control">
+                                <option value="">-请选择-</option>
+                                <option value="word">Word文档</option>
+                                <option value="excel">Excel文档</option>
+                                <option value="ppt">PPT文档</option>
+                                <option value="pdf">PDF文档</option>
+                                <option value="video">视频</option>
+                                <option value="txt">文本文档</option>
+                                <option value="other">其它</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="filename" class="col-md-2 control-label">
+                            <span class="text-muted" style="font-weight: normal">文件</span>
+                            <span style="color: red">*</span>
+                        </label>
+
+                        <div class="col-md-4">
+                            <input type="file" id="filename" name="filename" class="control-label" accept="">
+
+                            <p class="help-block">请选择支持的数据文件格式，支持word,excel,ppt,txt,pdf,avi,mpeg,ogg ....</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label"><span class="text-muted" style="font-weight: normal">重要性</span><span
+                                style="color: red">*</span></label>
+
+                        <div class="col-md-10">
+                            <label class="radio-inline">
+                                <input type="radio" name="importance" value="5" checked/>5星
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="importance" value="4"/>4星
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="importance" value="3"/>3星
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="importance" value="2"/>2星
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="importance" value="1"/>1星
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label"><span class="text-muted" style="font-weight: normal">难易度</span><span
+                                style="color: red">*</span></label>
+
+                        <div class="col-md-10">
+                            <label class="radio-inline">
+                                <input type="radio" name="difficulty" value="hard" checked/>难
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="difficulty" value="normal"/>中
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="difficulty" value="easy"/>易
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="publisher" class="col-md-2 control-label">
+                            <span class="text-muted" style="font-weight: normal">发布者</span>
+                        </label>
+                        <div class="col-md-4">
+                            <input type="text" id="addpublisher" name="publisher" class="form-control" value="当前登录用户" readonly>
+                        </div>
+                    </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="通过JS来提交表单">添加</button>
+                <button type="reset" class="btn btn-default">重填</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+            </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+</div>
+<!-- end of 修改知识内容的modal框 -->
+
+
+<!-- 其它内容 -->
+<div class="container">
+    <div class="row" style="padding-left: 50px;">
+        <div class="col-md-3" style="background-color: #ffffff;max-width: 220px;min-height: 650px">
+            <div class="row">
+                <div class="col-md-offset-3 col-md-6">
+                    <h5>
+                        <span class="glyphicon glyphicon-camera"></span>
+                        <strong>知识体系</strong>
+                    </h5>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 5px;border-top: 2px solid #cccccc;padding-top: 5px;">
+                <div class="col-md-3">
+                    <!-- 通过AJAX动态加载出来 -->
+                    <div id="knowLedgeTree"></div>
+                </div>
+            </div>
+        </div> <!-- end of 左边列 -->
+
+        <div class="col-md-9" style="background-color: #ffffff;min-height: 650px;">
+            <div class="row">
+                <!-- 部门选择提示 -->
+                <div class="col-md-3" style="padding:25px 0 15px 15px;">
+                    <strong style="font-size: large">知识体系</strong>
+                </div>
+                <!-- 搜索框 -->
+                <div class="col-md-offset-6 col-md-3" style="padding-top: 20px;">
+                    <form class="form-inline" role="form" action="#">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input type="text" name="realname" placeholder="知识名" class="form-control">
+                                <div class="input-group-addon" style="cursor: pointer" onclick="alert('查询')">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4" style="font-size: small">
+                    <a href="#" data-toggle="modal" data-target="#udpKnowledgeModel">修改知识名</a>&nbsp;|&nbsp;
+                    <a href="#" data-toggle="modal" data-target="#addKnowledgeModel">添加子知识</a>&nbsp;|&nbsp;
+                    <a href="javaScript:confirm('确定删除吗')">删除</a>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 5px;margin-bottom: 10px;">
+                <div class="col-md-3">
+                    <small>知识数：5个</small>
+                </div>
+            </div>
+
+            <!-- 操作导航栏  -->
+            <div class="row" style="background-color: #efefef;border-top: 1px solid #cccccc;border-bottom: 1px solid #cccccc;max-height: 40px;margin: 0 2px;">
+                <div class="col-md-11">
+
+                    <ul class="nav nav-pills">
+                        <li role="presentation">
+                            <div class="checkbox">
+                                <label><input type="checkbox" value="" title="选中/取消选中" /></label>
+                            </div>
+                        </li>
+                        <li role="presentation" class="dropdown">
+                            <button type="button" class="btn-xs btn-default" role="button" data-toggle="dropdown" aria-expanded="false" style="margin: 8px 5px;">
+                                上传资源
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li>
+                                    <a href="#" data-toggle="modal" data-target="#addKnowledgeContentModel">添加资源</a>
+                                </li>
+                                <li>
+                                    <a href="#">批量导入资源</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li role="presentation" class="dropdown">
+                            <button type="button" class="btn-xs btn-default" role="button" style="margin: 8px 5px;" onclick="">
+                                删除资源
+                            </button>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 资料列表区 -->
+            <div class="row" style="margin: 0 -7px;">
+                <div class="col-md-12" style="margin-top: 10px;">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th>类型</th>
+                            <th>名称</th>
+                            <th>更新时间</th>
+                            <th>发布者</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" id="chk1">&nbsp;
+                                </label>
+                            </td>
+                            <td>Word格式</td>
+                            <td>
+                                <a href="#" data-toggle="modal" data-target="#udpKnowledgeContentModel">JDK安装与配置</a><span class="help-block" style="margin-bottom: -2px;">摘要:xxxxxxx</span>
+                            </td>
+                            <td>2015-2-12</td>
+                            <td>孙毅</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" id="chk2">&nbsp;
+                                </label>
+                            </td>
+                            <td>PPT格式</td>
+                            <td>
+                                <a href="#" data-toggle="modal" data-target="#udpKnowledgeContentModel">反射与注解</a><span class="help-block" style="margin-bottom: -2px;">摘要:xxxxxxx</span>
+                            </td>
+                            <td>2015-2-11</td>
+                            <td>管成功</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" id="chk3">&nbsp;
+                                </label>
+                            </td>
+                            <td>视频</td>
+                            <td>
+                                <a href="#" data-toggle="modal" data-target="#udpKnowledgeContentModel">训练营基础视频－JDK安装</a><span class="help-block" style="margin-bottom: -2px;">摘要:xxxxxxx</span>
+                            </td>
+                            <td>2015-2-12</td>
+                            <td>孙毅</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div><!-- end 员工列表区 -->
+        </div><!-- end of 右边列 -->
+    </div><!-- end row -->
+</div><!-- end container -->
+</body>
+<script src="../../static/js/plugins/dataTables/jquery.dataTables.js"></script>
+<script src="../../static/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+<script type="text/javascript">
+    $(function () {
+        //初始化第一颗树
+        $("#knowLedgeTree").jstree(
+                {
+                    'core': {
+                        'data': [
+                            {
+                                "id": 1, "text": "Java体系", "state": {"opened": true}, "children": [
+                                {"id": 11, "text": "Java核心编程技术","children":[
+                                    {"id":111,"text":"语法基础"},
+                                    {"id":112,"text":"面向对象编程"},
+                                    {"id":113,"text":"实用编程"},
+                                    {"id":114,"text":"XML"},
+                                ]},
+                                {"id": 12, "text": "Java数据库技术"},
+                                {"id": 13, "text": "Java Web应用开发"},
+                                {"id": 14, "text": "JavaEE企业级开发"}
+                                ]
+                            },
+                            {
+                                "id":2,"text":"UID体系","children":[
+                                {"id":21,"text":"商业美术"},
+                                {"id":22,"text":"图形界面设计"},
+                                {"id":23,"text":"WUI Web界面设计"},
+                                {"id":24,"text":"GUI移动界面设计"}
+                            ]
+                            },
+                            {
+                                "id":3,"text":"Android体系","children":[
+                                {"id":31,"text":"xxxx1"},
+                                {"id":32,"text":"xxxxx2"},
+                                {"id":33,"text":"xxx3"},
+                                {"id":34,"text":"xxxxx4"}
+                            ]
+                            },
+                            {
+                                "id":4,"text":"嵌入式体系","children":[
+                                {"id":41,"text":"xxxxx1"},
+                                {"id":42,"text":"xxxxx2"}
+                            ]
+                            }
+                        ]
+                    }
+                }
+        );
+        //添加事件
+        $("#knowLedgeTree").on("changed.jstree", function (e, data) {
+            alert("你选择了：" + data.instance.get_selected(true)[0].text);
+            $.post("knowledge.json", function (knowledgeList) {
+                console.log(knowledgeList);
+                $('.table-hover').dataTable({
+                    //注： 后面开发时，url的位置写 服务端控制器的 mapping值,服务端返回的将是json数据
+                    "data": knowledgeList,
+                    //行的定义
+                    "columns": [
+                        // {"data": "namePhone",bAutoWidth: "false", sWidth: "20%"},
+                        {"data": null,"render":function(data,type,row){
+                                var id=row.id;
+                                var html ="<label class='checkbox-inline'> <input type='checkbox' id='chk1'>&nbsp; </label>"
+                                return html;
+                            }},
+                        {"data": "type", bAutoWidth: "false"},
+                        {"data": "name" ,"render":function(data,type,row){
+                                var html =" <a href='#' data-toggle='modal' data-target='#udpKnowledgeContentModel'>"+data+"</a><span class='help-block' style='margin-bottom: -2px;'>"+row.name2+"</span>"
+                                return html;
+                            }},
+                        {"data": "modifyDate" },
+                        {"data": "Publisher" }],
+                    //去掉搜索
+                    "bSort": false,
+                    searching: false,
+                    "bPaginage": true,
+                    "bAutoWidth": true,
+                    lengthChange: false,
+                    ordering:true,
+                    columnDefs: [{
+                        targets: 4,//编辑取消排序
+                        "orderable": false
+                    }],
+                    iDisplayLength:7,
+                    lengthMenu :[ 7, 25, 50, 75, 100 ],//定义每页显示记录数，可更改每页显示行数
+                    language: {
+                        "decimal": "",//小数的小数位符号  比如“，”作为数字的小数位符号
+                        "emptyTable": "没有数据哟~~",//没有数据时要显示的字符串
+                        "info": "当前 _START_ 条到 _END_ 条 共 _TOTAL_ 条",//左下角的信息，变量可以自定义，到官网详细查看
+                        /*  "infoEmpty": "无记录",//当没有数据时，左下角的信息*/
+                        "infoFiltered": "(从 _MAX_ 条记录过滤)",//当表格过滤的时候，将此字符串附加到主要信息
+                        "infoPostFix": "",//在摘要信息后继续追加的字符串
+                        "thousands": ",",//千分位分隔符
+                        "lengthMenu": "每页 _MENU_ 条记录",//用来描述分页长度选项的字符串
+                        "loadingRecords": "加载中...",//用来描述数据在加载中等待的提示字符串 - 当异步读取数据的时候显示
+                        "processing": "处理中...",//用来描述加载进度的字符串
+                        "search": "搜索",//用来描述搜索输入框的字符串
+                        "zeroRecords": "没有找到",//当没有搜索到结果时，显示
+                        "paginate": {
+                            "first": "首页",
+                            "previous": "上一页",
+                            "next": "下一页",
+                            "last": "尾页"
+                        }
+                    }
+                });
+            });
+        });
+
+    });
+</script>
+</html>

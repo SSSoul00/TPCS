@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 指定页面显示的图标 -->
+    <link rel="icon" href="../../static/icon/tpcs.ico">
+    <title>修改头像</title>
+
+    <!-- Bootstrap -->
+    <link href="../../static/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- BootStrap Theme css -->
+    <link href="../../static/node_modules/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+
+    <!-- 此案例的自定义样式 -->
+    <link href="../../static/css-prj/main.css" rel="stylesheet">
+    <!-- 导入外部的js文件 -->
+    <script type="text/javascript" src="../../static/js-prj/main.js"></script>
+
+    <!-- 导入相关的js -->
+    <script src="../../static/node_modules/jquery/jquery.min.js"></script>
+    <script src="../../static/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            //TODO ....
+
+        });
+    </script>
+</head>
+<body>
+<div class="container">
+    <!-- 由于导航用了navbar-fixed-top,所以，先与上面定义一个间隔  -->
+    <div class="gap"></div>
+
+    <!-- 菜单提示栏:面包屑组件 -->
+    <ol class="breadcrumb">
+        <li>首页</li>
+        <li>我的信息</li>
+        <li>修改头像</li>
+    </ol>
+
+    <!-- 内容区 -->
+    <div class="row" style="margin-left: 8px">
+
+        <!-- 头像显示区 -->
+        <figure class="personal_photo">
+            <figcaption class="control-label">个人头像</figcaption>
+            <!-- 如果用户没有上传头像，则此处显示一个默认的头像，在样式中，定义了头像的尺寸是 160*160 -->
+            <img src="../../static/images/u44.png" id="myphoto">
+        </figure>
+
+        <form role="form" action="#" method="post" enctype="multipart/form-data">
+
+            <div class="form-group">
+                <label for="photoFile" class="control-label">头像选择</label>
+                <input type="file" id="photoFile">
+                <p class="help-block">更新成功后，将同步更新到右上角</p>
+            </div>
+
+            <button type="button" class="btn btn-primary" aria-label="Left Align">
+                <span class="glyphicon glyphicon-cloud-upload" aria-hidden="true"></span>
+                &nbsp;上传照片
+            </button>
+            <div class="page-header">
+                <label>照片要求:</label>
+                <ol style="margin-left: 15px;">
+                    <li>照片将提供给用人单位，请使用符合证件照标准的照片
+                        <br/>（如不符合标准，需要重新提交!）</li>
+                    <li>仅支持png,jpg格式图片</li>
+                    <li>容量不要超过2MB</li>
+                </ol>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- end container -->
+</body>
+</html>

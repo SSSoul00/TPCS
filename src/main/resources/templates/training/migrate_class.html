@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 指定页面显示的图标 -->
+    <link rel="icon" href="../../static/icon/tpcs.ico">
+    <title>实训过程</title>
+
+    <!-- Bootstrap -->
+    <link href="../../static/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- BootStrap Theme css -->
+    <link href="../../static/node_modules/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+
+    <!-- 此案例的自定义样式 -->
+    <link href="../../static/css-prj/main.css" rel="stylesheet">
+    <link href="../../static/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+    <!-- Sweet Alert -->
+    <link href="../../static/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+    <!-- 导入外部的js文件 -->
+    <script type="text/javascript" src="../../static/js-prj/main.js"></script>
+
+    <!-- 导入相关的js -->
+    <script src="../../static/node_modules/jquery/jquery.min.js"></script>
+    <script src="../../static/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
+   
+</head>
+<body>
+<!-- 模态框 中的内容 -->
+<!-- 新增或更新请假记录的 Modal -->
+<div class="modal fade" id="addOrUpdMigrateClassModal" tabindex="-1" role="dialog" aria-labelledby="myEditModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myEditModalLabel">添加转班记录</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form" action="#" id="addLeaveForm">
+                    <div class="form-group">
+                        <label for="stuname" class="col-md-2 control-label">转班人</label>
+                        <div class="col-md-5">
+                            <input type="text" id="stuname" class="form-control" placeholder="学员名"/>
+                        </div>
+                        <div class="col-md-5" id="sname_id">提示信息</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="outclassname" class="col-md-2 control-label">转出班</label>
+                        <div class="col-md-5">
+                            <input type="text" id="outclassname" class="form-control" placeholder="转出班级的名称"/>
+                        </div>
+                        <div class="col-md-5" id="outclassname_id"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inclassname" class="col-md-2 control-label">转入班</label>
+                        <div class="col-md-5">
+                            <input type="text" id="inclassname" class="form-control" placeholder="转入班级的名称"/>
+                        </div>
+                        <div class="col-md-5" id="inclassname_id"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="beginTime" class="col-md-2 control-label">时间</label>
+                        <div class="col-md-5">
+                            <input type="date" id="beginTime" class="form-control" placeholder="2015-01-27"/>
+                        </div>
+                        <div class="col-md-5" id="beginTime_id"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="teacher" class="col-md-2 control-label">批准人</label>
+                        <div class="col-md-5">
+                            <input type="text" id="teacher" class="form-control" placeholder="老师名"/>
+                        </div>
+                        <div class="col-md-5" id="teacher_id"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="reason" class="col-md-2 control-label">事由</label>
+                        <div class="col-md-10">
+                            <input type="text" id="reason" class="form-control" placeholder="违纪事由"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="outclassknowledge" class="col-md-2 control-label">转出班级所学进度</label>
+                        <div class="col-md-10">
+                            <input type="text" id="outclassknowledge" class="form-control" placeholder="JAVA WEB第1天"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inclassknowledge" class="col-md-2 control-label">转入班级所学进度</label>
+                        <div class="col-md-10">
+                            <input type="text" id="inclassknowledge" class="form-control" placeholder="JDBC第5天"/>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btn1" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" id="btn2" class="btn btn-primary" onclick="通过JS来提交表单">保存</button>
+                <button type="button" id="btn3" class="btn btn-primary" onclick="通过JS来提交表单">保存并再次新增</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //模态框内容结束 -->
+
+<div class="container">
+    <!-- 由于导航用了navbar-fixed-top,所以，先与上面定义一个间隔  -->
+    <div class="gap"></div>
+
+    <ol class="breadcrumb">
+        <li class="active">首页</li>
+        <li class="active">实训过程</li>
+        <li class="active">学员转班</li>
+    </ol>
+
+    <!-- 其它内容 -->
+    <div class="row">
+        <div class="col-md-2" style="text-align: center;">
+            <div class="panel panel-default">
+                <!-- Default panel contents -->
+                <!-- List group -->
+                <ul class="list-group">
+                    <!-- 当前在哪个页面，哪个项就添加 select 样式 -->
+                    <li class="list-group-item"><a href="ask_for_leave.html" th:href="@{/training/ask_for_leave}">请假</a></li>
+                    <li class="list-group-item"><a href="undisciplined.html" th:href="@{/training/undisciplined}">违纪</a></li>
+                    <li class="list-group-item select"><span class="glyphicon glyphicon-hand-right">&nbsp;</span><a href="migrate_class.html" th:href="@{/training/migrate_class}">转班</a></li>
+                    <li class="list-group-item"><a href="drop_out.html" th:href="@{/training/drop_out}">退学</a></li>
+                    <li class="list-group-item list-group-item-success"></li>
+                    <li class="list-group-item"><a href="talk_to_student.html" th:href="@{/training/talk_to_student}">学员访谈</a></li>
+                    <li class="list-group-item"><a href="comment_student.html" th:href="@{/training/comment_student}">学员评价</a></li>
+                    <li class="list-group-item"><a href="make_up_lesson.html" th:href="@{/training/make_up_lesson}">学员补课</a></li>
+                    <li class="list-group-item list-group-item-success"></li>
+                    <li class="list-group-item"><a href="simulate_interview.html" th:href="@{/training/simulate_interview}">模拟面试</a></li>
+                    <li class="list-group-item"><a href="start_career.html" th:href="@{/training/start_career}">学员就业</a></li>
+                </ul>
+            </div>
+        </div> <!-- end of 左边列 -->
+
+        <div class="col-md-10" style="background-color: #ffffff;">
+            <!-- 查询区 -->
+            <form class="form-horizontal" role="form" action="#">
+                <div class="form-group">
+                    <label for="cname" class="col-md-2 control-label">班级：</label>
+
+                    <div class="col-md-3">
+                        <!-- 输入框，用　GOOGLE式提示 -->
+                        <input type="text" id="cname" class="form-control" placeholder="查询班级名"/>
+                    </div>
+                    <label for="sname" class="col-md-2 control-label">姓名：</label>
+
+                    <div class="col-md-3">
+                        <input type="text" id="sname" class="form-control" placeholder="学员名"/>
+                    </div>
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+            <hr/>
+
+            <!-- 内容区 -->
+            <div class="row">
+                <div class="col-md-1">
+                    <a href="#" class="label label-info" data-toggle="modal" data-target="#addOrUpdMigrateClassModal" data-whatever="新增">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>学员</th>
+                            <th>转出班</th>
+                            <th>转入班</th>
+                            <th>时间</th>
+                            <th>事由</th>
+                            <th>批准人</th>
+                            <th>转出班级所学进度</th>
+                            <th>转入班级所学进度</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>张三</td>
+                            <td>JSD1411</td>
+                            <td>JSD1412</td>
+                            <td>2015/3/14</td>
+                            <td>之前回校做毕设耽误了1个月课程</td>
+                            <td>叶加飞</td>
+                            <td><span class="label label-warning">JDBC第3天</span></td>
+                            <td><span class="label label-warning">ORALCE SQL第2天</span></td>
+                            <td>
+                                <a href="#" class="label label-default" data-toggle="modal" data-target="#addOrUpdMigrateClassModal"  data-whatever="更新"><span class="glyphicon glyphicon-edit"></span></a>&nbsp;
+                                <a class="label label-danger" onclick="delMigrateClass(1)"><span class="glyphicon glyphicon-trash"></span></a>&nbsp;
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>李四</td>
+                            <td>JSD1412</td>
+                            <td>JSD1503</td>
+                            <td>2015/3/15</td>
+                            <td>生病请了２个月假</td>
+                            <td>叶加飞</td>
+                            <td><span class="label label-warning">JAVA WEB第4天</span></td>
+                            <td><span class="label label-warning">JAVA WEB第1天</span></td>
+                            <td>
+                                <a href="#" class="label label-default" data-toggle="modal" data-target="#addOrUpdMigrateClassModal"  data-whatever="更新"><span class="glyphicon glyphicon-edit"></span></a>&nbsp;
+                                <a class="label label-danger" onclick="delMigrateClass(1)"><span class="glyphicon glyphicon-trash"></span></a>&nbsp;
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div><!-- end of 右边列 -->
+    </div><!-- end row -->
+
+</div><!-- end container -->
+
+</body>
+<script src="../../static/js/plugins/dataTables/jquery.dataTables.js"></script>
+<script src="../../static/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+<!-- Sweet alert -->
+<script src="../../static/js/plugins/sweetalert/sweetalert.min.js"></script>
+ <!-- 本地Script，为了使得添加与更新同享同一个Modal框 -->
+ <script type="text/javascript">
+    $(function(){
+        $('#addOrUpdMigrateClassModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget); // 触发Modal框的按钮
+            var content = button.data('whatever'); // 提取来自于 data-*的属性，　此处我使用了 data-whatever
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var modal = $(this);
+            modal.find('.modal-title').text(content+'转班记录');
+            //修改按钮文字
+            $('#btn2').text(content);
+            //如果是更新的话，需要把表单中的所有元素添加上value的值
+            if(content == '更新'){
+                //通过AJAX把当前选中id的请假记录值给取出来，并依次赋值input元素的value
+                // ajax code ...
+                //下面的代码是我利用固定值填充的
+                $('#stuname').val('陈威');
+                $('#outclassname').val('JSD1411');
+                $('#inclassname').val('JSD1412');
+                $('#beginTime').val('2015/03/16');
+                $('#teacher').val('叶加飞');
+                $('#reason').val('中间请假时间过长，耽误了不少课程');
+                $('#inclassknowledge').val('JAVA WEB第1天');
+                $('#outclassknowledge').val('JAVA WEB第5天');
+
+                //禁用 保存并再添加按钮
+                $('#btn3').attr('disabled','true');
+            }else if(content == '新增'){
+                //移除原来的禁用属性
+                $('#btn3').removeAttr('disabled');
+                //之前的设置的元素值可以考虑清除掉
+                //...
+            }
+        });
+
+        $.post("test/migrateClass.json", function (migrateClass) {
+            console.log(migrateClass);
+            var count=0;
+        $('.table-hover').dataTable({
+            //注： 后面开发时，url的位置写 服务端控制器的 mapping值,服务端返回的将是json数据
+            "data": migrateClass,
+            //行的定义
+            "columns": [
+                // {"data": "namePhone",bAutoWidth: "false", sWidth: "20%"},
+                {"data": null,"render":function(data,type,row){
+                        return ++count;
+                    }},
+                {"data": "name", bAutoWidth: "false"},
+                {"data": "outClass" },
+                {"data": "inClass" },
+                {"data": "time" },
+                {"data": "clause" },
+                {"data": "allowed"},
+                {"data": "outClassSpeed","render":function(data,type,row){
+                        var html ="<span class='label label-warning'>"+data+"</span>"
+                        return html;
+                    }},
+                {"data": "inClassSpeed","render":function(data,type,row){
+                        var html ="<span class='label label-warning'>"+data+"</span>"
+                        return html;
+                    }},
+                {
+                    "data": null, "orderable": false, "render": function (data, type, row) {
+                        var id = row.id
+                        var html = "<a href='#' class='label label-default' data-toggle='modal' data-target='#addOrUpdMigrateClassModal'  data-whatever='更新'><span class='glyphicon glyphicon-edit'></span></a>&nbsp;"
+                        html += "<a class='label label-danger' onclick='delClass(1)'><span class='glyphicon glyphicon-trash'></span></a>"
+                        return html;
+                    }
+                }],
+            //去掉搜索
+            "bSort": false,
+            searching: false,
+            "bPaginage": true,
+            "bAutoWidth": true,
+            lengthChange: false,
+            ordering:true,
+            columnDefs: [{
+                targets: 4,//编辑取消排序
+                "orderable": false
+            }],
+            iDisplayLength:7,
+            lengthMenu :[ 7, 25, 50, 75, 100 ],//定义每页显示记录数，可更改每页显示行数
+            language: {
+                "decimal": "",//小数的小数位符号  比如“，”作为数字的小数位符号
+                "emptyTable": "没有数据哟~~",//没有数据时要显示的字符串
+                "info": "当前 _START_ 条到 _END_ 条 共 _TOTAL_ 条",//左下角的信息，变量可以自定义，到官网详细查看
+                /*  "infoEmpty": "无记录",//当没有数据时，左下角的信息*/
+                "infoFiltered": "(从 _MAX_ 条记录过滤)",//当表格过滤的时候，将此字符串附加到主要信息
+                "infoPostFix": "",//在摘要信息后继续追加的字符串
+                "thousands": ",",//千分位分隔符
+                "lengthMenu": "每页 _MENU_ 条记录",//用来描述分页长度选项的字符串
+                "loadingRecords": "加载中...",//用来描述数据在加载中等待的提示字符串 - 当异步读取数据的时候显示
+                "processing": "处理中...",//用来描述加载进度的字符串
+                "search": "搜索",//用来描述搜索输入框的字符串
+                "zeroRecords": "没有找到",//当没有搜索到结果时，显示
+                "paginate": {
+                    "first": "首页",
+                    "previous": "上一页",
+                    "next": "下一页",
+                    "last": "尾页"
+                }
+            }
+        });
+        });
+    });
+</script>
+
+</html>

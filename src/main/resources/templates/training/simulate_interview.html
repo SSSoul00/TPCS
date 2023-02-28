@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 指定页面显示的图标 -->
+    <link rel="icon" href="../../static/icon/tpcs.ico">
+    <title>实训过程</title>
+
+    <!-- Bootstrap -->
+    <link href="../../static/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- BootStrap Theme css -->
+    <link href="../../static/node_modules/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+
+    <!-- 此案例的自定义样式 -->
+    <link href="../../static/css-prj/main.css" rel="stylesheet">
+    <link href="../../static/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+    <!-- Sweet Alert -->
+    <link href="../../static/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+    <!-- 导入外部的js文件 -->
+    <script type="text/javascript" src="../../static/js-prj/main.js"></script>
+
+    <!-- 导入相关的js -->
+    <script src="../../static/node_modules/jquery/jquery.min.js"></script>
+    <script src="../../static/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<!-- 模态框 中的内容 -->
+<!-- 新增或更新请假记录的 Modal -->
+<div class="modal fade" id="addOrUpdLeaveModal" tabindex="-1" role="dialog" aria-labelledby="myEditModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myEditModalLabel">添加模拟面试记录</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form" action="#" id="addLeaveForm">
+                    <div class="form-group">
+                        <label for="classname" class="col-md-2 control-label">班级名</label>
+                        <div class="col-md-5">
+                            <input type="text" id="classname" class="form-control" placeholder="班级的名称"/>
+                        </div>
+                        <div class="col-md-5" id="cname_id">提示信息</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="stuname" class="col-md-2 control-label">面试学员</label>
+                        <div class="col-md-5">
+                            <input type="text" id="stuname" class="form-control" placeholder="学员名"/>
+                        </div>
+                        <div class="col-md-5" id="stuname_id"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="teachername" class="col-md-2 control-label">面试老师</label>
+                        <div class="col-md-5">
+                            <input type="text" id="teachername" class="form-control" placeholder="管成功"/>
+                        </div>
+                        <div class="col-md-5" id="teachername_id"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="start_time" class="col-md-2 control-label">开始时间</label>
+                        <div class="col-md-5">
+                            <input type="datetime-local" id="start_time" class="form-control" placeholder="2015-01-27 13:15"/>
+                        </div>
+                        <div class="col-md-5" id="start_time_id"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="duration_second" class="col-md-2 control-label">时长</label>
+                        <div class="col-md-5">
+                            <input type="number" id="duration_second" class="form-control" placeholder="15"/>
+                        </div>
+                        <div class="col-md-5" id="duration_second_id">单位：【分钟】</div>
+                    </div>
+
+                    <!-- 通过表格来让输入 -->
+                    <div class="form-group">
+                        <table class="table" id="question_table">
+                            <thead>
+                            <tr>
+                                <th style="width: 8%">序号</th>
+                                <th style="width: 67%">问题点</th>
+                                <th style="width: 25%">结果&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <button id="plus_btn" type="button" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-plus"></span></button>
+                                    <button id="remove_btn" type="button" class="btn btn-danger btn-xs" data-toggle="tooltip" data-placement="top" title="删除最后一行"><span class="glyphicon glyphicon-minus"></span></button>
+                                </th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td><input type="text" name="q_1" class="form-control" placeholder="请填写你的面试问题"></td>
+                                <td>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="q_1_result" value="pass">通过
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="q_1_result" value="reject">拒绝
+                                    </label>
+                                </td>
+                            </tr>
+                            </tbody>
+                            <!-- 更多的tr通过上面的 + 按钮来生成 -->
+
+                        </table>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">批次</label>
+                            <!-- 批次自动调出来，无需用户填写，默认是第1次，如果之前有过的话，则自动是第2次，依此类推 -->
+                        <label class="col-md-1 control-label"><span class="label label-info">第1次</span></label>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">结果</label>
+                        <div class="col-md-5">
+                            <!-- 以单选按钮的方式呈现 -->
+                            <label class="radio-inline">
+                                <input type="radio" name="result" value="pass"><span class="label label-success"><span class="glyphicon glyphicon-ok">&nbsp;通过</span></span>
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="result" value="reject"><span class="label label-danger"><span class="glyphicon glyphicon-remove">&nbsp;拒绝</span></span>
+                            </label>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btn1" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" id="btn2" class="btn btn-primary" onclick="通过JS来提交表单">保存</button>
+                <button type="button" id="btn3" class="btn btn-primary" onclick="通过JS来提交表单">保存并再次新增</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //模态框内容结束 -->
+
+<div class="container">
+    <!-- 由于导航用了navbar-fixed-top,所以，先与上面定义一个间隔  -->
+    <div class="gap"></div>
+
+    <ol class="breadcrumb">
+        <li class="active">首页</li>
+        <li class="active">实训过程</li>
+        <li class="active">模拟面试</li>
+    </ol>
+
+    <!-- 其它内容 -->
+    <div class="row">
+        <div class="col-md-2" style="text-align: center;">
+            <div class="panel panel-default">
+                <!-- Default panel contents -->
+                <!-- List group -->
+                <ul class="list-group">
+                    <!-- 当前在哪个页面，哪个项就添加 select 样式 -->
+                    <li class="list-group-item"><a href="ask_for_leave.html" th:href="@{/training/ask_for_leave}">请假</a></li>
+                    <li class="list-group-item"><a href="undisciplined.html" th:href="@{/training/undisciplined}">违纪</a></li>
+                    <li class="list-group-item"><a href="migrate_class.html" th:href="@{/training/migrate_class}">转班</a></li>
+                    <li class="list-group-item"><a href="drop_out.html" th:href="@{/training/drop_out}">退学</a></li>
+                    <li class="list-group-item list-group-item-success"></li>
+                    <li class="list-group-item"><a href="talk_to_student.html" th:href="@{/training/talk_to_student}">学员访谈</a></li>
+                    <li class="list-group-item"><a href="comment_student.html" th:href="@{/training/comment_student}">学员评价</a></li>
+                    <li class="list-group-item"><a href="make_up_lesson.html" th:href="@{/training/make_up_lesson}">学员补课</a></li>
+                    <li class="list-group-item list-group-item-success"></li>
+                    <li class="list-group-item select"><span class="glyphicon glyphicon-hand-right">&nbsp;</span><a href="simulate_interview.html" th:href="@{/training/simulate_interview}">模拟面试</a></li>
+                    <li class="list-group-item"><a href="start_career.html" th:href="@{/training/start_career}">学员就业</a></li>
+                </ul>
+            </div>
+        </div> <!-- end of 左边列 -->
+
+        <div class="col-md-10" style="background-color: #ffffff;">
+            <!-- 查询区 -->
+            <form class="form-horizontal" role="form" action="#">
+                <div class="form-group">
+                    <label for="cname" class="col-md-2 control-label">班级：</label>
+
+                    <div class="col-md-3">
+                        <!-- 输入框，用　GOOGLE式提示 -->
+                        <input type="text" id="cname" class="form-control" placeholder="查询班级名"/>
+                    </div>
+                    <label for="sname" class="col-md-2 control-label">姓名：</label>
+
+                    <div class="col-md-3">
+                        <input type="text" id="sname" class="form-control" placeholder="学员名"/>
+                    </div>
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+            <hr/>
+
+            <!-- 内容区 -->
+            <div class="row">
+                <div class="col-md-1">
+                    <a href="#" class="label label-info" data-toggle="modal" data-target="#addOrUpdLeaveModal" data-whatever="新增">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>班级</th>
+                            <th>面试学员</th>
+                            <th>面试老师</th>
+                            <th>开始时间</th>
+                            <th>时长[分钟]</th>
+                            <th style="width: 30%">问题点</th>
+                            <th>批次</th>
+                            <th>结果</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>JSD1410</td>
+                            <td>陈威</td>
+                            <td>武广东</td>
+                            <td>2015/3/14 17:30</td>
+                            <td><span class="label label-info">15分钟</span></td>
+                            <td>
+                                <!-- 每一个问题上面采用弹出框来显示学员回答此问题的结果 -->
+                                <p data-toggle="tooltip" data-placement="left" title="回答不通过">1.Servlet生命周期</p>
+                                <p data-toggle="tooltip" data-placement="left" title="回答通过">2.JSP隐匿对象</p>
+                                <p data-toggle="tooltip" data-placement="left" title="回答不通过">3.面向对象的三大特征</p>
+                            </td>
+                            <td>第1次</td>
+                            <td><span class="label label-danger"><span class="glyphicon glyphicon-remove"></span>&nbsp;REJECT</span></td>
+                            <td>
+                                <a href="#" class="label label-default" data-toggle="modal" data-target="#addOrUpdLeaveModal"  data-whatever="更新"><span class="glyphicon glyphicon-edit"></span></a>&nbsp;
+                                <a class="label label-danger" onclick="delLeave(1)"><span class="glyphicon glyphicon-trash"></span></a>&nbsp;
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>2</td>
+                            <td>JSD1410</td>
+                            <td>张三丰</td>
+                            <td>武广东</td>
+                            <td>2015/3/14 17:30</td>
+                            <td><span class="label label-info">15分钟</span></td>
+                            <td>
+                                <p data-toggle="tooltip" data-placement="left" title="回答不通过">1.Servlet生命周期</p>
+                                <p data-toggle="tooltip" data-placement="left" title="回答通过">2.JSP隐匿对象</p>
+                                <p data-toggle="tooltip" data-placement="left" title="回答通过">3.面向对象的三大特征</p>
+                                <p data-toggle="tooltip" data-placement="left" title="回答通过">4.你的优势是什么</p>
+                            </td>
+                            <td>第1次</td>
+                            <td><span class="label label-success"><span class="glyphicon glyphicon-ok"></span>&nbsp;PASS</span></td>
+                            <td>
+                                <a href="#" class="label label-default" data-toggle="modal" data-target="#addOrUpdLeaveModal"  data-whatever="更新"><span class="glyphicon glyphicon-edit"></span></a>&nbsp;
+                                <a class="label label-danger" onclick="delLeave(1)"><span class="glyphicon glyphicon-trash"></span></a>&nbsp;
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div><!-- end of 右边列 -->
+    </div><!-- end row -->
+
+</div><!-- end container -->
+<script src="../../static/js/plugins/dataTables/jquery.dataTables.js"></script>
+<script src="../../static/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+<!-- Sweet alert -->
+<script src="../../static/js/plugins/sweetalert/sweetalert.min.js"></script>
+<!-- 添加js -->
+<script type="text/javascript">
+    $(function () {
+        //提示框启动代码 [暂 只加了延迟的设置，其它采用默认值，详见bootstrap 中JS插件的API]
+        $('[data-toggle="tooltip"]').tooltip({
+            delay: { "show": 500, "hide": 100 }
+        });
+
+        //在模态框中的，为+按钮添加单击事件
+        $("#plus_btn").click(function(){
+            //获取整个表格中， tbody中的行数
+            var count = $("#question_table").find("tr").length;
+            //构建一个完整的行对象, 为保证不同的输入域中的名字不同，特以 q_ 为前缀来构建输入域名字
+            var newRow = "<tr><td>"+count+"</td><td><input type=\"text\" name=\"q_"+count+"\" class=\"form-control\" placeholder=\"请填写你的面试问题\"></td>";
+            newRow += "<td><label class=\"radio-inline\"><input type=\"radio\" name=\"q_"+count+"_result\" value=\"pass\">通过</label>";
+            newRow += "<label class=\"radio-inline\"><input type=\"radio\" name=\"q_"+count+"_result\" value=\"reject\">拒绝</label></td></tr>";
+
+            //获取整个table对象，并把上面构建好的 row添加到此表格的最尾
+            $("#question_table tr:last").after(newRow);
+
+        });
+        //在模态框中的，为-按钮添加单击事件
+        $("#remove_btn").click(function(){
+            //删除最后一行
+            $("#question_table tbody tr:last").remove();
+        });
+
+        //TODO ....
+    });
+</script>
+ <!-- 本地Script，为了使得添加与更新同享同一个Modal框 -->
+ <script type="text/javascript">
+    $(function(){
+        $('#addOrUpdLeaveModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget); // 触发Modal框的按钮
+            var content = button.data('whatever'); // 提取来自于 data-*的属性，　此处我使用了 data-whatever
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var modal = $(this);
+            modal.find('.modal-title').text(content+'模拟面试记录');
+            //修改按钮文字
+            $('#btn2').text(content);
+            //如果是更新的话，需要把表单中的所有元素添加上value的值
+            if(content == '更新'){
+                //通过AJAX把当前选中id的请假记录值给取出来，并依次赋值input元素的value
+                // ajax code ...
+                //TODO 下面的代码是我利用固定值填充的
+
+                //禁用 保存并再添加按钮
+                $('#btn3').attr('disabled','true');
+            }else if(content == '新增'){
+                //移除原来的禁用属性
+                $('#btn3').removeAttr('disabled');
+                //之前的设置的元素值可以考虑清除掉
+                //...
+            }
+        });
+        $.post("test/simulateList.json", function (simulateList) {
+            console.log(simulateList);
+        var count=0
+        $('.table-hover').dataTable({
+            //注： 后面开发时，url的位置写 服务端控制器的 mapping值,服务端返回的将是json数据
+            "data": simulateList,
+            //行的定义
+            "columns": [
+                // {"data": "namePhone",bAutoWidth: "false", sWidth: "20%"},
+                {"data": null,"render":function(data,type,row){
+                        return ++count;
+                    }},
+                {"data": "className", bAutoWidth: "false"},
+                {"data": "interviewAcademy" },
+                {"data": "interviewTeacher" },
+                {"data": "startDate" },
+                {"data": "duration","render":function(data,type,row){
+                        var html ="<span class='label label-info'>"+data+"</span>"
+                        return html;
+                    }},
+                {"data": "wrong","render":function(data,type,row){
+                        var wrongData=row.wrong
+                        var html ="";
+                        for(var i=0;i<wrongData.length;i++){
+                            html += "<p data-toggle='tooltip' data-placement='left' title='回答通过'>"+count+"."+wrongData[i]+"</p>"
+                        }
+                        return html;
+                    }},
+                {"data": "batch"},
+                {"data": "result","render":function(data,type,row){
+                        var html ="<span class='label label-danger'><span class='glyphicon glyphicon-remove'></span>&nbsp;"+data+"</span>"
+                        return html;
+                    }},
+                {
+                    "data": null, "orderable": false, "render": function (data, type, row) {
+                        var id = row.id
+                        var html = "<a href='#' class='label label-default' data-toggle='modal' data-target='#addOrUpdLeaveModal' data-whatever='更新'><span class='glyphicon glyphicon-refresh'></span></a>&nbsp;"
+                        html += "<a class='label label-danger' onclick='delClass(1)'><span class='glyphicon glyphicon-trash'></span></a>"
+                        return html;
+                    }
+                }],
+            //去掉搜索
+            "bSort": false,
+            searching: false,
+            "bPaginage": true,
+            "bAutoWidth": true,
+            lengthChange: false,
+            ordering:true,
+            columnDefs: [{
+                targets: 4,//编辑取消排序
+                "orderable": false
+            }],
+            iDisplayLength:7,
+            lengthMenu :[ 7, 25, 50, 75, 100 ],//定义每页显示记录数，可更改每页显示行数
+            language: {
+                "decimal": "",//小数的小数位符号  比如“，”作为数字的小数位符号
+                "emptyTable": "没有数据哟~~",//没有数据时要显示的字符串
+                "info": "当前 _START_ 条到 _END_ 条 共 _TOTAL_ 条",//左下角的信息，变量可以自定义，到官网详细查看
+                /*  "infoEmpty": "无记录",//当没有数据时，左下角的信息*/
+                "infoFiltered": "(从 _MAX_ 条记录过滤)",//当表格过滤的时候，将此字符串附加到主要信息
+                "infoPostFix": "",//在摘要信息后继续追加的字符串
+                "thousands": ",",//千分位分隔符
+                "lengthMenu": "每页 _MENU_ 条记录",//用来描述分页长度选项的字符串
+                "loadingRecords": "加载中...",//用来描述数据在加载中等待的提示字符串 - 当异步读取数据的时候显示
+                "processing": "处理中...",//用来描述加载进度的字符串
+                "search": "搜索",//用来描述搜索输入框的字符串
+                "zeroRecords": "没有找到",//当没有搜索到结果时，显示
+                "paginate": {
+                    "first": "首页",
+                    "previous": "上一页",
+                    "next": "下一页",
+                    "last": "尾页"
+                }
+            }
+        });
+        });
+
+    });
+</script>
+
+</body>
+</html>

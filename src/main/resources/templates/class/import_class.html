@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 指定页面显示的图标 -->
+    <link rel="icon" href="../../static/icon/tpcs.ico">
+    <title>班级导入</title>
+
+    <!-- Bootstrap -->
+    <link href="../../static/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- BootStrap Theme css -->
+    <link href="../../static/node_modules/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <!-- 此案例的自定义样式 -->
+    <link href="../../static/css-prj/main.css" rel="stylesheet">
+    <!-- 导入外部的js文件 -->
+
+</head>
+<body>
+<div class="container">
+    <!-- 由于导航用了navbar-fixed-top,所以，先与上面定义一个间隔  -->
+    <div class="gap"></div>
+
+    <!-- 菜单提示栏:面包屑组件 -->
+    <ol class="breadcrumb">
+        <li class="active">首页</li>
+        <li class="active">班级</li>
+        <li class="active">导入班级</li>
+    </ol>
+
+</div>
+
+<!-- 其它内容 -->
+<div class="container">
+    <div class="page-header">
+        <h3>班级导入</h3>
+    </div>
+    <form role="form" action="#" method="post">
+        <div class="form-group">
+            <label for="inputClassFile">导入文件&nbsp;</label>
+            <input type="file" id="inputClassFile" accept="application/vnd.ms-excel">
+            <p class="help-block">请选择按规定的格式写好的班级数据文件，支持xls或csv格式.</p>
+        </div>
+
+        <!-- 下载模板文件 -->
+        <div class="form-group">
+            <label style="margin-left: 15px;">如有需要，请点击下载&nbsp;<a href="../../static/download/template/班级模板.xlsx">模板文件[班级列表.xls]</a></label>
+        </div>
+        <button type="submit" class="btn btn-default">上传</button>
+    </form>
+
+    <div class="page-header"></div>
+
+    <!-- 添加一个返回按钮 -->
+    <div class="row">
+        <div class="text-center">
+            <!-- 提交按钮 -->
+            <button type="button" class="btn btn-info" onclick="window.history.back()">
+                返回
+            </button>
+        </div>
+    </div>
+
+</div>
+<!-- 导入相关的js -->
+<script src="../../static/node_modules/jquery/jquery.min.js"></script>
+<script src="../../static/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
+</body>
+</html>

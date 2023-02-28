@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 指定页面显示的图标 -->
+    <link rel="icon" href="../icon/tpcs.ico">
+    <title>学员列表</title>
+
+    <!-- Bootstrap -->
+    <link href="../../static/css/bootstrap.min.css?v=3.3.6" th:href="@{/static/css/bootstrap.min.css}"
+          rel="stylesheet">
+    <link href="../../static/css/font-awesome.css?v=4.4.0" th:href="@{/static/css/font-awesome.css}"
+          rel="stylesheet">
+    <link href="../../static/css/animate.css" th:href="@{/static/css/animate.css}" rel="stylesheet">
+<!--    <link href="../../static/css/style.css?v=4.1.0" th:href="@{/static/css/style.css}" rel="stylesheet">-->
+    <!-- BootStrap Theme css -->
+    <!--    <link href="../../static/css/bootstrap-theme.min.css" th:href="@{/static/css/bootstrap-theme.min.css}"-->
+    <!--          rel="stylesheet">-->
+    <!-- Data Tables -->
+    <link href="../../static/css/plugins/dataTables/dataTables.bootstrap.css"
+          th:href="@{/static/css/plugins/dataTables/dataTables.bootstrap.css}" rel="stylesheet">
+
+    <!-- 导入相关的js -->
+    <script src="../../static/js/jquery.min.js" th:href="@{/static/js/jquery.min.js}"></script>
+    <script src="../../static/js/bootstrap.min.js" th:href="@{/static/js/bootstrap.min.js}"></script>
+
+    <!-- 此案例的自定义样式 -->
+    <!--    <link href="../../static/css-prj/main.css" th:href="@{/static/js/jquery.min.js}" rel="stylesheet">-->
+    <!-- 导入外部的js文件 -->
+    <script type="text/javascript" src="../../static/js-prj/main.js" th:src="@{/static/js-prj/main.js}"></script>
+</head>
+<body>
+<!-- 导航栏区 -->
+<div class="header-page"></div>
+
+<div class="container">
+    <!-- 由于导航用了navbar-fixed-top,所以，先与上面定义一个间隔  -->
+    <div class="gap"></div>
+
+    <!-- 操作提示栏：采用面包屑组件 -->
+    <ol class="breadcrumb">
+        <li>首页</li>
+        <li>学员</li>
+        <li>学员列表</li>
+    </ol>
+
+</div>
+
+
+<!-- 其它内容 -->
+<div class="container">
+    <hr/>
+    <!-- 内容区 -->
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="ibox float-e-margins">
+                <div class="">
+                    <button type="button" class="btn btn-primary"
+                            onclick="javaScript:window.location.href='add_student.html'">
+                        <span class="glyphicon glyphicon-plus">&nbsp;</span>
+                    </button>
+                </div><br>
+                <table class="table table-striped table-bordered table-hover dataTables-example">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>班级名</th>
+                        <th>学员名</th>
+                        <th>电话</th>
+                        <th>生日</th>
+                        <th>邮箱</th>
+                        <th>学历</th>
+                        <th>专业</th>
+                        <th>签约日期</th>
+                        <th>贷款状态</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 分页模块 -->
+    <!--    <div class="pull-right">-->
+    <!--        <ul class="pagination">-->
+    <!--            <li><a href="#">&laquo;</a></li>-->
+    <!--            <li><a href="#">1</a></li>-->
+    <!--            <li><a href="#">2</a></li>-->
+    <!--            <li><a href="#">3</a></li>-->
+    <!--            <li><a href="#">4</a></li>-->
+    <!--            <li><a href="#">&raquo;</a></li>-->
+    <!--        </ul>-->
+    <!--    </div>-->
+</div>
+
+<!-- -------------------------------------------------------- -->
+<!-- 页脚区 -->
+<div class="footer">
+    <div class="container">
+        <p>
+            <a href="#">公司主页</a>&nbsp;&nbsp;
+            <a href="#">联系我们</a>&nbsp;&nbsp;
+            <a href="#">友情链接</a>
+        </p>
+        <p class="text-muted">
+            <span>技术支持：TPCS技术团队&nbsp;&nbsp;</span>
+            <span><a href="mailto:yejf@lemait.com">联系人：yejf@lemait.com</a>&nbsp;&nbsp;</span>
+            <span>联系电话：0512-68289707&nbsp;&nbsp;</span>
+        </p>
+        <p class="text-muted">
+            &copy;&nbsp;2020-2023 实训综合管理平台 All Rights Reserved 版权所有 苏ICP备xxxxx号
+        </p>
+    </div>
+</div>
+<!-- Data Tables -->
+<!-- 自定义js -->
+<script src="../../static/js/content.js" th:src="@{/static/js/content.js}"></script>
+<script src="../../static/js/plugins/jeditable/jquery.jeditable.js"
+        th:src="@{/static/js/plugins/jeditable/jquery.jeditable.js}"></script>
+<script src="../../static/js/plugins/dataTables/jquery.dataTables.js"
+        th:src="@{/static/js/plugins/dataTables/jquery.dataTables.js}"></script>
+<script src="../../static/js/plugins/dataTables/dataTables.bootstrap.js"
+        th:src="@{/static/js/plugins/dataTables/dataTables.bootstrap.js}"></script>
+<script src="../../static/js/header.js"></script>
+<script>
+    $(document).ready(function () {
+        $.post("../json/studentList.json", function (resp) {
+            console.log(resp);
+            console.log(resp.data)
+            $('.dataTables-example').dataTable({
+                'data': resp.data,
+                'columns': [
+                    {data: null, title: "序号"},
+                    {data: 'classname'},
+                    {data: 'stuName'},
+                    {data: 'birth'},
+                    {data: 'phone'},
+                    {data: 'email'},
+                    {data: 'degree'},
+                    {data: 'major'},
+                    {data: 'loanDate'},
+                    {data: 'loadStatus'},
+                    {
+                        "data": null, sWidth: "auto", "orderable": false, "render": function (data, type, row) {
+                            var id = row.id;
+                            var html = "<a class='label label-default' onclick='gotoUpdateStu(" + id + ")'><span class='glyphicon glyphicon-refresh'></span></a>&nbsp &nbsp"
+                            html += "<a class='label label-danger' onclick='deleteStu(" + id + ")'><span class='glyphicon glyphicon-trash'></span></a>"
+                            // var html = "<a href='#?id=" + id + "' onclick='gotoUpdateStu(" + id + ")' class='btn btn-success btn-xs edit'  data-toggle='modal' data-target='#edit_model'> 编辑 <i class='fa fa-edit'></i></a>&nbsp &nbsp"
+                            // html += "<a href='#?id=" + id + "' onclick='deleteStu(" + id + ")'  class='delete btn btn-danger btn-xs' > 注销会员 <i class='fa fa-times'></i></a>"
+                            return html;
+                        }
+                    },
+                ],
+                createdRow: function (row, data, dataIndex) {
+                    $(row).find('td:eq(0)').html(dataIndex + 1);
+                },
+                // "bSort": false,
+                searching: true,
+                "bPaginage": true,
+                "bAutoWidth": true,
+                // lengthChange: false,
+                language: {
+                    "decimal": "",//小数的小数位符号  比如“，”作为数字的小数位符号
+                    "emptyTable": "没有数据哟~~",//没有数据时要显示的字符串
+                    "info": "当前 _START_ 条到 _END_ 条 共 _TOTAL_ 条",//左下角的信息，变量可以自定义，到官网详细查看
+                    "infoEmpty": "无记录",//当没有数据时，左下角的信息
+                    "infoFiltered": "(从 _MAX_ 条记录过滤)",//当表格过滤的时候，将此字符串附加到主要信息
+                    "infoPostFix": "",//在摘要信息后继续追加的字符串
+                    "thousands": ",",//千分位分隔符
+                    "lengthMenu": "每页 _MENU_ 条记录",//用来描述分页长度选项的字符串
+                    "loadingRecords": "加载中...",//用来描述数据在加载中等待的提示字符串 - 当异步读取数据的时候显示
+                    "processing": "处理中...",//用来描述加载进度的字符串
+                    "search": "查找",//用来描述搜索输入框的字符串
+                    "zeroRecords": "没有找到",//当没有搜索到结果时，显示
+                    "paginate": {
+                        "first": "首页",
+                        "previous": "上一页",
+                        "next": "下一页",
+                        "last": "尾页"
+                    }
+                }
+            })
+        })
+
+    });
+</script>
+</body>
+</html>

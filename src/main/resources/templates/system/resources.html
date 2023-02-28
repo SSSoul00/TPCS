@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 指定页面显示的图标 -->
+    <link rel="icon" href="../icon/tpcs.ico">
+    <title>资源管理</title>
+
+    <!-- Bootstrap -->
+    <link href="../../static/css/bootstrap.min.css?v=3.3.6" th:href="@{/static/css/bootstrap.min.css}"
+          rel="stylesheet">
+    <!-- BootStrap Theme css -->
+    <link href="../../static/css/bootstrap-theme.min.css" th:href="@{/static/css/bootstrap-theme.min.css}"
+          rel="stylesheet">
+
+    <!-- 此案例的自定义样式 -->
+    <link href="../../static/css-prj/main.css" th:href="@{/static/js/jquery.min.js}" rel="stylesheet">
+    <!-- 导入外部的js文件 -->
+    <script type="text/javascript" src="../../static/js-prj/main.js" th:src="@{/static/js-prj/main.js}"></script>
+
+    <!-- 导入相关的js -->
+    <script src="../../static/js/jquery.min.js" th:href="@{/static/js/jquery.min.js}"></script>
+    <script src="../../static/js/bootstrap.min.js" th:href="@{/static/js/bootstrap.min.js}"></script>
+    <!-- 导入jstree相关的文件 -->
+    <link href="../../static/css/plugins/jsTree/style.min.css" th:href="@{/static/css/plugins/jsTree/style.min.css}"
+          rel="stylesheet">
+    <script src="../../static/js/plugins/jsTree/jstree.min.js"
+            th:src="@{/static/js/plugins/jsTree/jstree.min.js}"></script>
+    <!--    <link href="../node_modules/jstree/dist/themes/default/style.min.css" rel="stylesheet">-->
+    <!-- add by yejf on 2015/6/18 -->
+    <!-- 导入 jQuery-QueryBuilder 组件-->
+    <script src="../../static/jQuery-QueryBuilder/dist/js/query-builder.standalone.min.js"
+            th:src="@{/static/jQuery-QueryBuilder/dist/js/query-builder.standalone.min.js}"></script>
+    <link href="../../static/jQuery-QueryBuilder/dist/css/query-builder.default.min.css"
+          th:href="@{/static/jQuery-QueryBuilder/dist/css/query-builder.default.min.css}"
+          rel="stylesheet" type="text/css"/>
+
+    <script type="text/javascript">
+        //加载 jQuery-QueryBuilder组件
+        $(function () {
+            $('#builder').queryBuilder({
+
+                plugins: ['bt-tooltip-errors'],
+
+                filters: [{
+                    id: 'name',
+                    label: '资源名',
+                    type: 'string',
+                    operators: ['contains'] //总是模糊搜索
+                }, {
+                    id: 'value',
+                    label: '资源值',
+                    type: 'string',
+                    operators: ['contains', 'not_contains'] //模糊搜索
+                }, {
+                    id: 'type',
+                    label: '资源类型',
+                    type: 'string',
+                    input: 'select',
+                    values: {
+                        'FOLDER': 'FOLDER',
+                        'URL': 'URL'
+                    },
+                    operators: ['equal']
+                }, {
+                    id: 'code',
+                    label: '资源代码',
+                    type: 'string',
+                    operators: ['contains'] //总是模糊搜索
+                },
+                    {
+                        id: 'method',
+                        label: '请求方法类型',
+                        type: 'string',
+                        input: 'checkbox',
+                        values: {
+                            'GET': 'GET',
+                            'POST': 'POST',
+                            'PUT': 'PUT',
+                            'DELETE': 'DELETE'
+                        },
+                        color: 'primary',
+//                    operators: ['equal', 'not_equal', 'in', 'not_in', 'is_null', 'is_not_null']
+                        operators: ['in']
+                    }],
+                allow_groups: false, //目前只要使用简单的查询功能即可
+                default_condition: 'OR' //默认逻辑条件
+            });
+            //给按钮添加事件
+            $('#reset').on('click', function () {
+                $('#builder').queryBuilder('reset');
+            });
+
+            $('#execute').on('click', function () {
+                // 执行查询逻辑
+                alert('execute');
+                //....
+            });
+
+            $('#showJSON').on('click', function () {
+                var result = $('#builder').queryBuilder('getRules');
+
+                if (!$.isEmptyObject(result)) {
+                    alert(JSON.stringify(result, null, 2));
+                }
+            });
+            $('#showSQL').on('click', function () {
+                var result = $('#builder').queryBuilder('getSQL', 'question_mark');
+
+                if (result.sql.length) {
+                    alert(result.sql + '\n\n' + JSON.stringify(result.params, null, 2));
+                }
+            });
+
+        });
+
+        $(function () {
+            //加载另一个权限树
+            $.ajax({
+                type:'POST',
+                url:'../json/system.json',
+                success:function (resp) {
+                    console.log(resp.data)
+                    $("#resourceTree").jstree({
+                        "types": {
+                            "default": {
+                                "icon": "glyphicon glyphicon-folder-close"
+                            },
+                            "open": {
+                                "icon": "glyphicon glyphicon-folder-open"
+                            },
+                            "child": {
+                                "icon": "glyphicon glyphicon-ok-sign"
+                            }
+                        },
+                        "core": {
+                            "check_callback": true,
+                            "data": resp.data
+                        },
+                        "plugins": ["types", "dnd"]  //添加drag and drop 功能
+                    })
+                }
+            })
+
+        });
+    </script>
+</head>
+<body style="background-color: #efefef">
+<!-- 导航栏区 -->
+<div class="header-page"></div>
+
+<div class="container">
+    <!-- 由于导航用了navbar-fixed-top,所以，先与上面定义一个间隔  -->
+    <div class="gap"></div>
+
+    <!-- 菜单提示栏:面包屑组件 -->
+    <ol class="breadcrumb">
+        <li>首页</li>
+        <li>系统</li>
+        <li>资源管理</li>
+    </ol>
+
+</div>
+
+<!-- 其它内容 -->
+<div class="container">
+
+    <!-- 添加 jquerybuilder 查询框 -->
+    <div class="row" style="margin-left: 10px;margin-bottom: 10px;">
+        <div class="col-md-8">
+            <!-- 指定查询框的id -->
+            <div id="builder"></div>
+            <!-- 操作按钮 -->
+            <div class="btn-group hidden">
+                <button class="btn btn-warning" ng-click="builderReset()">重置条件</button>
+                <button class="btn btn-info" ng-click="builderExecute()">执行</button>
+                <button class="btn btn-danger" ng-click="builderShowSql()">查看SQL</button>
+                <button class="btn btn-primary" ng-click="builderShowJson()">查看JSON</button>
+            </div>
+            <div class="row text-center">
+                <div class="col-md-6 text-right">
+                    <button type="button" id="selectBtn" class="btn btn-primary" ng-click="search()">
+                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span> 查询
+                    </button>
+                </div>
+                <div class="col-md-6 text-left">
+                    <button type="button" class="btn btn-default" ng-click="builderReset()">
+                        <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> 重置
+                    </button>
+                    <button type="button" class="btn btn-default" ng-click="builderShowJson()">显示JSON</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" style="padding-left: 30px;">
+        <div class="col-md-6" style="background-color:#c9c9c9;min-height: 650px">
+            <div class="row">
+                <div class="col-md-6">
+                    <label class="label label-info">资源列表</label>
+                </div>
+                <div class="col-md-6">
+                    <span class="label label-info">提示:可以对节点进行拖,放操作</span>
+                </div>
+            </div>
+            <!-- 动态获取的资源树 -->
+            <div id="resourceTree" style="min-height: 650px;overflow: scroll"></div>
+        </div>
+        <!-- end of 左边列 -->
+
+        <div class="col-md-6" style="background-color: #ffffff;min-height: 650px;">
+            <p style="margin-top: 25px;"></p>
+            <strong>编辑资源信息</strong>
+            <hr style="margin-top: 2px;background-color:#269abc;height: 3px;"/>
+            <form action="" method="post" name="resourceForm">
+                <div class="form-group">
+                    <label for="name">资源名</label>
+                    <input type="text" class="form-control" id="name">
+                </div>
+                <div class="form-group">
+                    <label for="code">资源代码</label>
+                    <input type="text" class="form-control" id="code" value="" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="type">资源类型</label>
+                    <input type="text" class="form-control" id="type" value="" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="method">资源方法</label>
+                    <input type="text" class="form-control" id="method" value="" readonly>
+                </div>
+                <button type="submit" class="btn btn-default">更新</button>
+            </form>
+
+        </div>
+        <!-- end of 右边列 -->
+    </div>
+    <!-- end row -->
+</div>
+<!-- end container -->
+
+<!-- 页脚区 -->
+<div class="footer">
+    <div class="container">
+        <p>
+            <a href="#">公司主页</a>&nbsp;&nbsp;
+            <a href="#">联系我们</a>&nbsp;&nbsp;
+            <a href="#">友情链接</a>
+        </p>
+        <p class="text-muted">
+            <span>技术支持：TPCS技术团队&nbsp;&nbsp;</span>
+            <span><a href="mailto:yejf@lemait.com">联系人：yejf@lemait.com</a>&nbsp;&nbsp;</span>
+            <span>联系电话：0512-68289707&nbsp;&nbsp;</span>
+        </p>
+        <p class="text-muted">
+            &copy;&nbsp;2020-2023 实训综合管理平台 All Rights Reserved 版权所有 苏ICP备xxxxx号
+        </p>
+    </div>
+</div>
+
+<script src="../../static/js/header.js"></script>
+</body>
+</html>

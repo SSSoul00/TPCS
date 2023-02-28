@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 指定页面显示的图标 -->
+    <link rel="icon" href="../icon/tpcs.ico">
+    <title>员工列表</title>
+
+    <!-- Bootstrap -->
+    <link href="../../static/css/bootstrap.min.css?v=3.3.6" th:href="@{/static/css/bootstrap.min.css}"
+          rel="stylesheet">
+    <!--    <link href="../../static/css/style.css?v=4.1.0" th:href="@{/static/css/style.css}" rel="stylesheet">-->
+    <!-- BootStrap Theme css -->
+    <!--    <link href="../../static/css/bootstrap-theme.min.css" th:href="@{/static/css/bootstrap-theme.min.css}"-->
+    <!--          rel="stylesheet">-->
+    <style>
+        .disabled-row {
+            color: #ccc;
+        }
+
+        .clicked-row:hover {
+            cursor: pointer;
+        }
+    </style>
+    此案例的自定义样式
+    <link href="../../static/css-prj/main.css" th:href="@{/static/css-prj/main.css}" rel="stylesheet">
+    <!-- 导入外部的js文件 -->
+    <script type="text/javascript" src="../../static/js-prj/main.js" th:src="@{/static/js-prj/main.js}"></script>
+
+    <!-- 导入相关的js -->
+    <script src="../../static/js/jquery.min.js" th:href="@{/static/js/jquery.min.js}"></script>
+    <script src="../../static/js/bootstrap.min.js" th:href="@{/static/js/bootstrap.min.js}"></script>
+    <!-- 导入jstree相关的文件 -->
+    <link href="../../static/css/plugins/jsTree/style.min.css" th:href="@{/static/css/plugins/jsTree/style.min.css}"
+          rel="stylesheet">
+    <script src="../../static/js/plugins/jsTree/jstree.min.js"
+            th:src="@{/static/js/plugins/jsTree/jstree.min.js}"></script>
+    <!--    <link href="../node_modules/jstree/dist/themes/default/style.min.css" rel="stylesheet">-->
+
+    <script type="text/javascript">
+        function chick() {
+            //如果只选择了一个员工，那么进行角色回显
+            $("#roleTree").jstree('deselect_all', true);
+            var checkedIds = $('.dataTables-example').find(':checkbox:checked').map(function () {
+                return $(this).val();
+            }).get();
+            console.log(checkedIds)
+            if (checkedIds.length === 1) {
+                console.log('进入了分支')
+                $.post('', checkedIds[0], function (resp) {
+                    console.log('回调函数')
+                    let idArray = resp.data;
+                    // let idArray = [11, 12, 13, 14]
+                    for (let i = 0; i < idArray.length; i++) {
+                        // 获取节点对象
+                        let node = $('#roleTree').jstree(true).get_node(idArray[i]);
+                        // 勾选节点
+                        $('#roleTree').jstree('check_node', node, false);
+                    }
+                })
+            }
+        }
+
+        function changeUserRole() {
+            // 获取所有被勾选了复选框的行的id
+            var checkedIds = $('.dataTables-example').find(':checkbox:checked').map(function () {
+                return $(this).val();
+            }).get();
+            // 打印被勾选了复选框的行的id
+            console.log(checkedIds);
+            // 获取被勾选了复选框的节点数据的id
+            var checkedIds2 = $("#roleTree").jstree("get_checked", false);
+            console.log(checkedIds2);
+            let data = {
+                'checkedIds' : checkedIds,
+                'checkedIds2' : checkedIds2
+            }
+            //修改权限请求
+            $.post('',data,function (resp) {
+                console.log(resp.data)
+                //代码
+            })
+
+        }
+
+
+        function deleteItem() {
+            if (confirm('确定删除吗？')) {
+                // 发送AJAX请求
+                $.ajax({
+                    url: 'your-url-here',
+                    method: 'POST',
+                    data: {id: 'your-item-id-here'},
+                    success: function (response) {
+                        // 请求成功后执行的代码
+                        alert('删除成功！');
+                    },
+                    error: function (xhr, status, error) {
+                        // 请求失败后执行的代码
+                        alert('删除失败！');
+                    }
+                });
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        function editForm() {
+            $.post('', $('#updDeptForm').serialize(), function (resp) {
+                console.log(resp)
+            })
+        }
+
+        function addFrom() {
+            $.ajax({
+                url: '',
+                method: 'post',
+                data: $('#myDeptForm').serialize(),
+                success: function (resp) {
+                    console.log(resp)
+                },
+
+            })
+        }
+
+        function disabledSelected() {
+            // 获取所有被勾选了复选框的行的id
+            var checkedIds = $('.dataTables-example').find(':checkbox:checked').map(function () {
+                return $(this).val();
+            }).get();
+            // 打印被勾选了复选框的行的id
+            console.log(checkedIds);
+            $.ajax({
+                type: 'post',
+                url: '',
+                data: checkedIds,
+                success: function (resp) {
+
+                    //删禁用成功
+                },
+                error: function (xhr, status, error) {
+
+                }
+            })
+        }
+
+        function enableSelected() {
+            // 获取所有被勾选了复选框的行的id
+            var checkedIds = $('.dataTables-example').find(':checkbox:checked').map(function () {
+                return $(this).val();
+            }).get();
+            // 打印被勾选了复选框的行的id
+            console.log(checkedIds);
+            $.ajax({
+                type: 'post',
+                url: '',
+                data: selectedIds,
+                success: function (resp) {
+
+                    //启用成功
+                },
+                error: function (xhr, status, error) {
+
+                }
+            })
+        }
+
+        function deleteSelected() {
+
+            // 获取所有被勾选了复选框的行的id
+            var checkedIds = $('.dataTables-example').find(':checkbox:checked').map(function () {
+                return $(this).val();
+            }).get();
+            // 打印被勾选了复选框的行的id
+            console.log(checkedIds);
+            $.ajax({
+                type: 'post',
+                url: '',
+                data: selectedIds,
+                success: function (resp) {
+
+                    //删除成功
+                },
+                error: function (xhr, status, error) {
+
+                }
+            })
+        }
+
+        $(function () {
+            //初始化第一颗树
+            $.post("../json/department.json", function (resp) {
+                console.log(resp.data);
+                $("#myTree").jstree(
+                    {
+                        'core': {
+                            'data': resp.data
+                            //     [
+                            //     {
+                            //         "id": 1, "text": "青英教育", "state": {"opened": true}, "children": [
+                            //             {"id": 11, "text": "教学部"},
+                            //             {"id": 12, "text": "市场招生部"},
+                            //             {"id": 13, "text": "渠道招生部"},
+                            //             {"id": 14, "text": "人力资源部"},
+                            //             {"id": 15, "text": "财务部"},
+                            //             {"id": 16, "text": "就业部"},
+                            //             {"id": 17, "text": "总经办"}]
+                            //     }
+                            // ]
+                        }
+                    }
+                );
+            })
+
+            //添加事件
+            $("#myTree").on("changed.jstree", function (e, data) {
+                console.log(data);
+                alert("你选择了：" + data.instance.get_selected(true)[0].text);
+            });
+
+            //初始化
+            $.post("../json/role.json", function (resp) {
+                $("#roleTree").jstree(
+                    {
+                        'core': {
+                            "check_callback": true,
+                            "themes": {
+                                "dots": false  //不通过.来连接
+                            },
+                            'data': resp.data
+
+                        },
+                        "plugins": ["checkbox"]
+                    }
+                );
+            })
+
+            $.ajax({
+                type: 'POST',
+                url: '../json/employee.json',
+                data: '',
+                success: function (resp) {
+                    console.log(resp.data);
+                    $('.dataTables-example').dataTable({
+                        data: resp.data,
+                        columns: [
+                            //复选框列
+                            {
+                                data: null,
+                                render: function (data, type, row, meta) {
+                                    return '<input type="checkbox" name="id" value="' + data.id + '">';
+                                }
+                            },
+                            {
+                                data: "gender", sWidth: "auto",
+                                render: function (data, type, row, meta) {
+                                    if (data == '男') {
+                                        return " <span class=\"glyphicon glyphicon-user\" style=\"color:blue\"></span>"
+                                    } else {
+                                        return " <span class=\"glyphicon glyphicon-user\" style=\"color:orange\"></span>"
+                                    }
+                                }
+                            },
+                            {data: 'realname'},
+                            {data: 'email'},
+                            {data: 'mobilePhone'},
+                            {data: 'birthDate'},
+                            {data: 'job'}
+                        ],
+                        createdRow: function (row, data, dataIndex) {
+                            if (data.status == 1) {
+                                $(row).addClass('disabled-row');
+                            }
+                            $(row).addClass('clicked-row');
+                            $(row).on('dblclick', function () {
+                                // 双击事件的处理逻辑
+                                var id = data.id; // 获取当前行的 ID
+                                window.location.href = 'upd_employee.html?id=' + id; // 跳转到指定页面并将 ID 作为参数传递
+                            });
+                        }
+                    });
+                },
+                error: function (xhr, status, error) {
+
+                }
+            })
+        });
+
+    </script>
+</head>
+<body style="background-color: #efefef">
+<!-- 导航栏区 -->
+<div class="header-page"></div>
+
+<div class="container">
+    <!-- 由于导航用了navbar-fixed-top,所以，先与上面定义一个间隔  -->
+    <div class="gap"></div>
+
+    <!-- 菜单提示栏:面包屑组件 -->
+    <ol class="breadcrumb">
+        <li>首页</li>
+        <li>员工</li>
+        <li>员工列表</li>
+    </ol>
+
+</div>
+
+<!-- 模态框 中的内容 -->
+<!-- 添加子部门的Modal -->
+<div class="modal fade" id="addDeptModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #0a6aa1">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h5 class="modal-title" id="myModalLabel">新增部门</h5>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form" action="#" id="myDeptForm">
+                    <div class="form-group">
+                        <label for="deptName" class="col-md-2 control-label">部门名称</label>
+                        <div class="col-md-5">
+                            <input type="text" id="deptName" class="form-control" placeholder="部门名"/>
+                        </div>
+                        <div class="col-md-5" id="classname_id">&nbsp;</div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="addFrom()">新增</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //添加子部门的模态框内容结束 -->
+
+<!-- 更新部门的Modal -->
+<div class="modal fade" id="updDeptModel" tabindex="-1" role="dialog" aria-labelledby="myUpdModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #0a6aa1">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h5 class="modal-title" id="myUpdModalLabel">更新部门</h5>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form" action="#" id="updDeptForm">
+                    <div class="form-group">
+                        <label for="deptName" class="col-md-2 control-label">部门名称</label>
+                        <div class="col-md-5">
+                            <input type="text" id="updDeptName" class="form-control" value="青英教育"/>
+                        </div>
+                        <div class="col-md-5" id="updDeptName_id">&nbsp;</div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="editForm()">更新</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //添加子部门的模态框内容结束 -->
+
+<!-- 操作角色的Modal  add by yejf -->
+<div class="modal fade" id="editRoleModal" tabindex="-1" role="dialog" aria-labelledby="myEditRoleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:#0a6aa1;">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h5 class="modal-title" id="myEditRoleModalLabel">编辑用户角色</h5>
+            </div>
+            <div class="modal-body">
+                <!-- 以左右两列布局来显示,左边显示树状的角色列表,并可以通过复选框进行选择, 右边暂留空-->
+                <div class="row">
+                    <!-- 第1列 -->
+                    <div class="col-md-10" style="color:#0a6aa1">
+                        <span class="label label-primary">角色列表</span>
+                        <!-- 通过jstree来加载角色树, 带复选框 -->
+                        <div id="roleTree"></div>
+
+                    </div>
+                    <!-- 第2列 -->
+                    <div class="col-md-2">
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="changeUserRole()">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //操作角色的模态框内容结束 -->
+
+<!-- 其它内容 -->
+<div class="container">
+    <div class="row" style="padding-left: 50px;">
+        <div class="col-md-3" style="background-color: #f4f7fa;max-width: 220px;min-height: 450px">
+            <div class="row">
+                <div class="col-md-offset-3 col-md-6">
+                    <h5>
+                        <span class="glyphicon glyphicon-home"></span>
+                        <strong>组织架构</strong>
+                    </h5>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 5px;border-top: 2px solid #cccccc;padding-top: 5px;">
+                <div class="col-md-1">
+                    <!-- 通过AJAX动态加载出来 -->
+                    <div id="myTree"></div>
+                </div>
+            </div>
+        </div> <!-- end of 左边列 -->
+
+        <div class="col-md-9" style="background-color: #ffffff;min-height: 450px;">
+            <div class="row">
+                <!-- 部门选择提示 -->
+                <div class="col-md-3" style="padding:25px 0 15px 15px;">
+                    <strong style="font-size: large">青英教育</strong>
+                </div>
+                <!-- 搜索框 -->
+                <!--                <div class="col-md-offset-6 col-md-3" style="padding-top: 20px;">-->
+                <!--                    <form class="form-inline" role="form" action="#">-->
+                <!--                        <div class="form-group">-->
+                <!--                            <div class="input-group">-->
+                <!--                                <input type="text" name="realname" placeholder="员工名" class="form-control">-->
+                <!--                                <div class="input-group-addon" style="cursor: pointer" onclick="alert('查询')">-->
+                <!--                                    <span class="glyphicon glyphicon-search"></span>-->
+                <!--                                </div>-->
+                <!--                            </div>-->
+                <!--                        </div>-->
+                <!--                    </form>-->
+                <!--                </div>-->
+            </div>
+
+            <div class="row">
+                <div class="col-md-4" style="font-size: small">
+                    <a href="#" data-toggle="modal" data-target="#updDeptModel">修改部门名</a>&nbsp;|&nbsp;
+                    <a href="#" data-toggle="modal" data-target="#addDeptModel">添加子部门</a>&nbsp;|&nbsp;
+                    <a href="#" onclick="return deleteItem()">删除</a>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 5px;margin-bottom: 10px;">
+                <div class="col-md-3">
+                    <small>成员5个</small>
+                    <small>，禁用8个</small>
+                </div>
+                <!-- 顶部分页区 -->
+                <div class="col-md-9">
+                    <p class="text-right">
+                        <a href="#"><small>上一页</small></a>
+                        <small>1 / 3</small>
+                        <a href="#"><small>下一页</small></a>
+                    </p>
+                </div>
+            </div>
+
+            <!-- 操作导航栏  -->
+            <div class="row"
+                 style="background-color: #efefef;border-top: 1px solid #cccccc;border-bottom: 1px solid #cccccc;max-height: 40px;margin: 0 2px;">
+                <div class="col-md-11">
+
+                    <!--<input type="checkbox" class="checkbox" name="">-->
+                    <ul class="nav nav-pills">
+                        <li role="presentation">
+                            <div class="checkbox">
+                                <label><input type="checkbox" value="" title="选中/取消选中"/></label>
+                            </div>
+                        </li>
+                        <li role="presentation" class="dropdown">
+                            <button type="button" class="btn-xs btn-default" role="button" data-toggle="dropdown"
+                                    aria-expanded="false" style="margin: 8px 5px;">
+                                新增成员
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li>
+                                    <a href="add_employee.html">新建成员</a>
+                                </li>
+                                <li>
+                                    <a href="#">批量导入成员</a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="#">其它功能[预留]</a>
+                                </li>
+
+                            </ul>
+                        </li>
+                        <li role="presentation" class="dropdown">
+                            <button type="button" class="btn-xs btn-default" role="button" style="margin: 8px 5px;"
+                                    onclick="disabledSelected()">
+                                禁用
+                            </button>
+                        </li>
+                        <li role="presentation" class="dropdown">
+                            <button type="button" class="btn-xs btn-default" role="button" style="margin: 8px 5px;"
+                                    onclick="enableSelected()">
+                                启用
+                            </button>
+                        </li>
+                        <li role="presentation" class="dropdown">
+                            <button type="button" class="btn-xs btn-default" role="button" style="margin: 8px 5px;"
+                                    onclick="deleteSelected()">
+                                删除
+                            </button>
+                        </li>
+                        <!-- add by yejf on 2015/5/11, 目的是添加分配角色的功能 -->
+                        <!-- 此按钮做成一个资源,只有被分配了此资源的角色的用户才能看得见这个按钮,并且进行操作 -->
+                        <li role="presentation" class="dropdown">
+                            <button type="button" class="btn-xs btn-info" role="button" style="margin: 8px 5px;"
+                                    data-toggle="modal" data-target="#editRoleModal" onclick="chick()">
+                                角色操作
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 员工列表区 -->
+            <div class="row" style="margin: 0 -7px;">
+                <div class="col-md-12" style="margin-top: 10px;">
+                    <table class="table table-striped table-bordered table-hover dataTables-example">
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th>性别</th>
+                            <th>员工名</th>
+                            <th>邮箱</th>
+                            <th>电话</th>
+                            <th>生日</th>
+                            <th>岗位</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div><!-- end 员工列表区 -->
+
+            <!-- 底部分页区 -->
+            <!--            <div class="row">-->
+            <!--                <div class="col-md-12">-->
+            <!--                    <p class="text-right">-->
+            <!--                        <a href="#"><small>上一页</small></a>-->
+            <!--                        <small>1 / 3</small>-->
+            <!--                        <a href="#"><small>下一页</small></a>-->
+            <!--                    </p>-->
+            <!--                </div>-->
+            <!--            </div>-->
+        </div><!-- end of 右边列 -->
+    </div><!-- end row -->
+</div><!-- end container -->
+
+<!-- 页脚区 -->
+<div class="footer">
+    <div class="container">
+        <p>
+            <a href="#">公司主页</a>&nbsp;&nbsp;
+            <a href="#">联系我们</a>&nbsp;&nbsp;
+            <a href="#">友情链接</a>
+        </p>
+        <p class="text-muted">
+            <span>技术支持：TPCS技术团队&nbsp;&nbsp;</span>
+            <span><a href="mailto:yejf@lemait.com">联系人：yejf@lemait.com</a>&nbsp;&nbsp;</span>
+            <span>联系电话：0512-68289707&nbsp;&nbsp;</span>
+        </p>
+        <p class="text-muted">
+            &copy;&nbsp;2020-2023 实训综合管理平台 All Rights Reserved 版权所有 苏ICP备xxxxx号
+        </p>
+    </div>
+</div>
+<script src="../../static/js/header.js"></script>
+<script src="../../static/js/content.js" th:src="@{/static/js/content.js}"></script>
+<script src="../../static/js/plugins/jeditable/jquery.jeditable.js"
+        th:src="@{/static/js/plugins/jeditable/jquery.jeditable.js}"></script>
+<script src="../../static/js/plugins/dataTables/jquery.dataTables.js"
+        th:src="@{/static/js/plugins/dataTables/jquery.dataTables.js}"></script>
+<script src="../../static/js/plugins/dataTables/dataTables.bootstrap.js"
+        th:src="@{/static/js/plugins/dataTables/dataTables.bootstrap.js}"></script>
+
+</body>
+</html>

@@ -1,0 +1,43 @@
+{
+  "code": "000",
+  "message": "message信息",
+  "data":[
+    {
+      "id": "19",
+      "classname":"JSD1411",
+      "stuName":"张三",
+      "birth": "1988-12-23",
+      "phone": "18913200517",
+      "email": "zhangsf@163.com",
+      "degree": "DOCTOR",
+      "major": "计算机科学",
+      "loadStatus": "已放款",
+      "loanDate": "2014-12-17"
+    },
+    {
+      "id": "20",
+      "classname":"JSD1411",
+      "stuName":"李四",
+      "birth": "1988-12-23",
+      "phone": "18913200517",
+      "email": "zhangsf@163.com",
+      "degree": "MASTER",
+      "major": "计算机科学",
+      "loadStatus": "已放款",
+      "loanDate": "2014-12-17"
+    },
+    {
+      "id": "21",
+      "classname":"JSD1411",
+      "stuName":"张三",
+      "birth": "1988-12-23",
+      "phone": "18913200517",
+      "email": "zhangsf@163.com",
+      "degree": "JUNIOR",
+      "major": "计算机科学",
+      "loadStatus": "已放款",
+      "loanDate": "2014-12-17"
+    }
+
+  ]
+}

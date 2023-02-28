@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- 导航栏的头部,并且可以适合其它尺码的设备 -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mynav">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="javascript:void(0);" style="padding-top: 0px;">
+                <img src="../../static/images/LOGO-b.png"/>
+            </a>
+        </div>
+
+        <div class="navbar-collapse collapse" id="mynav">
+            <ul class="nav navbar-nav">
+                <li><a href="#">主页</a></li>
+                <!-- 下接菜单: 班级 -->
+<!--                <li class="dropdown">-->
+<!--                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">班级<strong class="caret"></strong></a>-->
+<!--                    <ul class="dropdown-menu" role="menu">-->
+<!--                        <li><a href="../class/list_class.html">班级列表</a></li>-->
+<!--                        <li><a href="../class/import_class.html">导入班级</a></li>-->
+<!--&lt;!&ndash;                        <li class="divider"></li>&ndash;&gt;-->
+<!--                        &lt;!&ndash;<li><a href="#">班级活动</a></li>&ndash;&gt;-->
+<!--                    </ul>-->
+<!--                </li>-->
+                <!-- 下接菜单: 学员 -->
+                <li class="dropdown active">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">学员<strong class="caret"></strong></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="../student/list_student.html">学员列表</a></li>
+                        <li><a href="../student/import_student.html">导入学员</a></li>
+                    </ul>
+                </li>
+                <!-- 下接菜单: 知识库 -->
+<!--                <li class="dropdown">-->
+<!--                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">知识库<strong class="caret"></strong></a>-->
+<!--                    <ul class="dropdown-menu" role="menu">-->
+<!--                        <li><a href="../knowledge/knowledge_center.html">知识中心</a></li>-->
+<!--                        &lt;!&ndash;<li><a href="#">查看课程</a></li>&ndash;&gt;-->
+<!--                        &lt;!&ndash;<li class="divider"></li>&ndash;&gt;-->
+<!--                        &lt;!&ndash;<li><a href="#">知识中心</a></li>&ndash;&gt;-->
+<!--                    </ul>-->
+<!--                </li>-->
+                <!-- 下接菜单: 实训大纲 -->
+<!--                <li class="dropdown">-->
+<!--                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">实训大纲<strong class="caret"></strong></a>-->
+<!--                    <ul class="dropdown-menu" role="menu">-->
+<!--                        <li><a href="#">课程体系</a></li>-->
+<!--                        <li><a href="#">排课计划</a></li>-->
+<!--                    </ul>-->
+<!--                </li>-->
+                <!-- 下接菜单: 项目案例 -->
+<!--                <li class="dropdown">-->
+<!--                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">项目案例<strong class="caret"></strong></a>-->
+<!--                    <ul class="dropdown-menu" role="menu">-->
+<!--                        <li><a href="../projectcase/list_project.html">-->
+<!--                            <span class="glyphicon glyphicon-list"></span>&nbsp;项目列表</a></li>-->
+<!--                        <li><a href="../projectcase/assign_project_1.html"><span-->
+<!--                                class="glyphicon glyphicon-tasks"></span>&nbsp;分配项目</a></li>-->
+<!--                        <li class="divider"></li>-->
+<!--                        <li><a href="../projectcase/doing_project.html#doing_project"><span-->
+<!--                                class="glyphicon glyphicon-play"></span>&nbsp;进行中的项目</a></li>-->
+<!--                        <li><a href="../projectcase/doing_project.html#finished_project"><span-->
+<!--                                class="glyphicon glyphicon-stop"></span>&nbsp;已结项项目</a></li>-->
+<!--                    </ul>-->
+<!--                </li>-->
+                <!-- 下接菜单: 实训过程 -->
+<!--                <li class="dropdown">-->
+<!--                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">实训过程<strong class="caret"></strong></a>-->
+<!--                    <ul class="dropdown-menu" role="menu">-->
+<!--                        <li><a href="../training/ask_for_leave.html">学员请假</a></li>-->
+<!--                        <li><a href="../training/undisciplined.html">学员违纪</a></li>-->
+<!--                        <li><a href="../training/migrate_class.html">学员转班</a></li>-->
+<!--                        <li><a href="../training/drop_out.html">学员退学</a></li>-->
+<!--                        <li class="divider"></li>-->
+<!--                        <li><a href="../training/talk_to_student.html">学员访谈</a></li>-->
+<!--                        <li><a href="../training/comment_student.html">学员评价</a></li>-->
+<!--                        <li><a href="../training/make_up_lesson.html">学员补课</a></li>-->
+<!--                        <li class="divider"></li>-->
+<!--                        <li><a href="../training/simulate_interview.html">模拟面试</a></li>-->
+<!--                        <li><a href="../training/start_career.html">学员就业</a></li>-->
+<!--                    </ul>-->
+<!--                </li>-->
+                <!-- 下接菜单: 考试 -->
+<!--                <li class="dropdown">-->
+<!--                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">考试<strong class="caret"></strong></a>-->
+<!--                    <ul class="dropdown-menu" role="menu">-->
+<!--                        <li><a href="#">考试安排</a></li>-->
+<!--                        <li><a href="#">考试记录</a></li>-->
+<!--                        <li class="divider"></li>-->
+<!--                        <li><a href="#">试卷列表</a></li>-->
+<!--                        <li><a href="#">导入题库</a></li>-->
+<!--                    </ul>-->
+<!--                </li>-->
+                <!-- 下接菜单: 就业 -->
+<!--                <li class="dropdown">-->
+<!--                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">就业<strong class="caret"></strong></a>-->
+<!--                    <ul class="dropdown-menu" role="menu">-->
+<!--                        <li><a href="#">合作企业</a></li>-->
+<!--                        <li><a href="#">订单培训</a></li>-->
+<!--                        <li class="divider"></li>-->
+<!--                        <li><a href="#">就业数据</a></li>-->
+<!--                    </ul>-->
+<!--                </li>-->
+                <!-- 下接菜单: 员工 -->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">员工<strong class="caret"></strong></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="../employee/list_employee.html">员工列表</a></li>
+                        <li><a href="../employee/add_employee.html">新增员工</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">通信录</a></li>
+                    </ul>
+                </li>
+                <!-- 下接菜单: 报表 -->
+<!--                <li class="dropdown">-->
+<!--                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">报表<strong class="caret"></strong></a>-->
+<!--                    <ul class="dropdown-menu" role="menu">-->
+<!--                        <li><a href="#">学员统计</a></li>-->
+<!--                        <li><a href="#">实训过程分析</a></li>-->
+<!--                        <li class="divider"></li>-->
+<!--                        <li><a href="#">实训报告</a></li>-->
+<!--                        <li><a href="#">数据分析</a></li>-->
+<!--                        <li class="divider"></li>-->
+<!--                        <li><a class="#">学员渠道分析</a></li>-->
+<!--                        <li><a class="#">学历分析</a></li>-->
+<!--                        <li><a class="#">就业分析</a></li>-->
+<!--                    </ul>-->
+<!--                </li>-->
+                <!-- 下接菜单: 系统 -->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">系统<strong class="caret"></strong></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="../system/resources.html">资源管理</a></li>
+                        <li><a href="../system/role_privs.html">角色权限设置</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">
+                            <span class="glyphicon glyphicon-cog"></span>
+                            &nbsp;全局设置
+                        </a></li>
+                    </ul>
+                </li>
+                <!-- 下接菜单: 日志 -->
+<!--                <li class="dropdown">-->
+<!--                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">日志<strong class="caret"></strong></a>-->
+<!--                    <ul class="dropdown-menu" role="menu">-->
+<!--                        <li><a href="#">-->
+<!--                            <span class="glyphicon glyphicon-search"></span>-->
+<!--                            &nbsp;日志中心-->
+<!--                        </a></li>-->
+<!--                    </ul>-->
+<!--                </li>-->
+            </ul>
+
+            <!-- 用户头像区 -->
+            <div class="navbar-brand navbar-right" style="padding: 1px 15px;">
+                <!-- 头像统一大小为 48*48 px, 单击头像时，进入头像修改页面 -->
+                <!-- 如果有头像，以按规定尺寸显示用户的头像，如下 -->
+                <a href="../my/personal_photo.html"><img src="../../static/images/u44.png"
+                                                         style="width: 48px;height: 48px;"
+                                                         class="img-circle"></a>
+                <!-- 头像:如果用户没有上传头像，则显示默认的头像，如下-->
+                <!-- <a href="#"><img src="../images/default-user.jpg" style="width: 48px;height: 48px;" class="img-thumbnail"></a> -->
+            </div>
+
+            <!-- 登录用户操作区 -->
+            <ul class="nav navbar-text navbar-right">
+                <li>
+                    <!-- 显示登录用户的 真实姓名,并且加上 超链接，可以进入到此用户的详细信息页面，在那个页面，可以修改个人资源和密码 -->
+                    <a href="../my/personal_info.html" style="display: inline;padding: 10px 5px;"><span
+                            class="text-info">叶加飞</span></a>|
+                    <!-- 徽章 上的数字，是指未读消息的数量 -->
+                    <a href="../message/msg_center.html" style="display: inline;padding: 10px 5px;">消息<span
+                            id="unread_msg" class="badge" style="background-color: darkorange">10</span></a>|
+                    <!-- 安全退出平台 -->
+                    <a href="#" style="display: inline;padding: 10px 5px;">退出</a>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</nav>
+</body>
+</html>

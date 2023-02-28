@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 指定页面显示的图标 -->
+    <link rel="icon" href="../icon/tpcs.ico">
+    <title>更新员工</title>
+
+    <!-- Bootstrap -->
+    <link href="../../static/css/bootstrap.min.css?v=3.3.6" th:href="@{/static/css/bootstrap.min.css}"
+          rel="stylesheet">
+    <!-- BootStrap Theme css -->
+    <link href="../../static/css/bootstrap-theme.min.css" th:href="@{/static/css/bootstrap-theme.min.css}"
+          rel="stylesheet">
+
+    <!-- 此案例的自定义样式 -->
+    <link href="../../static/css-prj/main.css" th:href="@{/static/js/jquery.min.js}" rel="stylesheet">
+    <!-- 导入外部的js文件 -->
+    <script type="text/javascript" src="../../static/js-prj/main.js" th:src="@{/static/js-prj/main.js}"></script>
+
+    <!-- 导入相关的js -->
+    <script src="../../static/js/jquery.min.js" th:href="@{/static/js/jquery.min.js}"></script>
+    <script src="../../static/js/bootstrap.min.js" th:href="@{/static/js/bootstrap.min.js}"></script>
+    <!-- 导入jstree相关的文件 -->
+    <link href="../../static/css/plugins/jsTree/style.min.css" th:href="@{/static/css/plugins/jsTree/style.min.css}"
+          rel="stylesheet">
+    <script src="../../static/js/plugins/jsTree/jstree.min.js"
+            th:src="@{/static/js/plugins/jsTree/jstree.min.js}"></script>
+    <!--    <link href="../node_modules/jstree/dist/themes/default/style.min.css" rel="stylesheet">-->
+    <script type="text/javascript">
+        function updateEmployee() {
+            $.ajax({
+                type: "POST",
+                url: "",
+                data: "",
+                success: function (resp) {
+                    console.log(resp.data);
+
+                },
+                error: function (xhr, status, error) {
+
+                }
+            })
+        }
+
+        $(function () {
+            //初始化第一颗树
+            $.post("../json/department.json", function (resp) {
+                console.log(resp.data);
+                $("#myTree").jstree(
+                    {
+                        'core': {
+                            'data': resp.data
+                            //     [
+                            //     {
+                            //         "id": 1, "text": "天智教育", "state": {"opened": true}, "children": [
+                            //             {"id": 11, "text": "教学部"},
+                            //             {"id": 12, "text": "市场招生部"},
+                            //             {"id": 13, "text": "渠道招生部"},
+                            //             {"id": 14, "text": "人力资源部"},
+                            //             {"id": 15, "text": "财务部"},
+                            //             {"id": 16, "text": "就业部"},
+                            //             {"id": 17, "text": "总经办"}]
+                            //     }
+                            // ]
+                        }
+                    }
+                );
+            })
+
+            //添加事件
+            $("#myTree").on("changed.jstree", function (e, data) {
+                alert("你选择了：" + data.instance.get_selected(true)[0].text);
+            });
+
+            //回显数据
+            let search = window.location.search;
+            let params = new URLSearchParams(search);
+            let id = params.get("id")
+            console.log(id);
+            $.ajax({
+                type: 'POST',
+                url: '',
+                data: id,
+                success: function (resp) {
+                    let employeeData = {
+                        "status": 1,
+                        "id": "03",
+                        "realname": "张三",
+                        "gender": "男",
+                        "job": "java讲师",
+                        "mobilePhone": "18913200517",
+                        "birthDate": "1996-12-31",
+                        "email": "zhangsan@163.com"
+                    };
+                    console.log(employeeData)
+                    $("input[name = 'realname']").val(employeeData.realname);
+                    if (employeeData.gender === "男") {
+                        $('input[name="gender"][value="男"]').prop('checked', true);
+                    } else if (employeeData.gender === "女") {
+                        $('input[name="gender"][value="女"]').prop('checked', true);
+                    }
+                    $("input[name = 'job']").val(employeeData.job);
+                    $("input[name = 'mobilePhone']").val(employeeData.mobilePhone);
+                    $("input[name = 'birthDate']").val(employeeData.birthDate);
+                    $("input[name = 'email']").val(employeeData.email);
+                    $("input[name = 'remark']").val(employeeData.remark);
+                }
+            })
+        });
+    </script>
+</head>
+<body style="background-color: #efefef">
+<!-- 导航栏区 -->
+<div class="header-page"></div>
+
+<div class="container">
+    <!-- 由于导航用了navbar-fixed-top,所以，先与上面定义一个间隔  -->
+    <div class="gap"></div>
+
+    <!-- 菜单提示栏:面包屑组件 -->
+    <ol class="breadcrumb">
+        <li>首页</li>
+        <li>员工</li>
+        <li>更新员工</li>
+    </ol>
+
+</div>
+
+<!-- 其它内容 -->
+<div class="container">
+    <div class="row" style="padding-left: 50px;">
+        <div class="col-md-3" style="background-color: #f4f7fa;max-width: 220px;min-height: 950px">
+            <div class="row">
+                <div class="col-md-offset-3 col-md-6">
+                    <h5>
+                        <span class="glyphicon glyphicon-home"></span>
+                        <strong>组织架构</strong>
+                    </h5>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 5px;border-top: 2px solid #cccccc;padding-top: 5px;">
+                <div class="col-md-1">
+                    <!-- 通过AJAX动态加载出来 -->
+                    <div id="myTree"></div>
+                </div>
+            </div>
+        </div> <!-- end of 左边列 -->
+
+        <div class="col-md-9" style="background-color: #ffffff;min-height: 950px;">
+            <div class="row">
+                <div class="col-md-3" style="padding:25px 0 15px 15px;">
+                    <button class="btn-sm btn-default" onclick="window.history.go(-1);">
+                        <span class="glyphicon glyphicon-arrow-left"></span>
+                        返回
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- 提示栏  -->
+            <div class="row"
+                 style="background-color: #efefef;border-top: 1px solid #cccccc;border-bottom: 1px solid #cccccc;margin: 0 2px;">
+                <div class="col-md-11">
+                    <label style="font-size: large;">编辑成员</label>
+                </div>
+            </div>
+
+            <!-- 添加员工的表单区 -->
+            <div class="row" style="margin: 10px -7px;">
+                <div class="col-md-12" style="margin-top: 10px;">
+                    <strong>员工基本信息</strong>
+                    <hr style="margin-top: 2px;background-color:#269abc;height: 3px;"/>
+                    <form class="form-horizontal" role="form" action="#">
+                        <div class="form-group">
+                            <label for="realname" class="col-md-2 control-label"><span class="text-muted"
+                                                                                       style="font-weight: normal">姓名</span><span
+                                    style="color: red">*</span></label>
+                            <div class="col-md-4">
+                                <input type="text" id="realname" name="realname" class="form-control" value="胡荆陵"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label"><span class="text-muted" style="font-weight: normal">性别</span><span
+                                    style="color: red">*</span></label>
+                            <div class="col-md-4">
+                                <label class="radio-inline">
+                                    <input type="radio" name="gender" value="男" checked/>男
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="gender" value="女"/>女
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="job" class="col-md-2 control-label"><span class="text-muted"
+                                                                                  style="font-weight: normal">岗位</span><span
+                                    style="color: red">*</span></label>
+                            <div class="col-md-4">
+                                <input type="text" id="job" name="job" class="form-control" value="JAVA讲师"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="mobilePhone" class="col-md-2 control-label"><span class="text-muted"
+                                                                                          style="font-weight: normal">移动电话</span><span
+                                    style="color: red">*</span></label>
+                            <div class="col-md-4">
+                                <input type="text" id="mobilePhone" name="mobilePhone" class="form-control"
+                                       value="18908796709"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">
+                                <a href="javascript:void(0);"
+                                   onclick="showMoreEmpInfo();"><small>更多信息&gt;&gt;</small></a>
+                            </label>
+                        </div>
+                        <!-- 显示更多的信息 -->
+                        <div id="moreEmpInfo" style="display: none;">
+                            <div class="form-group">
+                                <label for="birthDate" class="col-md-2 control-label"><span class="text-muted"
+                                                                                            style="font-weight: normal">生日</span></label>
+                                <div class="col-md-4">
+                                    <input type="date" id="birthDate" name="birthDate" class="form-control"
+                                           value="1982-12-24"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="email" class="col-md-2 control-label"><span class="text-muted"
+                                                                                        style="font-weight: normal">邮箱地址</span></label>
+                                <div class="col-md-4">
+                                    <input type="text" id="email" name="email" class="form-control"
+                                           value="hujl@sz-tz.org"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="remark" class="col-md-2 control-label"><span class="text-muted"
+                                                                                         style="font-weight: normal">备注</span></label>
+                                <div class="col-md-10">
+                                    <input type="text" id="remark" name="remark" class="form-control" value="2012年入职的"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 登录的帐号信息 -->
+                        <strong>帐号信息</strong>
+                        <hr style="margin-top: 2px;background-color:#269abc;height: 3px;"/>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label"><span class="text-muted" style="font-weight: normal">员工号</span><span
+                                    style="color: red">*</span></label>
+                            <div class="col-md-1 control-label">
+                                <label class="label label-default">1091</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label"><span class="text-muted" style="font-weight: normal">修改密码</span></label>
+                            <div class="col-md-1 control-label">
+                                <a href="javascript:void(0);" onclick="showPasswordInput();"><label
+                                        class="label label-danger" style="cursor: pointer">修改</label> </a>
+                            </div>
+                        </div>
+                        <div id="passwordInput" style="display: none;">
+                            <div class="form-group">
+                                <label for="password" class="col-md-2 control-label"><span class="text-muted"
+                                                                                           style="font-weight: normal">密码</span><span
+                                        style="color: red">*</span></label>
+                                <div class="col-md-4">
+                                    <input type="password" id="password" class="form-control"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="password2" class="col-md-2 control-label"><span class="text-muted"
+                                                                                            style="font-weight: normal">确认密码</span><span
+                                        style="color: red">*</span></label>
+                                <div class="col-md-4">
+                                    <input type="password" id="password2" class="form-control"/>
+                                </div>
+                            </div>
+                            <div class="col-md-offset-2">
+                                <div class="checkbox-inline">
+                                    <label class="text-muted"><input type="checkbox">用户重新登录时修改密码</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="margin-top: 15px;">
+                            <label for="deptName" class="col-md-2 control-label"><span class="text-muted"
+                                                                                       style="font-weight: normal">所属部门</span><span
+                                    style="color: red">*</span></label>
+                            <div class="col-md-4">
+                                <!-- 此下拉框当前选中的应该是你添加员工时所选的部门，其它的项是所有其它的部门 -->
+                                <select id="deptName" class="form-control">
+                                    <option value="1">天智教育</option>
+                                    <option value="2" selected>教学部</option>
+                                    <option value="3">市场部</option>
+                                    <option value="4">财务部</option>
+                                    <option value="5">渠道部</option>
+                                    <option value="6">人力资源部</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <hr/>
+
+                        <div class="col-md-offset-2">
+                            <button type="submit" class="btn btn-info" onclick="updateEmployee()">确定</button>&nbsp;
+                            <button type="reset" class="btn btn-default">取消</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div><!-- end 添加员工表单区-->
+        </div><!-- end of 右边列 -->
+    </div><!-- end row -->
+</div><!-- end container -->
+
+<!-- 页脚区 -->
+<div class="footer">
+    <div class="container">
+        <p>
+            <a href="#">公司主页</a>&nbsp;&nbsp;
+            <a href="#">联系我们</a>&nbsp;&nbsp;
+            <a href="#">友情链接</a>
+        </p>
+        <p class="text-muted">
+            <span>技术支持：TPCS技术团队&nbsp;&nbsp;</span>
+            <span><a href="mailto:yejf@lemait.com">联系人：yejf@lemait.com</a>&nbsp;&nbsp;</span>
+            <span>联系电话：0512-68289707&nbsp;&nbsp;</span>
+        </p>
+        <p class="text-muted">
+            &copy;&nbsp;2020-2023 实训综合管理平台 All Rights Reserved 版权所有 苏ICP备xxxxx号
+        </p>
+    </div>
+</div>
+
+<script src="../../static/js/header.js"></script>
+</body>
+</html>

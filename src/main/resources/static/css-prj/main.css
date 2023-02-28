@@ -1,0 +1,545 @@
+/******
+ * 本项目案例的主要样式文件
+ * author: yejf
+ * date: 2015/1/17
+ */
+
+.footer {
+    background-color: #f5f5f5;
+    margin-top: 70px;
+    padding: 30px 0;
+    text-align: center;
+    border-top: 1px solid #e5e5e5;
+}
+
+.gap{
+    margin-top: 70px;
+}
+
+#editor {
+    max-height: 250px;
+    height: 250px;
+    background-color: white;
+    border-collapse: separate;
+    border: 1px solid rgb(204, 204, 204);
+    padding: 4px;
+    box-sizing: content-box;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.0745098) 0px 1px 1px 0px inset;
+    box-shadow: rgba(0, 0, 0, 0.0745098) 0px 1px 1px 0px inset;
+    border-top-right-radius: 3px; border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px; border-top-left-radius: 3px;
+    overflow: scroll;
+    outline: none;
+}
+#voiceBtn {
+    width: 20px;
+    color: transparent;
+    background-color: transparent;
+    transform: scale(2.0, 2.0);
+    -webkit-transform: scale(2.0, 2.0);
+    -moz-transform: scale(2.0, 2.0);
+    border: transparent;
+    cursor: pointer;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+}
+
+div[data-role="editor-toolbar"] {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.dropdown-menu a {
+    cursor: pointer;
+}
+
+/* employee/list_employee.html
+   add by yejf
+ */
+
+.content-body{
+    overflow: hidden;
+    background-color: #f5f5f5;
+}
+.content-body .left-side{
+    width: 219px;
+    min-height: 550px;
+    border-right: 1px solid #d2d2d2;
+    overflow:hidden;
+    background-color: #f4f7fa;
+}
+.center{
+    width: 100%;
+    height: 42px;
+    line-height: 42px;
+    font-size: larger;
+    text-align: center;
+    color: #0a6aa1;
+    border-bottom: 2px solid #e8e8e8;
+    margin-bottom: 10px;
+}
+.left{
+    float: left;
+}
+
+.content-body .right-side{
+    margin-left: 220px;
+    min-height: 550px;
+    padding: 15px 10px 0px 10px;
+    background-color: #ffffff;
+}
+
+#dept-show{
+    font-size: 16pt;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    padding-left: 15px;
+}
+.dept-action{
+    margin-top: 10px;
+    margin-left: 15px;
+    font-size: 12px;
+}
+
+/* 为实训过程页面所加的样式 */
+.select{
+    background-color:#ffff00;
+}
+
+/* 为项目分配时过滤项目输入框时添加的样式 */
+.filter_box{
+    background-image: url("../images/filter_filled.png");
+    background-repeat: no-repeat;
+    padding-left: 30px;
+}
+
+.wait-select-item{
+    width: 150px;
+    min-height: 180px;
+    max-height: 450px;
+}
+/* 添加多选项的底边框 */
+.wait-select-item option, .wait-project-item option {
+    border-bottom: 1px dashed #CCCCCC;
+    margin-bottom: 3px;
+    text-align: center;
+    padding: 0.54em 0px;
+}
+/* 去掉最后一个元素的底边框 */
+.wait-select-item option:last-child, .wait-project-item option:last-child {
+    border-bottom: none;
+}
+
+.operator-btn{
+    margin-top: 30px;
+}
+
+.mgr-left-15{
+    margin-left: 15px;
+}
+.match-select-item{
+    /*width: 375px;*/
+    width: 100%;
+    min-height: 180px;
+    max-height: 450px;
+    overflow: scroll;
+    border: 1px solid gray;
+    /*margin-left: -30px;*/
+}
+.match-select-item tr td{
+    padding: 2px 5px;
+}
+
+.wait-project-item{
+    margin-left: 1px;
+    min-height: 180px;
+    max-height: 450px;
+}
+
+/* 分配项目列表步骤2中的样式 */
+.task_box{
+    min-height: 400px;
+    /*overflow-y: scroll;*/
+}
+#draggable_task{
+    list-style: none;
+    margin: 0;
+    padding: 0 0 0 20px;
+}
+#draggable_task li{
+    margin: 3px;
+    padding: 3px;
+    font-size: 0.85em;
+}
+/* 指定项目负责人的输入框样式 */
+.assign_charge_person_box{
+    background-image: url("../images/user.gif");
+    background-repeat: no-repeat;
+    padding-left: 30px;
+    background-position: center;
+    background-position: left;
+}
+/* 给弹出的选择项目负责人添加样式 */
+#select_charge_person_div{
+    width: 200px;
+    height: 330px;
+    border: 1px solid gray;
+    display: none;
+    /* 定位 */
+    position: absolute;
+    left: 15px;
+    top: 30px;
+    z-index: 999;
+    background-color: #c9c9c9;
+}
+#select_charge_person_div h5{
+    padding: 0 0 10px 5px;
+    font-size: 0.8em;
+    border-bottom: 1px solid #dddddd;
+}
+#select_charge_person_div input{
+    width: 95%;
+    margin: 0 5px;
+}
+#dynamic_show{
+    margin: 10px 0;
+    border-top: 1px solid #ddd;
+}
+#dynamic_show ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+#dynamic_show ul li{
+    margin: 3px 1.5em;
+    /* 实现时以员工的头像做为显示 */
+    background-image: url("../images/boy.gif");
+    background-repeat: no-repeat;
+    padding-left: 30px;
+}
+#showChargePerson{
+    min-width: 180px;
+}
+#showChargePerson option{
+    padding: 5px;
+    margin: 5px;
+}
+
+/* 项目列表样式  */
+.project_list{
+    width: 85%;
+    height: 200px;
+    border: 1px solid gray;
+    padding: 10px;
+    text-align: center;
+    margin: 30px 10px;
+    /* CSS3 */
+    border-radius: 10px;
+    box-shadow: 10px 10px 3px #c9c9c9;
+    transition: transform 500ms;
+    /* 兼容 */
+    -moz-border-radius: 10px;
+    -moz-box-shadow: 10px 10px 3px #c9c9c9;
+    /* 定位 */
+    position: relative;
+}
+/* 变化 */
+.project_list:hover{
+    transform: scale(1.1,1.1);
+    background-color: #fff3ee;
+    /* 兼容 */
+    -ms-transform: scale(1.1,1.1);		/* IE 9 */
+    -webkit-transform: scale(1.1,1.1);	/* Safari and Chrome */
+    -o-transform: scale(1.1,1.1);		/* Opera */
+    -moz-transform: scale(1.1,1.1);
+}
+.project_list h4{
+    font-size: 1.3em;
+    margin-top: 1.5em;
+    padding: 5px 20px;
+}
+.project_list p{
+    font-size: 1.1em;
+    margin: 0.2em 0.1em;
+}
+/* 模拟钉子 */
+.project_list .left_nail,.project_list .right_nail{
+    width: 20px;
+    height: 20px;
+    background-color: darkolivegreen;
+    border-radius: 10px;
+    box-shadow: 5px 5px 3px gray;
+    /* 定位 */
+    position: absolute;
+    top: 10px;
+}
+.project_list .left_nail{
+    left: 20px;
+}
+.project_list .right_nail{
+    right: 20px;
+}
+
+.no_underline:hover{
+    text-decoration: none;
+}
+
+.mgr-right-10{
+    margin-right: 10px;
+}
+
+/* 进行中项目详情列表 */
+.area_box_div{
+    width: 95%;
+    border: 1px solid gray;
+    margin: 20px;
+    padding-left: 30px;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    /*定位*/
+    position: relative;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+}
+.area_box_div .top_txt{
+    background-color: white;
+    margin: 2px 5px;
+    padding: 2px 8px;
+    position: absolute;
+    top: -1.0em;
+    left: 1.5em;
+    font-size: 18px;
+    font-weight: bolder;
+}
+.project_case_table{
+    width: 35%;
+    margin-top: 10px;
+}
+.project_case_table th{
+    text-align: right;
+}
+.project_case_table td{
+    padding: 10px 5px;
+}
+.finished_task{
+    color:gray;
+}
+.current_task{
+    color:red;
+    font-weight: bolder;
+}
+/* 给当前的任务后面添加提示文字 */
+.current_task:after{
+    border-radius: 15px 2px 2px 5px;
+    content: " - Today";
+    padding: 2px 5px;
+    background-color: #777620;
+    margin-top: 2px;
+    display: inline-block;
+}
+
+.todo_task{
+    color:green;
+}
+.finished_task td,.current_task td, .todo_task td {
+    padding: 0.4em 0.5em;
+}
+/* 右上角的切换视图按钮 */
+.right_top_toggle_btn_1,.right_top_toggle_btn_2{
+    position: absolute;
+    top: 15px;
+    right: 30px;
+}
+
+/* 大纲视图 */
+
+/* 项目案例报告样式 */
+/* 项目图片区 */
+.img_area{
+    width: 22%; /* 可以微调，不要超过24%，可以在20%至24%之间 */
+    height: 180px; /* 也可以微调,在170~220之间 */
+    float: left;
+    margin: 0 20px 20px 0;
+}
+/* 项目描述文字区 */
+p.project_text{
+    float: left;
+    width: 70%;
+}
+/* 动态完成曲线图 */
+#dynamic_curved_line,#dynamic_histogram{
+    width: 98%;
+    border: 1px solid gray;
+
+    /* 注：以下样式都可以去掉，只是在原型界面时用来占位的 */
+    //min-height: 1000px;
+}
+#dynamic_histogram{
+    margin-bottom: 20px;
+    /* 如有需要，可以添加自定义样式 */
+
+}
+
+/* 已结项项目-学员项目总结列表 */
+.student_table{
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+/* 排序行头 */
+.student_table tr:not(:first-child){
+    /* 存放的图片的高度最高不要超过这个90% */
+    height: 110px;
+}
+.student_table tr img{
+    width: 110px;
+    height: 90px;
+}
+
+.chartContainer{
+    padding:5px;
+}
+
+.chartContainer div{
+    width: 100%;
+    height: 100%;
+}
+
+.fishbone{
+    /*暂定*/
+    min-width: 800px;
+    min-height: 400px;
+}
+
+.fishbone-popup{
+    /*暂定*/
+    background-color: yellow;
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    z-index:200;
+    display: none;
+}
+
+.order-icon {
+    background: rgba(0, 0, 0, 0) url("../images/list-view_4e60b0c.png") no-repeat scroll -50px -45px;
+    display: none;
+    height: 10px;
+    margin-left: 4px;
+    vertical-align: middle;
+    width: 9px;
+}
+
+.order-icon.ascend {
+    background-position: -60px -45px;
+    display: inline-block;
+}
+
+.order-icon.descend {
+    background-position: -50px -45px;
+    display: inline-block;
+}
+
+.spacer30 {
+    height: 30px;
+    width: 100%;
+    font-size: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    display: block;
+}
+
+/* 已审核的学员 */
+.student_summary_box{
+    width: 33%;
+    border: 1px dashed green;
+    border-radius: 5px;
+    background-color: bisque;
+    font-size: 0.8em;
+    float: left;
+    padding: 5px;
+    /*max-height: 100px;*/
+    /*overflow-y: scroll;*/
+}
+.student_summary_box_no_width{
+    border: 1px dashed green;
+    border-radius: 5px;
+    background-color: bisque;
+    font-size: 0.8em;
+    float: left;
+    padding: 5px;
+}
+
+.teacher_summary_box{
+    width: 100%;
+    border: 1px dotted #985f0d;
+    border-radius: 5px;
+    background-color: #269abc;
+    font-size: 0.8em;
+    padding: 5px;
+}
+
+/* 个人头像相关的样式, add by yejf 2016-3-1 */
+.personal_photo{
+    padding: 5px;
+    width: 170px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.personal_photo #myphoto{
+    width:160px;
+    height: 160px;
+    border: 0px;
+}
+
+/* 员工端 首页 相关样式 */
+.span4{
+    width: 30%;
+    min-height: 300px;
+    /*max-height: 300px;*/
+    float: left;
+    padding: 5px 20px;
+    border: 1px solid #CCCCCC;
+    /* */
+    border-radius: 5px;
+    margin-bottom: 25px;
+    box-shadow: 5px 5px gray;
+}
+.mgr-top-25{
+    margin-top: 25px;
+}
+.mgr-right-25{
+    margin-right: 25px;
+}
+
+.span4 h4{
+    margin: 0 0 10px 0;
+    text-align: center;
+    border-bottom: 1px solid #c0a16b;
+    padding: 5px;
+    font-weight: bolder;
+    position: relative;
+}
+
+.span4 h4 .h4_tip_txt{
+    font-size: 0.6em;
+    position: absolute;
+    font-weight: normal;
+    right: 0;
+    bottom: 5px;
+    color: gray;
+}
+/* add by yejf on 2016-04-28*/
+.student_seat_div{
+    width: 90px;
+    height: 90px;
+    padding: 5px;
+    margin: 10px 20px;
+    border: 2px solid transparent;
+    float: left;
+    text-align: center;
+    border-radius: 50%;
+    background-color: #c0a16b;
+}

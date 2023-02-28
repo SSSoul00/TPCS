@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 指定页面显示的图标 -->
+    <link rel="icon" href="../icon/tpcs.ico">
+    <title>更新学员</title>
+
+    <!-- Bootstrap -->
+    <link href="../../static/css/bootstrap.min.css?v=3.3.6" th:href="@{/static/css/bootstrap.min.css}"
+          rel="stylesheet">
+    <!-- BootStrap Theme css -->
+    <link href="../../static/css/bootstrap-theme.min.css" th:href="@{/static/css/bootstrap-theme.min.css}"
+          rel="stylesheet">
+
+    <!-- 导入相关的js -->
+    <script src="../../static/js/jquery.min.js" th:href="@{/static/js/jquery.min.js}"></script>
+    <script src="../../static/js/bootstrap.min.js" th:href="@{/static/js/bootstrap.min.js}"></script>
+
+    <!-- 此案例的自定义样式 -->
+    <link href="../../static/css-prj/main.css" th:href="@{/static/js/jquery.min.js}" rel="stylesheet">
+    <!-- 导入外部的js文件 -->
+    <script type="text/javascript" src="../../static/js-prj/main.js" th:src="@{/static/js-prj/main.js}"></script>
+</head>
+<body>
+<!-- 导航栏区 -->
+<div class="header-page"></div>
+
+<div class="container">
+    <!-- 由于导航用了navbar-fixed-top,所以，先与上面定义一个间隔  -->
+    <div class="gap"></div>
+
+    <!-- 操作提示栏：采用面包屑组件 -->
+    <ol class="breadcrumb">
+        <li>首页</li>
+        <li>学员</li>
+        <li>更新学员</li>
+    </ol>
+</div>
+
+<!-- 内容区 -->
+<div class="container">
+    <strong>
+        学员核心信息
+        <button class="btn btn-default pull-right" onclick="javascript:history.go(-1)">返回</button>
+    </strong>
+    <hr style="margin-top: 2px;background-color: #204d74;height: 3px;"/>
+    <form class="form-horizontal" role="form" action="#" id="update_form">
+        <div class="form-group">
+            <label for="classname" class="col-md-offset-1 col-md-1 control-label">班级名<span
+                    style="color: red">*</span></label>
+            <div class="col-md-2">
+                <input name="classname" type="text" id="classname" class="form-control" value="JSD1411"/>
+            </div>
+            <label for="stuName" class="col-md-1 control-label">学员名<span style="color: red">*</span></label>
+            <div class="col-md-2">
+                <input name="stuName" type="text" id="stuName" class="form-control" value="张三丰"/>
+            </div>
+            <label for="birth" class="col-md-1 control-label">生日</label>
+            <div class="col-md-2">
+                <input name="birth" type="date" id="birth" class="form-control" value="1992-01-01"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="phone" class="col-md-offset-1 col-md-1 control-label">手机号<span
+                    style="color: red">*</span></label>
+            <div class="col-md-2">
+                <input name="phone" type="text" id="phone" class="form-control" value="19876542301"/>
+            </div>
+
+            <label for="email" class="col-md-1 control-label">邮箱</label>
+            <div class="col-md-2">
+                <input name="email" type="email" id="email" class="form-control" value="zhangsf@163.com"/>
+            </div>
+
+            <label class="col-md-1 control-label">性别</label>
+            <div class="col-md-2">
+                <label class="radio-inline">
+                    <input type="radio" name="gender" value="MALE" checked/>男
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="gender" value="FEMALE"/>女
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="school" class="col-md-offset-1 col-md-1 control-label">院校<span
+                    style="color: red">*</span></label>
+            <div class="col-md-2">
+                <input name="school" type="text" id="school" class="form-control" value="苏州大学"/>
+            </div>
+            <label for="major" class="col-md-1 control-label">专业<span style="color: red">*</span></label>
+            <div class="col-md-2">
+                <input name="major" type="text" id="major" class="form-control" value="计算机科学与技术"/>
+            </div>
+            <label for="degree" class="col-md-1 control-label">学历<span style="color: red">*</span></label>
+            <div class="col-md-2">
+                <select class="form-control" id="degree" name="degree">
+                    <option value="-1">-请选择-</option>
+                    <option value="UNDERGRADUATE" SELECTED>本科</option>
+                    <option value="MASTER">硕士</option>
+                    <option value="JUNIOR">专科</option>
+                    <option value="DOCTOR">博士</option>
+                    <option value="HIGH">高中</option>
+                    <option value="OTHER">其它</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="loadStatus" class="col-md-offset-1 col-md-1 control-label">贷款状态<span style="color: red">*</span></label>
+            <div class="col-md-2">
+                <select class="form-control" id="loadStatus" name="loadStatus">
+                    <option value="-1">-请选择-</option>
+                    <option value="已放款" SELECTED>已放款</option>
+                    <option value="未信款">未信款</option>
+                    <option value="信用卡">信用卡</option>
+                    <option value="现金">现金</option>
+                </select>
+            </div>
+            <label for="loanDate" class="col-md-1 control-label">签约日期<span style="color: red">*</span></label>
+            <div class="col-md-2">
+                <input type="date" id="loanDate" name="loanDate" class="form-control" value="2014-11-18"/>
+            </div>
+
+            <label for="source" class="col-md-1 control-label">渠道来源<span style="color: red">*</span></label>
+            <div class="col-md-2">
+                <select class="form-control" id="source" name="source">
+                    <option value="-1">-请选择-</option>
+                    <option value="COLLEGE">院校</option>
+                    <option value="MARKET" >市场</option>
+                    <option value="FORWARD">转介绍</option>
+                    <option value="NETWORK">网络</option>
+                    <option value="OTHER">其它</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- 由于学员的信息较多，采用折叠式输入框，下面的输入框默认是不显示的，可以点击更多来显示 -->
+        <p style="font-weight: bolder">
+            <a href="javascript:void(0);" onclick="showMore();">更多信息&gt;&gt;</a>
+        </p>
+        <div id="more" style="display: none;">
+            <hr style="margin-top: 2px;background-color: #204d74;height: 3px;"/>
+            <div class="form-group">
+                <label for="identityCard" class="col-md-offset-1 col-md-1 control-label">身份证</label>
+                <div class="col-md-3">
+                    <input type="text" id="identityCard" name="identityCard" class="form-control" placeholder="身份证号码"
+                           value=""/>
+                </div>
+                <label for="province" class="col-md-1 control-label">省份</label>
+                <div class="col-md-2">
+                    <!-- 通过AJAX动态加载省市级联菜单 -->
+                    <select id="province" class="form-control" name="province">
+                        <option value="">-请选择-</option>
+                        <option value="江苏省" selected>江苏省</option>
+                        <option value="江西省">江西省</option>
+                    </select>
+                </div>
+                <label for="city" class="col-md-1 control-label">城市</label>
+                <div class="col-md-2">
+                    <select id="city" class="form-control" name="city">
+                        <option value="">-请选择-</option>
+                        <option value="苏州市" selected>苏州市</option>
+                        <option value="南昌市">南昌市</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="workLoc" class="col-md-offset-1 col-md-1 control-label">工作地</label>
+                <div class="col-md-3">
+                    <input type="text" id="workLoc" name="workLoc" class=" form-control" placeholder="期望工作地" value=""/>
+                </div>
+                <label for="currentLoc" class="col-md-1 control-label">所在地</label>
+                <div class="col-md-2">
+                    <input type="text" id="currentLoc" name="currentLoc" class="form-control" placeholder="当前所在地"
+                           value=""/>
+                </div>
+                <label for="workingYears" class="col-md-1 control-label">工作年限</label>
+                <div class="col-md-2">
+                    <input type="number" id="workingYears" name="workingYears" class="form-control" placeholder="1"
+                           value=""/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="graduationDate" class="col-md-offset-1 col-md-1 control-label">毕业时间</label>
+                <div class="col-md-3">
+                    <input type="date" id="graduationDate" name="graduationDate" class="form-control" value=""/>
+                </div>
+
+                <label class="col-md-1 control-label">是否需要毕设</label>
+                <div class="col-md-2">
+                    <label class="radio-inline">
+                        <input type="radio" name="needDesign" value="true" checked/>是
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="needDesign" value="false"/>否
+                    </label>
+                </div>
+
+                <label for="designDate" class="col-md-1 control-label">毕设日期</label>
+                <div class="col-md-2">
+                    <input type="date" id="designDate" name="designDate" class="form-control" value=""/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="emergencyContact" class="col-md-2 control-label">紧急联系人</label>
+                <div class="col-md-3">
+                    <input type="text" id="emergencyContact" name="emergencyContact" class="form-control"
+                           placeholder="紧急联系人" value=""/>
+                </div>
+                <label for="emergencyPhone" class="col-md-1 control-label">紧急联系电话</label>
+                <div class="col-md-2">
+                    <input type="text" id="emergencyPhone" name="emergencyPhone" class="form-control"
+                           placeholder="紧急联系电话" value=""/>
+                </div>
+                <label for="bakPhone" class="col-md-1 control-label">备用号</label>
+                <div class="col-md-2">
+                    <input type="text" id="bakPhone" name="bakPhone" class="form-control" placeholder="备用号码" value=""/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="remark" class="col-md-offset-1 col-md-1 control-label">备注</label>
+                <div class="col-md-6">
+                    <input type="text" id="remark" name="remark" class="form-control" placeholder="学员的备注信息" value=""/>
+                </div>
+
+                <label for="qq" class="col-md-1 control-label">QQ号</label>
+                <div class="col-md-2">
+                    <input type="text" id="qq" name="qq" class="form-control" placeholder="qq号码" value=""/>
+                </div>
+            </div>
+        </div>
+
+        <!-- 由于学员CRM信息，下面的输入框默认是不显示的，可以点击更多来显示 -->
+        <p style="font-weight: bolder;text-align: right">
+            <a href="javascript:void(0);" onclick="showCRMInfo();">&lt;&lt;CRM信息</a>
+        </p>
+        <div id="crmInfo" style="display: none;">
+            <hr style="margin-top: 2px;background-color: orangered;height: 3px;"/>
+            <div class="form-group">
+                <label for="address" class="col-md-2 control-label">联系地址1</label>
+                <div class="col-md-3">
+                    <input type="text" id="address" name="address" class="form-control" placeholder="客户的联系地址1"
+                           value=""/>
+                </div>
+                <label for="owner" class="col-md-1 control-label">服务专员</label>
+                <div class="col-md-2">
+                    <input type="text" id="owner" name="owner" class="form-control" placeholder="服务专员[咨讯师]" value=""/>
+                </div>
+                <label for="status" class="col-md-1 control-label">状态</label>
+                <div class="col-md-2">
+                    <select id="status" class="form-control" name="status">
+                        <option value="">-请选择-</option>
+                        <option value="未签约" selected>未签约</option>
+                        <option value="公海">公海</option>
+                        <option value="已初试">已初试</option>
+                        <option value="已复试">已复试</option>
+                        <option value="服务中签约" selected>服务中签约</option>
+                        <option value="服务中离开">服务中离开</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="address2" class="col-md-2 control-label">联系地址2</label>
+                <div class="col-md-3">
+                    <input type="text" id="address2" name="address2" class="form-control" placeholder="客户的联系地址2"
+                           value=""/>
+                </div>
+                <label for="paid" class="col-md-1 control-label">已交费用</label>
+                <div class="col-md-2">
+                    <input type="number" id="paid" name="paid" class="form-control" placeholder="1500" value=""/>
+                </div>
+
+                <label for="level" class="col-md-1 control-label">成熟度</label>
+                <div class="col-md-2">
+                    <select id="level" class="form-control" name="level">
+                        <option value="">-请选择-</option>
+                        <option value="ONE">★</option>
+                        <option value="TWO">★★</option>
+                        <option value="THREE" selected>★★★</option>
+                        <option value="FOUR">★★★★</option>
+                        <option value="FIVE" selected>★★★★★</option>
+                    </select>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-md-offset-2">
+            <button type="button" class="btn btn-primary" id="update_info">保存</button>&nbsp;
+            <button type="reset" class="btn btn-primary">重填</button>
+        </div>
+    </form>
+</div>
+
+<!-- -------------------------------------------------------- -->
+<!-- 页脚区 -->
+<div class="footer">
+    <div class="container">
+        <p>
+            <a href="#">公司主页</a>&nbsp;&nbsp;
+            <a href="#">联系我们</a>&nbsp;&nbsp;
+            <a href="#">友情链接</a>
+        </p>
+        <p class="text-muted">
+            <span>技术支持：TPCS技术团队&nbsp;&nbsp;</span>
+            <span><a href="mailto:yejf@lemait.com">联系人：yejf@lemait.com</a>&nbsp;&nbsp;</span>
+            <span>联系电话：0512-68289707&nbsp;&nbsp;</span>
+        </p>
+        <p class="text-muted">
+            &copy;&nbsp;2020-2023 实训综合管理平台 All Rights Reserved 版权所有 苏ICP备xxxxx号
+        </p>
+    </div>
+</div>
+<script src="../../static/js/header.js"></script>
+<script>
+    $(function () {
+        //数据回显
+        let search = window.location.search;
+        let params = new URLSearchParams(search);
+        let id = params.get("id")
+        console.log(id);
+        $.post('', id, function (resp) {
+            let studentInfo = {
+                "id": "19",
+                "classname": "JSD1411",
+                "stuName": "张三",
+                "birth": "1988-12-23",
+                "phone": "18913200517",
+                "email": "zhangsf@163.com",
+                "degree": "UNDERGRADUATE",
+                "major": "计算机科学",
+                "loadStatus": "已放款",
+                "loanDate": "2014-12-17",
+                "gender": "FEMALE",
+                "school": "苏州大学",
+                "source": 'NETWORK'
+            };
+            console.log(studentInfo);
+            $("input[name = 'classname']").val(studentInfo.classname)
+            $("input[name = 'stuName']").val(studentInfo.stuName)
+            $("input[name = 'birth']").val(studentInfo.birth)
+            $("input[name = 'phone']").val(studentInfo.phone)
+            $("input[name = 'email']").val(studentInfo.email)
+            if (studentInfo.gender === "MALE") {
+                $('input[name="gender"][value="MALE"]').prop('checked', true);
+            } else if (studentInfo.gender === "FEMALE") {
+                $('input[name="gender"][value="FEMALE"]').prop('checked', true);
+            }
+            $("input[name = 'school']").val(studentInfo.school)
+            $("input[name = 'major']").val(studentInfo.major)
+            $("select[name = 'degree']").val(studentInfo.degree)
+            $("input[name = 'loadStatus']").val(studentInfo.loadStatus)
+            $("input[name = 'loanDate']").val(studentInfo.loanDate)
+            $("select[name = 'source']").val(studentInfo.source)
+        })
+
+
+        //更新ajax
+        $('#update_info').click(function () {
+            var data = $('#update_form').serialize();
+            console.log(data);
+            $.post("", data, function () {
+
+            })
+        })
+    })
+</script>
+</body>
+</html>

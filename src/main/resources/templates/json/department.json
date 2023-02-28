@@ -1,0 +1,41 @@
+{
+  "code": "000",
+  "data": {
+    "id": 1,
+    "text": "青英教育",
+    "state": {
+      "opened": true
+    },
+    "children": [
+      {
+        "id": 11,
+        "text": "教育部",
+        "status": {
+          "opened": false
+        }
+      },
+      {
+        "id": 12,
+        "text": "市场招生部",
+        "status": {
+          "opened": false
+        }
+      },
+      {
+        "id": 13,
+        "text": "渠道招生部",
+        "status": {
+          "opened": false
+        }
+      },{
+        "id": 14,
+        "text": "人力资源部",
+        "status": {
+          "opened": false
+        }
+      }
+    ]
+  },
+  "message": "message信息"
+}
+

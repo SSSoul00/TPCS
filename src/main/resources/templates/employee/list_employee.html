@@ -24,7 +24,7 @@
             cursor: pointer;
         }
     </style>
-    此案例的自定义样式
+    <!--    此案例的自定义样式-->
     <link href="../../static/css-prj/main.css" th:href="@{/static/css-prj/main.css}" rel="stylesheet">
     <!-- 导入外部的js文件 -->
     <script type="text/javascript" src="../../static/js-prj/main.js" th:src="@{/static/js-prj/main.js}"></script>
@@ -51,8 +51,8 @@
                 console.log('进入了分支')
                 $.post('', checkedIds[0], function (resp) {
                     console.log('回调函数')
-                    let idArray = resp.data;
-                    // let idArray = [11, 12, 13, 14]
+                    // let idArray = resp.data;
+                    let idArray = [11, 12, 13, 14]
                     for (let i = 0; i < idArray.length; i++) {
                         // 获取节点对象
                         let node = $('#roleTree').jstree(true).get_node(idArray[i]);
@@ -74,11 +74,11 @@
             var checkedIds2 = $("#roleTree").jstree("get_checked", false);
             console.log(checkedIds2);
             let data = {
-                'checkedIds' : checkedIds,
-                'checkedIds2' : checkedIds2
+                'checkedIds': checkedIds,
+                'checkedIds2': checkedIds2
             }
             //修改权限请求
-            $.post('',data,function (resp) {
+            $.post('', data, function (resp) {
                 console.log(resp.data)
                 //代码
             })

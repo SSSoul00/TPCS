@@ -14,7 +14,8 @@
     <link href="../../static/css/font-awesome.css?v=4.4.0" th:href="@{/static/css/font-awesome.css}"
           rel="stylesheet">
     <link href="../../static/css/animate.css" th:href="@{/static/css/animate.css}" rel="stylesheet">
-<!--    <link href="../../static/css/style.css?v=4.1.0" th:href="@{/static/css/style.css}" rel="stylesheet">-->
+    <!--    <link href="../../static/css/plugins/jsTree/style.min.css" th:href="@{/static/css/plugins/jsTree/style.min.css}"-->
+    <!--          rel="stylesheet">-->
     <!-- BootStrap Theme css -->
     <!--    <link href="../../static/css/bootstrap-theme.min.css" th:href="@{/static/css/bootstrap-theme.min.css}"-->
     <!--          rel="stylesheet">-->
@@ -26,8 +27,8 @@
     <script src="../../static/js/jquery.min.js" th:href="@{/static/js/jquery.min.js}"></script>
     <script src="../../static/js/bootstrap.min.js" th:href="@{/static/js/bootstrap.min.js}"></script>
 
-    <!-- 此案例的自定义样式 -->
-    <!--    <link href="../../static/css-prj/main.css" th:href="@{/static/js/jquery.min.js}" rel="stylesheet">-->
+    <!--     此案例的自定义样式 -->
+    <link href="../../static/css-prj/main.css" th:href="@{/static/js/jquery.min.js}" rel="stylesheet">
     <!-- 导入外部的js文件 -->
     <script type="text/javascript" src="../../static/js-prj/main.js" th:src="@{/static/js-prj/main.js}"></script>
 </head>
@@ -61,7 +62,8 @@
                             onclick="javaScript:window.location.href='add_student.html'">
                         <span class="glyphicon glyphicon-plus">&nbsp;</span>
                     </button>
-                </div><br>
+                </div>
+                <br>
                 <table class="table table-striped table-bordered table-hover dataTables-example">
                     <thead>
                     <tr>

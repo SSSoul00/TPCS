@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-cn">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,22 +9,31 @@
     <title>知识中心</title>
 
     <!-- Bootstrap -->
-    <link href="../../static/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../static/node_modules/bootstrap/dist/css/bootstrap.min.css"
+          th:href="@{/static/node_modules/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet">
     <!-- BootStrap Theme css -->
-    <link href="../../static/node_modules/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="../../static/node_modules/bootstrap/dist/css/bootstrap-theme.min.css"
+          th:href="@{/static/node_modules/bootstrap/dist/css/bootstrap-theme.min.css}" rel="stylesheet">
 
     <!-- 此案例的自定义样式 -->
-    <link href="../../static/css-prj/main.css" rel="stylesheet">
+    <link href="../../static/custom_modules/css-prj/main.css" th:href="@{/static/custom_modules/css-prj/main.css}"
+          rel="stylesheet">
     <!-- 导入外部的js文件 -->
-    <script type="text/javascript" src="../../static/js-prj/main.js"></script>
+    <script type="text/javascript" src="../../static/custom_modules/js-prj/main.js"
+            th:src="@{/static/custom_modules/js-prj/main.js}"></script>
 
     <!-- 导入相关的js -->
-    <script src="../../static/node_modules/jquery/jquery.min.js"></script>
-    <script src="../../static/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../../static/node_modules/jquery/jquery.min.js"
+            th:src="@{/static/node_modules/jquery/jquery.min.js}"></script>
+    <script src="../../static/node_modules/bootstrap/dist/js/bootstrap.min.js"
+            th:src="@{/static/node_modules/bootstrap/dist/js/bootstrap.min.js}"></script>
     <!-- 导入jstree相关的文件 -->
-    <script src="../../static/node_modules/jstree/dist/jstree.min.js"></script>
-    <link href="../../static/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
-    <link href="../../static/node_modules/jstree/dist/themes/default/style.min.css" rel="stylesheet">
+    <script src="../../static/node_modules/jstree/dist/jstree.min.js"
+            th:src="@{/static/node_modules/jstree/dist/jstree.min.js}"></script>
+    <link href="../../static/node_modules/datatables/media/css/dataTables.bootstrap.css"
+          th:href="@{/static/node_modules/datatables/media/css/dataTables.bootstrap.css}" rel="stylesheet">
+    <link href="../../static/node_modules/jstree/dist/themes/default/style.min.css"
+          th:href="@{/static/node_modules/jstree/dist/themes/default/style.min.css}" rel="stylesheet">
 
 </head>
 <body>
@@ -42,11 +51,13 @@
 
 <!-- 模态框 中的内容 -->
 <!-- 添加子知识的Modal -->
-<div class="modal fade" id="addKnowledgeModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="addKnowledgeModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header" style="background-color: #0a6aa1">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
                 <h5 class="modal-title" id="myModalLabel">新增知识点</h5>
             </div>
             <div class="modal-body">
@@ -70,11 +81,13 @@
 <!-- //添加子知识的模态框内容结束 -->
 
 <!-- 更新知识体系的Modal -->
-<div class="modal fade" id="udpKnowledgeModel" tabindex="-1" role="dialog" aria-labelledby="myUpdModalLabel" aria-hidden="true">
+<div class="modal fade" id="udpKnowledgeModel" tabindex="-1" role="dialog" aria-labelledby="myUpdModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header" style="background-color: #0a6aa1">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
                 <h5 class="modal-title" id="myUpdModalLabel">更新知识名</h5>
             </div>
             <div class="modal-body">
@@ -97,11 +110,13 @@
 </div>
 <!-- //更新子知识的模态框内容结束 -->
 <!-- 修改知识内容的modal框 -->
-<div class="modal fade" id="udpKnowledgeContentModel" tabindex="-1" role="dialog" aria-labelledby="myUpdContentModalLabel" aria-hidden="true">
+<div class="modal fade" id="udpKnowledgeContentModel" tabindex="-1" role="dialog"
+     aria-labelledby="myUpdContentModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header" style="background-color: #0a6aa1">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
                 <h5 class="modal-title" id="myUpdContentModalLabel">更新内容</h5>
             </div>
             <div class="modal-body">
@@ -125,7 +140,8 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="col-md-2 control-label"><span class="text-muted" style="font-weight: normal">重要性</span><span
+                        <label class="col-md-2 control-label"><span class="text-muted"
+                                                                    style="font-weight: normal">重要性</span><span
                                 style="color: red">*</span></label>
 
                         <div class="col-md-10">
@@ -147,7 +163,8 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-md-2 control-label"><span class="text-muted" style="font-weight: normal">难易度</span><span
+                        <label class="col-md-2 control-label"><span class="text-muted"
+                                                                    style="font-weight: normal">难易度</span><span
                                 style="color: red">*</span></label>
 
                         <div class="col-md-10">
@@ -168,7 +185,8 @@
                             <span class="text-muted" style="font-weight: normal">更新者</span>
                         </label>
                         <div class="col-md-4">
-                            <input type="text" id="publisher" name="publisher" class="form-control" value="当前登录用户" readonly>
+                            <input type="text" id="publisher" name="publisher" class="form-control" value="当前登录用户"
+                                   readonly>
                         </div>
                     </div>
 
@@ -182,11 +200,13 @@
     </div>
 </div>
 <!--上传资料-->
-<div class="modal fade" id="addKnowledgeContentModel" tabindex="-1" role="dialog" aria-labelledby="myUpdContentModalLabel" aria-hidden="true">
+<div class="modal fade" id="addKnowledgeContentModel" tabindex="-1" role="dialog"
+     aria-labelledby="myUpdContentModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header" style="background-color: #0a6aa1">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
                 <h5 class="modal-title" id="addContentModalLabel">添加内容到:基础语法</h5>
             </div>
             <div class="modal-body">
@@ -222,7 +242,8 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-md-2 control-label"><span class="text-muted" style="font-weight: normal">重要性</span><span
+                        <label class="col-md-2 control-label"><span class="text-muted"
+                                                                    style="font-weight: normal">重要性</span><span
                                 style="color: red">*</span></label>
 
                         <div class="col-md-10">
@@ -244,7 +265,8 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-md-2 control-label"><span class="text-muted" style="font-weight: normal">难易度</span><span
+                        <label class="col-md-2 control-label"><span class="text-muted"
+                                                                    style="font-weight: normal">难易度</span><span
                                 style="color: red">*</span></label>
 
                         <div class="col-md-10">
@@ -265,16 +287,17 @@
                             <span class="text-muted" style="font-weight: normal">发布者</span>
                         </label>
                         <div class="col-md-4">
-                            <input type="text" id="addpublisher" name="publisher" class="form-control" value="当前登录用户" readonly>
+                            <input type="text" id="addpublisher" name="publisher" class="form-control" value="当前登录用户"
+                                   readonly>
                         </div>
                     </div>
 
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" onclick="通过JS来提交表单">添加</button>
-                <button type="reset" class="btn btn-default">重填</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-            </form>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" onclick="通过JS来提交表单">添加</button>
+                        <button type="reset" class="btn btn-default">重填</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
             </div>
         </div>
 
@@ -339,17 +362,19 @@
             </div>
 
             <!-- 操作导航栏  -->
-            <div class="row" style="background-color: #efefef;border-top: 1px solid #cccccc;border-bottom: 1px solid #cccccc;max-height: 40px;margin: 0 2px;">
+            <div class="row"
+                 style="background-color: #efefef;border-top: 1px solid #cccccc;border-bottom: 1px solid #cccccc;max-height: 40px;margin: 0 2px;">
                 <div class="col-md-11">
 
                     <ul class="nav nav-pills">
                         <li role="presentation">
                             <div class="checkbox">
-                                <label><input type="checkbox" value="" title="选中/取消选中" /></label>
+                                <label><input type="checkbox" value="" title="选中/取消选中"/></label>
                             </div>
                         </li>
                         <li role="presentation" class="dropdown">
-                            <button type="button" class="btn-xs btn-default" role="button" data-toggle="dropdown" aria-expanded="false" style="margin: 8px 5px;">
+                            <button type="button" class="btn-xs btn-default" role="button" data-toggle="dropdown"
+                                    aria-expanded="false" style="margin: 8px 5px;">
                                 上传资源
                                 <span class="caret"></span>
                             </button>
@@ -363,7 +388,8 @@
                             </ul>
                         </li>
                         <li role="presentation" class="dropdown">
-                            <button type="button" class="btn-xs btn-default" role="button" style="margin: 8px 5px;" onclick="">
+                            <button type="button" class="btn-xs btn-default" role="button" style="margin: 8px 5px;"
+                                    onclick="">
                                 删除资源
                             </button>
                         </li>
@@ -394,7 +420,9 @@
                             </td>
                             <td>Word格式</td>
                             <td>
-                                <a href="#" data-toggle="modal" data-target="#udpKnowledgeContentModel">JDK安装与配置</a><span class="help-block" style="margin-bottom: -2px;">摘要:xxxxxxx</span>
+                                <a href="#" data-toggle="modal"
+                                   data-target="#udpKnowledgeContentModel">JDK安装与配置</a><span class="help-block"
+                                                                                             style="margin-bottom: -2px;">摘要:xxxxxxx</span>
                             </td>
                             <td>2015-2-12</td>
                             <td>孙毅</td>
@@ -407,7 +435,8 @@
                             </td>
                             <td>PPT格式</td>
                             <td>
-                                <a href="#" data-toggle="modal" data-target="#udpKnowledgeContentModel">反射与注解</a><span class="help-block" style="margin-bottom: -2px;">摘要:xxxxxxx</span>
+                                <a href="#" data-toggle="modal" data-target="#udpKnowledgeContentModel">反射与注解</a><span
+                                    class="help-block" style="margin-bottom: -2px;">摘要:xxxxxxx</span>
                             </td>
                             <td>2015-2-11</td>
                             <td>管成功</td>
@@ -420,7 +449,9 @@
                             </td>
                             <td>视频</td>
                             <td>
-                                <a href="#" data-toggle="modal" data-target="#udpKnowledgeContentModel">训练营基础视频－JDK安装</a><span class="help-block" style="margin-bottom: -2px;">摘要:xxxxxxx</span>
+                                <a href="#" data-toggle="modal"
+                                   data-target="#udpKnowledgeContentModel">训练营基础视频－JDK安装</a><span class="help-block"
+                                                                                                  style="margin-bottom: -2px;">摘要:xxxxxxx</span>
                             </td>
                             <td>2015-2-12</td>
                             <td>孙毅</td>
@@ -433,53 +464,57 @@
     </div><!-- end row -->
 </div><!-- end container -->
 </body>
-<script src="../../static/js/plugins/dataTables/jquery.dataTables.js"></script>
-<script src="../../static/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+<script src="../../static/node_modules/datatables/media/js/jquery.dataTables.js"
+        th:src="@{/static/node_modules/datatables/media/js/jquery.dataTables.js}"></script>
+<script src="../../static/node_modules/datatables/media/js/dataTables.bootstrap.js"
+        th:src="@{/static/node_modules/datatables/media/js/dataTables.bootstrap.js}"></script>
 <script type="text/javascript">
     $(function () {
         //初始化第一颗树
         $("#knowLedgeTree").jstree(
-                {
-                    'core': {
-                        'data': [
-                            {
-                                "id": 1, "text": "Java体系", "state": {"opened": true}, "children": [
-                                {"id": 11, "text": "Java核心编程技术","children":[
-                                    {"id":111,"text":"语法基础"},
-                                    {"id":112,"text":"面向对象编程"},
-                                    {"id":113,"text":"实用编程"},
-                                    {"id":114,"text":"XML"},
-                                ]},
+            {
+                'core': {
+                    'data': [
+                        {
+                            "id": 1, "text": "Java体系", "state": {"opened": true}, "children": [
+                                {
+                                    "id": 11, "text": "Java核心编程技术", "children": [
+                                        {"id": 111, "text": "语法基础"},
+                                        {"id": 112, "text": "面向对象编程"},
+                                        {"id": 113, "text": "实用编程"},
+                                        {"id": 114, "text": "XML"},
+                                    ]
+                                },
                                 {"id": 12, "text": "Java数据库技术"},
                                 {"id": 13, "text": "Java Web应用开发"},
                                 {"id": 14, "text": "JavaEE企业级开发"}
-                                ]
-                            },
-                            {
-                                "id":2,"text":"UID体系","children":[
-                                {"id":21,"text":"商业美术"},
-                                {"id":22,"text":"图形界面设计"},
-                                {"id":23,"text":"WUI Web界面设计"},
-                                {"id":24,"text":"GUI移动界面设计"}
                             ]
-                            },
-                            {
-                                "id":3,"text":"Android体系","children":[
-                                {"id":31,"text":"xxxx1"},
-                                {"id":32,"text":"xxxxx2"},
-                                {"id":33,"text":"xxx3"},
-                                {"id":34,"text":"xxxxx4"}
+                        },
+                        {
+                            "id": 2, "text": "UID体系", "children": [
+                                {"id": 21, "text": "商业美术"},
+                                {"id": 22, "text": "图形界面设计"},
+                                {"id": 23, "text": "WUI Web界面设计"},
+                                {"id": 24, "text": "GUI移动界面设计"}
                             ]
-                            },
-                            {
-                                "id":4,"text":"嵌入式体系","children":[
-                                {"id":41,"text":"xxxxx1"},
-                                {"id":42,"text":"xxxxx2"}
+                        },
+                        {
+                            "id": 3, "text": "Android体系", "children": [
+                                {"id": 31, "text": "xxxx1"},
+                                {"id": 32, "text": "xxxxx2"},
+                                {"id": 33, "text": "xxx3"},
+                                {"id": 34, "text": "xxxxx4"}
                             ]
-                            }
-                        ]
-                    }
+                        },
+                        {
+                            "id": 4, "text": "嵌入式体系", "children": [
+                                {"id": 41, "text": "xxxxx1"},
+                                {"id": 42, "text": "xxxxx2"}
+                            ]
+                        }
+                    ]
                 }
+            }
         );
         //添加事件
         $("#knowLedgeTree").on("changed.jstree", function (e, data) {
@@ -492,31 +527,35 @@
                     //行的定义
                     "columns": [
                         // {"data": "namePhone",bAutoWidth: "false", sWidth: "20%"},
-                        {"data": null,"render":function(data,type,row){
-                                var id=row.id;
-                                var html ="<label class='checkbox-inline'> <input type='checkbox' id='chk1'>&nbsp; </label>"
+                        {
+                            "data": null, "render": function (data, type, row) {
+                                var id = row.id;
+                                var html = "<label class='checkbox-inline'> <input type='checkbox' id='chk1'>&nbsp; </label>"
                                 return html;
-                            }},
+                            }
+                        },
                         {"data": "type", bAutoWidth: "false"},
-                        {"data": "name" ,"render":function(data,type,row){
-                                var html =" <a href='#' data-toggle='modal' data-target='#udpKnowledgeContentModel'>"+data+"</a><span class='help-block' style='margin-bottom: -2px;'>"+row.name2+"</span>"
+                        {
+                            "data": "name", "render": function (data, type, row) {
+                                var html = " <a href='#' data-toggle='modal' data-target='#udpKnowledgeContentModel'>" + data + "</a><span class='help-block' style='margin-bottom: -2px;'>" + row.name2 + "</span>"
                                 return html;
-                            }},
-                        {"data": "modifyDate" },
-                        {"data": "Publisher" }],
+                            }
+                        },
+                        {"data": "modifyDate"},
+                        {"data": "Publisher"}],
                     //去掉搜索
                     "bSort": false,
                     searching: false,
                     "bPaginage": true,
                     "bAutoWidth": true,
                     lengthChange: false,
-                    ordering:true,
+                    ordering: true,
                     columnDefs: [{
                         targets: 4,//编辑取消排序
                         "orderable": false
                     }],
-                    iDisplayLength:7,
-                    lengthMenu :[ 7, 25, 50, 75, 100 ],//定义每页显示记录数，可更改每页显示行数
+                    iDisplayLength: 7,
+                    lengthMenu: [7, 25, 50, 75, 100],//定义每页显示记录数，可更改每页显示行数
                     language: {
                         "decimal": "",//小数的小数位符号  比如“，”作为数字的小数位符号
                         "emptyTable": "没有数据哟~~",//没有数据时要显示的字符串

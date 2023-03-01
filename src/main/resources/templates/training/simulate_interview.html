@@ -9,21 +9,29 @@
     <title>实训过程</title>
 
     <!-- Bootstrap -->
-    <link href="../../static/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../static/node_modules/bootstrap/dist/css/bootstrap.min.css"
+          th:href="@{/static/node_modules/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet">
     <!-- BootStrap Theme css -->
-    <link href="../../static/node_modules/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="../../static/node_modules/bootstrap/dist/css/bootstrap-theme.min.css"
+          th:href="@{/static/node_modules/bootstrap/dist/css/bootstrap-theme.min.css}" rel="stylesheet">
 
     <!-- 此案例的自定义样式 -->
-    <link href="../../static/css-prj/main.css" rel="stylesheet">
-    <link href="../../static/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
-    <!-- Sweet Alert -->
-    <link href="../../static/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+    <link href="../../static/custom_modules/css-prj/main.css" th:href="@{/static/custom_modules/css-prj/main.css}"
+          rel="stylesheet">
     <!-- 导入外部的js文件 -->
-    <script type="text/javascript" src="../../static/js-prj/main.js"></script>
+    <link href="../../static/node_modules/datatables/media/css/dataTables.bootstrap.css"
+          th:href="@{/static/node_modules/datatables/media/css/dataTables.bootstrap.css}" rel="stylesheet">
+    <!-- Sweet Alert -->
+    <link href="../../static/node_modules/sweetalert/dist/sweetalert.css"
+          th:href="@{/static/node_modules/sweetalert/dist/sweetalert.css}" rel="stylesheet">
+    <script type="text/javascript" src="../../static/custom_modules/js-prj/main.js"
+            th:src="@{/static/custom_modules/js-prj/main.js}"></script>
 
     <!-- 导入相关的js -->
-    <script src="../../static/node_modules/jquery/jquery.min.js"></script>
-    <script src="../../static/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../../static/node_modules/jquery/jquery.min.js"
+            th:src="@{/static/node_modules/jquery/jquery.min.js}"></script>
+    <script src="../../static/node_modules/bootstrap/dist/js/bootstrap.min.js"
+            th:src="@{/static/node_modules/bootstrap/dist/js/bootstrap.min.js}"></script>
 
 </head>
 <body>
@@ -274,10 +282,13 @@
     </div><!-- end row -->
 
 </div><!-- end container -->
-<script src="../../static/js/plugins/dataTables/jquery.dataTables.js"></script>
-<script src="../../static/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+<script src="../../static/node_modules/datatables/media/js/jquery.dataTables.js"
+        th:src="@{/static/node_modules/datatables/media/js/jquery.dataTables.js}"></script>
+<script src="../../static/node_modules/datatables/media/js/dataTables.bootstrap.js"
+        th:src="@{/static/node_modules/datatables/media/js/dataTables.bootstrap.js}"></script>
 <!-- Sweet alert -->
-<script src="../../static/js/plugins/sweetalert/sweetalert.min.js"></script>
+<script src="../../static/node_modules/sweetalert/dist/sweetalert.min.js"
+        th:src="@{/static/node_modules/sweetalert/dist/sweetalert.min.js}"></script>
 <!-- 添加js -->
 <script type="text/javascript">
     $(function () {

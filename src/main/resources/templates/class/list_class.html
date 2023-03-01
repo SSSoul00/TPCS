@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,18 +10,24 @@
     <title>班级列表</title>
 
     <!-- Bootstrap -->
-    <link href="../../static/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../static/node_modules/bootstrap/dist/css/bootstrap.min.css"
+          th:href="@{/static/node_modules/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet">
     <!-- BootStrap Theme css -->
-    <link href="../../static/node_modules/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="../../static/node_modules/bootstrap/dist/css/bootstrap-theme.min.css"
+          th:href="@{/static/node_modules/bootstrap/dist/css/bootstrap-theme.min.css}" rel="stylesheet">
     <!-- 此案例的自定义样式 -->
-    <link href="../../static/css-prj/main.css" rel="stylesheet">
+    <link href="../../static/custom_modules/css-prj/main.css" th:href="@{/static/custom_modules/css-prj/main.css}"
+          rel="stylesheet">
 
 
     <!-- 导入外部的js文件 -->
-    <script type="text/javascript" src="../../static/js-prj/main.js"></script>
-    <link href="../../static/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+    <script type="text/javascript" src="../../static/custom_modules/js-prj/main.js"
+            th:src="@{/static/custom_modules/js-prj/main.js}"></script>
+    <link href="../../static/node_modules/datatables/media/css/dataTables.bootstrap.css"
+          th:href="@{/static/node_modules/datatables/media/css/dataTables.bootstrap.css}" rel="stylesheet">
     <!-- Sweet Alert -->
-    <link href="../../static/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+    <link href="../../static/node_modules/sweetalert/dist/sweetalert.css"
+          th:href="@{/static/node_modules/sweetalert/dist/sweetalert.css}" rel="stylesheet">
 </head>
 <body>
 
@@ -203,12 +210,17 @@
 </div>
 
 <!-- 导入相关的js -->
-<script src="../../static/node_modules/jquery/jquery.min.js"></script>
-<script src="../../static/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="../../static/js/plugins/dataTables/jquery.dataTables.js"></script>
-<script src="../../static/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+<script src="../../static/node_modules/jquery/jquery.min.js"
+        th:src="@{/static/node_modules/jquery/jquery.min.js}"></script>
+<script src="../../static/node_modules/bootstrap/dist/js/bootstrap.min.js"
+        th:src="@{/static/node_modules/bootstrap/dist/js/bootstrap.min.js}"></script>
+<script src="../../static/node_modules/datatables/media/js/jquery.dataTables.js"
+        th:src="@{/static/node_modules/datatables/media/js/jquery.dataTables.js}"></script>
+<script src="../../static/node_modules/datatables/media/js/dataTables.bootstrap.js"
+        th:src="@{/static/node_modules/datatables/media/js/dataTables.bootstrap.js}"></script>
 <!-- Sweet alert -->
-<script src="../../static/js/plugins/sweetalert/sweetalert.min.js"></script>
+<script src="../../static/node_modules/sweetalert/dist/sweetalert.min.js"
+        th:src="@{/static/node_modules/sweetalert/dist/sweetalert.min.js}"></script>
 <!-- 新增和更新共享同一个模态框 -->
 <script type="text/javascript">
     $(function () {
@@ -248,31 +260,37 @@
         // $.post("[[${#request.getContextPath()}]]/member/memberList.do", function (memberList) {
         $.post("classList.json", function (classList) {
             console.log(classList);
-            var count =0
+            var count = 0
             $('.table-hover').dataTable({
                 //注： 后面开发时，url的位置写 服务端控制器的 mapping值,服务端返回的将是json数据
-                "data":classList ,
+                "data": classList,
                 //行的定义
                 "columns": [
                     // {"data": "namePhone",bAutoWidth: "false", sWidth: "20%"},
-                    {"data": null,"render":function(data,type,row){
+                    {
+                        "data": null, "render": function (data, type, row) {
                             return ++count;
-                        }},
-                    {"data": "className", bAutoWidth: "false","render":function(data,type,row){
-                            var className=data;
-                            var html ="<a href='detail_class.html' class='text text-primary'>"+className+"</a>"
+                        }
+                    },
+                    {
+                        "data": "className", bAutoWidth: "false", "render": function (data, type, row) {
+                            var className = data;
+                            var html = "<a href='detail_class.html' class='text text-primary'>" + className + "</a>"
                             return html;
-                        }},
-                    {"data": "classroom" },
-                    {"data": "bootcampDate" },
-                    {"data": "startDate" },
-                    {"data": "startCount" },
+                        }
+                    },
+                    {"data": "classroom"},
+                    {"data": "bootcampDate"},
+                    {"data": "startDate"},
+                    {"data": "startCount"},
                     {"data": "headTeacher"},
                     {"data": "bootcampInstructor"},
-                    {"data": null,"render":function(data,type,row){
-                        var html = "<span class='label label-primary'>未开始</span>"
-                        return html;
-                    }},
+                    {
+                        "data": null, "render": function (data, type, row) {
+                            var html = "<span class='label label-primary'>未开始</span>"
+                            return html;
+                        }
+                    },
                     {
                         "data": null, "orderable": false, "render": function (data, type, row) {
                             var id = row.id
@@ -287,13 +305,13 @@
                 "bPaginage": true,
                 "bAutoWidth": true,
                 lengthChange: false,
-                ordering:true,
+                ordering: true,
                 columnDefs: [{
                     targets: 4,//编辑取消排序
                     "orderable": false
                 }],
-                iDisplayLength:7,
-                lengthMenu :[ 7, 25, 50, 75, 100 ],//定义每页显示记录数，可更改每页显示行数
+                iDisplayLength: 7,
+                lengthMenu: [7, 25, 50, 75, 100],//定义每页显示记录数，可更改每页显示行数
                 language: {
                     "decimal": "",//小数的小数位符号  比如“，”作为数字的小数位符号
                     "emptyTable": "没有数据哟~~",//没有数据时要显示的字符串

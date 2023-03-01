@@ -1,0 +1,27 @@
+{
+  "name": "npmdemo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "angular": "^1.8.3",
+    "angular-dragdrop": "^1.0.13",
+    "angular-ui-calendar": "^1.0.2",
+    "bootstrap": "^3.3.6",
+    "bootstrap-star-rating": "^4.1.2",
+    "datatables": "^1.10.18",
+    "fullcalendar": "^6.1.4",
+    "highcharts": "^10.3.3",
+    "jquery": "^1.9.1",
+    "jQuery-QueryBuilder": "^2.6.2",
+    "jquery-ui": "^1.13.2",
+    "jstree": "^3.2.1",
+    "moment": "^2.29.4",
+    "sweetalert": "^2.1.2"
+  }
+}

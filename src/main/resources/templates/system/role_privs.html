@@ -9,25 +9,32 @@
     <title>角色权限设置</title>
 
     <!-- Bootstrap -->
-    <link href="../../static/css/bootstrap.min.css?v=3.3.6" th:href="@{/static/css/bootstrap.min.css}"
+    <link href="../../static/node_modules/bootstrap/dist/css/bootstrap.min.css"
+          th:href="@{/static/node_modules/bootstrap/dist/css/bootstrap.min.css}"
           rel="stylesheet">
     <!-- BootStrap Theme css -->
-    <link href="../../static/css/bootstrap-theme.min.css" th:href="@{/static/css/bootstrap-theme.min.css}"
+    <link href="../../static/node_modules/bootstrap/dist/css/bootstrap-theme.min.css"
+          th:href="@{/static/node_modules/bootstrap/dist/css/bootstrap-theme.min.css}"
           rel="stylesheet">
 
     <!-- 此案例的自定义样式 -->
-    <link href="../../static/css-prj/main.css" th:href="@{/static/js/jquery.min.js}" rel="stylesheet">
-    <!-- 导入外部的js文件 -->
-    <script type="text/javascript" src="../../static/js-prj/main.js" th:src="@{/static/js-prj/main.js}"></script>
-
-    <!-- 导入相关的js -->
-    <script src="../../static/js/jquery.min.js" th:href="@{/static/js/jquery.min.js}"></script>
-    <script src="../../static/js/bootstrap.min.js" th:href="@{/static/js/bootstrap.min.js}"></script>
-    <!-- 导入jstree相关的文件 -->
-    <link href="../../static/css/plugins/jsTree/style.min.css" th:href="@{/static/css/plugins/jsTree/style.min.css}"
+    <link href="../../static/custom_modules/css-prj/main.css"
+          th:href="@{/static/custom_modules/css-prj/main.css}"
           rel="stylesheet">
-    <script src="../../static/js/plugins/jsTree/jstree.min.js"
-            th:src="@{/static/js/plugins/jsTree/jstree.min.js}"></script>
+    <!-- 导入外部的js文件 -->
+    <script type="text/javascript" src="../../static/custom_modules/js-prj/main.js"
+            th:src="@{/static/custom_modules/js-prj/main.js}"></script>
+    <!-- 导入相关的js -->
+    <script src="../../static/node_modules/jquery/jquery.min.js"
+            th:href="@{/static/node_modules/jquery/jquery.min.js}"></script>
+    <script src="../../static/node_modules/bootstrap/dist/js/bootstrap.min.js"
+            th:href="@{/static/node_modules/bootstrap/dist/js/bootstrap.min.js}"></script>
+    <!-- 导入jstree相关的文件 -->
+    <link href="../../static/node_modules/jstree/dist/themes/default/style.min.css"
+          th:href="@{/static/node_modules/jstree/dist/themes/default/style.min.css}"
+          rel="stylesheet">
+    <script src="../../static/node_modules/jstree/dist/jstree.min.js"
+            th:src="@{/static/node_modules/jstree/dist/jstree.min.js}"></script>
     <!--    <link href="../node_modules/jstree/dist/themes/default/style.min.css" rel="stylesheet">-->
 
     <script type="text/javascript">
@@ -42,7 +49,7 @@
                             "themes": {
                                 "dots": false  //不通过.来连接
                             },
-                            "data":resp.data
+                            "data": resp.data
                         }
                     }
                 );
@@ -50,9 +57,10 @@
 
             //添加事件,点击某一角色时勾选对应权限
             $("#roletree").on("changed.jstree", function (e, data) {
+                $("#privsTree").jstree('deselect_all', true);
                 let selectedElement = data.instance.get_selected(true)[0];
-                alert("你选择了：" + selectedElement.text);
-                $.post('', selectedElement.id, function (resp) {
+                alert("你选择了：" + selectedElement.text + "" + selectedElement.id);
+                $.post('', {'id': selectedElement.id}, function (resp) {
                     let idArray = resp.data;
                     for (let i = 0; i < idArray.length; i++) {
                         // 获取节点对象
@@ -74,6 +82,25 @@
                     "plugins": ["checkbox"]
                 });
             })
+
+            // 监听 privsTree 树形控件的 changed.jstree 事件
+            $("#privsTree").on("changed.jstree", function (e, data) {
+                // 获取选中节点的 ID 值
+                var checkedIds = $("#privsTree").jstree("get_checked", false);
+                // 获取当前选中的节点 ID 值
+                var selectedId = $('#roletree').jstree('get_selected')[0]
+                console.log(checkedIds)
+                console.log(selectedId)
+                // 封装要提交的数据
+                var info = {
+                    checkedIds: checkedIds,
+                    selectedId: selectedId
+                }
+                // 使用 post 方法提交数据，并在成功时执行回调函数
+                $.post('', info, function (resp) {
+                    // TODO 处理响应数据
+                })
+            });
 
 
         });
@@ -268,6 +295,6 @@
     </div>
 </div>
 
-<script src="../../static/js/header.js"></script>
+<script src="../../static/custom_modules/js-prj/header.js" th:src="@{/static/custom_modules/js-prj/header.js}"></script>
 </body>
 </html>

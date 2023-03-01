@@ -9,20 +9,25 @@
     <title>新增学员</title>
 
     <!-- Bootstrap -->
-    <link href="../../static/css/bootstrap.min.css" th:href="@{/static/css/bootstrap.min.css}"
+    <link href="../../static/node_modules/bootstrap/dist/css/bootstrap.min.css"
+          th:href="@{/static/node_modules/bootstrap/dist/css/bootstrap.min.css}"
           rel="stylesheet">
     <!-- BootStrap Theme css -->
-<!--    <link href="../../static/css/bootstrap-theme.min.css" th:href="@{/static/css/bootstrap-theme.min.css}"-->
-<!--          rel="stylesheet">-->
+    <!--    <link href="../../static/css/bootstrap-theme.min.css" th:href="@{/static/css/bootstrap-theme.min.css}"-->
+    <!--          rel="stylesheet">-->
 
     <!-- 导入相关的js -->
-    <script src="../../static/js/jquery.min.js" th:href="@{/static/js/jquery.min.js}"></script>
-    <script src="../../static/js/bootstrap.min.js" th:href="@{/static/js/bootstrap.min.js}"></script>
-
+    <script src="../../static/node_modules/jquery/jquery.min.js"
+            th:href="@{/static/node_modules/jquery/jquery.min.js}"></script>
+    <script src="../../static/node_modules/bootstrap/dist/js/bootstrap.min.js"
+            th:href="@{/static/node_modules/bootstrap/dist/js/bootstrap.min.js}"></script>
     <!-- 此案例的自定义样式 -->
-    <link href="../../static/css-prj/main.css" th:href="@{/static/js/jquery.min.js}" rel="stylesheet">
+    <link href="../../static/custom_modules/css-prj/main.css"
+          th:href="@{/static/custom_modules/css-prj/main.css}"
+          rel="stylesheet">
     <!-- 导入外部的js文件 -->
-    <script type="text/javascript" src="../../static/js-prj/main.js" th:src="@{/static/js-prj/main.js}"></script>
+    <script type="text/javascript" src="../../static/custom_modules/js-prj/main.js"
+            th:src="@{/static/custom_modules/js-prj/main.js}"></script>
 </head>
 <body>
 <!-- 导航栏区 -->
@@ -310,7 +315,7 @@
         </p>
     </div>
 </div>
-<script src="../../static/js/header.js"></script>
+<script src="../../static/custom_modules/js-prj/header.js" th:src="@{/static/custom_modules/js-prj/header.js}"></script>
 <script>
     $(document).ready(function () {
         $('#save_info').click(function () {

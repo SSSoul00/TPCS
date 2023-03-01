@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-cn">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,25 +9,33 @@
     <title>新建员工</title>
 
     <!-- Bootstrap -->
-    <link href="../../static/css/bootstrap.min.css?v=3.3.6" th:href="@{/static/css/bootstrap.min.css}"
+    <link href="../../static/node_modules/bootstrap/dist/css/bootstrap.min.css"
+          th:href="@{/static/node_modules/bootstrap/dist/css/bootstrap.min.css}"
           rel="stylesheet">
     <!-- BootStrap Theme css -->
-    <link href="../../static/css/bootstrap-theme.min.css" th:href="@{/static/css/bootstrap-theme.min.css}"
+    <link href="../../static/node_modules/bootstrap/dist/css/bootstrap-theme.min.css"
+          th:href="@{/static/node_modules/bootstrap/dist/css/bootstrap-theme.min.css}"
           rel="stylesheet">
 
     <!-- 此案例的自定义样式 -->
-    <link href="../../static/css-prj/main.css" th:href="@{/static/js/jquery.min.js}" rel="stylesheet">
+    <link href="../../static/custom_modules/css-prj/main.css"
+          th:href="@{/static/custom_modules/css-prj/main.css}"
+          rel="stylesheet">
     <!-- 导入外部的js文件 -->
-    <script type="text/javascript" src="../../static/js-prj/main.js" th:src="@{/static/js-prj/main.js}"></script>
+    <script type="text/javascript" src="../../static/custom_modules/js-prj/main.js"
+            th:src="@{/static/custom_modules/js-prj/main.js}"></script>
 
     <!-- 导入相关的js -->
-    <script src="../../static/js/jquery.min.js" th:href="@{/static/js/jquery.min.js}"></script>
-    <script src="../../static/js/bootstrap.min.js" th:href="@{/static/js/bootstrap.min.js}"></script>
+    <script src="../../static/node_modules/jquery/jquery.min.js"
+            th:href="@{/static/node_modules/jquery/jquery.min.js}"></script>
+    <script src="../../static/node_modules/bootstrap/dist/js/bootstrap.min.js"
+            th:href="@{/static/node_modules/bootstrap/dist/js/bootstrap.min.js}"></script>
     <!-- 导入jstree相关的文件 -->
-    <link href="../../static/css/plugins/jsTree/style.min.css" th:href="@{/static/css/plugins/jsTree/style.min.css}"
+    <link href="../../static/node_modules/jstree/dist/themes/default/style.min.css"
+          th:href="@{/static/node_modules/jstree/dist/themes/default/style.min.css}"
           rel="stylesheet">
-    <script src="../../static/js/plugins/jsTree/jstree.min.js"
-            th:src="@{/static/js/plugins/jsTree/jstree.min.js}"></script>
+    <script src="../../static/node_modules/jstree/dist/jstree.min.js"
+            th:src="@{/static/node_modules/jstree/dist/jstree.min.js}"></script>
     <!--    <link href="../node_modules/jstree/dist/themes/default/style.min.css" rel="stylesheet">-->
     <script type="text/javascript">
         function addEmployee() {
@@ -149,7 +157,8 @@
                                                                                        style="font-weight: normal">姓名</span><span
                                     style="color: red">*</span></label>
                             <div class="col-md-4">
-                                <input type="text" id="realname"name="realname" class="form-control" placeholder="员工名"/>
+                                <input type="text" id="realname" name="realname" class="form-control"
+                                       placeholder="员工名"/>
                             </div>
                         </div>
                         <div class="form-group">
@@ -169,7 +178,7 @@
                                                                                   style="font-weight: normal">岗位</span><span
                                     style="color: red">*</span></label>
                             <div class="col-md-4">
-                                <input type="text" id="job"name="job" class="form-control" placeholder="工作岗位名称"/>
+                                <input type="text" id="job" name="job" class="form-control" placeholder="工作岗位名称"/>
                             </div>
                         </div>
                         <div class="form-group">
@@ -177,7 +186,8 @@
                                                                                           style="font-weight: normal">移动电话</span><span
                                     style="color: red">*</span></label>
                             <div class="col-md-4">
-                                <input type="text" id="mobilePhone"name="mobilePhone" class="form-control" placeholder="手机号码"/>
+                                <input type="text" id="mobilePhone" name="mobilePhone" class="form-control"
+                                       placeholder="手机号码"/>
                             </div>
                         </div>
                         <div class="form-group">
@@ -192,7 +202,8 @@
                                 <label for="birthDate" class="col-md-2 control-label"><span class="text-muted"
                                                                                             style="font-weight: normal">生日</span></label>
                                 <div class="col-md-4">
-                                    <input type="date" id="birthDate" name="birthDate" class="form-control" placeholder="1990-12-24"/>
+                                    <input type="date" id="birthDate" name="birthDate" class="form-control"
+                                           placeholder="1990-12-24"/>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -207,7 +218,8 @@
                                 <label for="remark" class="col-md-2 control-label"><span class="text-muted"
                                                                                          style="font-weight: normal">备注</span></label>
                                 <div class="col-md-10">
-                                    <input type="text" id="remark" name="remark" class="form-control" placeholder="备注信息"/>
+                                    <input type="text" id="remark" name="remark" class="form-control"
+                                           placeholder="备注信息"/>
                                 </div>
                             </div>
                         </div>
@@ -228,7 +240,7 @@
                                                                                        style="font-weight: normal">密码</span><span
                                     style="color: red">*</span></label>
                             <div class="col-md-4">
-                                <input type="password" id="password"name="password" class="form-control"/>
+                                <input type="password" id="password" name="password" class="form-control"/>
                             </div>
                         </div>
                         <div class="form-group">
@@ -236,7 +248,7 @@
                                                                                         style="font-weight: normal">确认密码</span><span
                                     style="color: red">*</span></label>
                             <div class="col-md-4">
-                                <input type="password" id="password2"name="password2" class="form-control"/>
+                                <input type="password" id="password2" name="password2" class="form-control"/>
                             </div>
                         </div>
                         <div class="col-md-offset-2">
@@ -295,6 +307,6 @@
     </div>
 </div>
 
-<script src="../../static/js/header.js"></script>
+<script src="../../static/custom_modules/js-prj/header.js" th:src="@{/static/custom_modules/js-prj/header.js}"></script>
 </body>
 </html>

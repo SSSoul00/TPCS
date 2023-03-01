@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="zh-cn">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,16 +10,22 @@
     <title>班级列表</title>
 
     <!-- Bootstrap -->
-    <link href="../../static/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../static/node_modules/bootstrap/dist/css/bootstrap.min.css"
+          th:href="@{/static/node_modules/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet">
     <!-- BootStrap Theme css -->
-    <link href="../../static/node_modules/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="../../static/node_modules/bootstrap/dist/css/bootstrap-theme.min.css"
+          th:href="@{/static/node_modules/bootstrap/dist/css/bootstrap-theme.min.css}" rel="stylesheet">
     <!-- 此案例的自定义样式 -->
-    <link href="../../static/css-prj/main.css" rel="stylesheet">
+    <link href="../../static/custom_modules/css-prj/main.css" th:href="@{/static/custom_modules/css-prj/main.css}"
+          rel="stylesheet">
     <!-- 导入外部的js文件 -->
-    <link href="../../static/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+    <link href="../../static/node_modules/datatables/media/css/dataTables.bootstrap.css"
+          th:href="@{/static/node_modules/datatables/media/css/dataTables.bootstrap.css}" rel="stylesheet">
     <!-- Sweet Alert -->
-    <link href="../../static/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
-    <script type="text/javascript" src="../../static/js-prj/main.js"></script>
+    <link href="../../static/node_modules/sweetalert/dist/sweetalert.css"
+          th:href="@{/static/node_modules/sweetalert/dist/sweetalert.css}" rel="stylesheet">
+    <script type="text/javascript" src="../../static/custom_modules/js-prj/main.js"
+            th:src="@{/static/custom_modules/js-prj/main.js}"></script>
 </head>
 <body>
 <div class="container">
@@ -94,10 +101,14 @@
             <div style="margin-top: 20px;margin-left: 20px">
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation" class="active"><a href="#studentList" aria-controls="studentList" role="tab" data-toggle="tab">学员列表</a></li>
-                    <li role="presentation"><a href="#seatTable" aria-controls="seatTable" role="tab" data-toggle="tab">座位表</a></li>
-                    <li role="presentation"><a href="#classProcess" aria-controls="classProcess" role="tab" data-toggle="tab">教学进度</a></li>
-                    <li role="presentation"><a href="#teacherLayout" aria-controls="teacherLayout" role="tab" data-toggle="tab">教学大纲</a></li>
+                    <li role="presentation" class="active"><a href="#studentList" aria-controls="studentList" role="tab"
+                                                              data-toggle="tab">学员列表</a></li>
+                    <li role="presentation"><a href="#seatTable" aria-controls="seatTable" role="tab" data-toggle="tab">座位表</a>
+                    </li>
+                    <li role="presentation"><a href="#classProcess" aria-controls="classProcess" role="tab"
+                                               data-toggle="tab">教学进度</a></li>
+                    <li role="presentation"><a href="#teacherLayout" aria-controls="teacherLayout" role="tab"
+                                               data-toggle="tab">教学大纲</a></li>
                 </ul>
 
                 <!-- Tab panes -->
@@ -133,9 +144,11 @@
                                 <td>本科</td>
                                 <td>从JSD1510班转过来的学员</td>
                                 <td>
-                                    <a class="label label-default" title="重置密码"><span class="glyphicon glyphicon-refresh"></span></a>&nbsp;
+                                    <a class="label label-default" title="重置密码"><span
+                                            class="glyphicon glyphicon-refresh"></span></a>&nbsp;
                                     <!-- 注：只有当此学员的帐号被锁定了，此处才需要显示 解锁的按钮，否则，不显示, 而解锁成功后，则此按钮也消失 -->
-                                    <a class="label label-danger" title="解除锁定"><span class="glyphicon glyphicon-lock"></span></a>
+                                    <a class="label label-danger" title="解除锁定"><span
+                                            class="glyphicon glyphicon-lock"></span></a>
                                 </td>
                             </tr>
                             <tr>
@@ -149,8 +162,10 @@
                                 <td>本科</td>
                                 <td></td>
                                 <td>
-                                    <a class="label label-default" title="重置密码"><span class="glyphicon glyphicon-refresh"></span></a>&nbsp;
-                                    <a class="label label-danger" title="解除锁定"><span class="glyphicon glyphicon-lock"></span></a>
+                                    <a class="label label-default" title="重置密码"><span
+                                            class="glyphicon glyphicon-refresh"></span></a>&nbsp;
+                                    <a class="label label-danger" title="解除锁定"><span
+                                            class="glyphicon glyphicon-lock"></span></a>
                                 </td>
                             </tr>
                             <tr>
@@ -164,7 +179,8 @@
                                 <td>专科</td>
                                 <td></td>
                                 <td>
-                                    <a class="label label-default" title="重置密码"><span class="glyphicon glyphicon-refresh"></span></a>&nbsp;
+                                    <a class="label label-default" title="重置密码"><span
+                                            class="glyphicon glyphicon-refresh"></span></a>&nbsp;
                                 </td>
                             </tr>
                         </table>
@@ -172,7 +188,7 @@
                     </div> <!-- end of student list-->
 
                     <!-- 座位表标签 -->
-                    <div role="tabpanel" class="tab-pane" id="seatTable" >
+                    <div role="tabpanel" class="tab-pane" id="seatTable">
                         <div class="text-center" style="margin-top: 10px">
                             <span>讲师：</span><label class="text-primary">孙毅</label>
                             <img src="../../static/images/u35.png" style="margin-left: 10px;margin-bottom: 10px;">
@@ -180,47 +196,58 @@
                         <!-- 所有学员座位表: 支持可拖放进行排位,每排至多8人-->
                         <div class="orderBy">
                             <div class="student_seat_div" id="2">
-                                <p><img src="../../static/images/u44.png" class="img-circle" style="width: 48px;height: 48px;"></p>
+                                <p><img src="../../static/images/u44.png" class="img-circle"
+                                        style="width: 48px;height: 48px;"></p>
                                 <label>张三</label>
                             </div>
                             <div class="student_seat_div" id="34">
-                                <p><img src="../../static/images/u44.png" class="img-circle" style="width: 48px;height: 48px;"></p>
+                                <p><img src="../../static/images/u44.png" class="img-circle"
+                                        style="width: 48px;height: 48px;"></p>
                                 <label>王五</label>
                             </div>
                             <div class="student_seat_div" id="9">
-                                <p><img src="../../static/images/u44.png" class="img-circle" style="width: 48px;height: 48px;"></p>
+                                <p><img src="../../static/images/u44.png" class="img-circle"
+                                        style="width: 48px;height: 48px;"></p>
                                 <label>二狗</label>
                             </div>
                             <div class="student_seat_div" id="32">
-                                <p><img src="../../static/images/u44.png" class="img-circle" style="width: 48px;height: 48px;"></p>
+                                <p><img src="../../static/images/u44.png" class="img-circle"
+                                        style="width: 48px;height: 48px;"></p>
                                 <label>三郎</label>
                             </div>
                             <div class="student_seat_div" id="8">
-                                <p><img src="../../static/images/u44.png" class="img-circle" style="width: 48px;height: 48px;"></p>
+                                <p><img src="../../static/images/u44.png" class="img-circle"
+                                        style="width: 48px;height: 48px;"></p>
                                 <label>丰台</label>
                             </div>
                             <div class="student_seat_div" id="7">
-                                <p><img src="../../static/images/u44.png" class="img-circle" style="width: 48px;height: 48px;"></p>
+                                <p><img src="../../static/images/u44.png" class="img-circle"
+                                        style="width: 48px;height: 48px;"></p>
                                 <label>武钢</label>
                             </div>
                             <div class="student_seat_div" id="6">
-                                <p><img src="../../static/images/u44.png" class="img-circle" style="width: 48px;height: 48px;"></p>
+                                <p><img src="../../static/images/u44.png" class="img-circle"
+                                        style="width: 48px;height: 48px;"></p>
                                 <label>晓燕</label>
                             </div>
                             <div class="student_seat_div" id="5">
-                                <p><img src="../../static/images/u44.png" class="img-circle" style="width: 48px;height: 48px;"></p>
+                                <p><img src="../../static/images/u44.png" class="img-circle"
+                                        style="width: 48px;height: 48px;"></p>
                                 <label>行至</label>
                             </div>
                             <div class="student_seat_div" id="4">
-                                <p><img src="../../static/images/u44.png" class="img-circle" style="width: 48px;height: 48px;"></p>
+                                <p><img src="../../static/images/u44.png" class="img-circle"
+                                        style="width: 48px;height: 48px;"></p>
                                 <label>萨芬</label>
                             </div>
                             <div class="student_seat_div" id="3">
-                                <p><img src="../../static/images/u44.png" class="img-circle" style="width: 48px;height: 48px;"></p>
+                                <p><img src="../../static/images/u44.png" class="img-circle"
+                                        style="width: 48px;height: 48px;"></p>
                                 <label>秩序</label>
                             </div>
                             <div class="student_seat_div" id="1">
-                                <p><img src="../../static/images/u44.png" class="img-circle" style="width: 48px;height: 48px;"></p>
+                                <p><img src="../../static/images/u44.png" class="img-circle"
+                                        style="width: 48px;height: 48px;"></p>
                                 <label>的公司</label>
                             </div>
 
@@ -244,13 +271,19 @@
 </div>
 
 <!-- 导入相关的js -->
-<script src="../../static/node_modules/jquery/jquery.min.js"></script>
-<script src="../../static/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="../../static/js/plugins/dataTables/jquery.dataTables.js"></script>
-<script src="../../static/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+<script src="../../static/node_modules/jquery/jquery.min.js"
+        th:src="@{/static/node_modules/jquery/jquery.min.js}"></script>
+<script src="../../static/node_modules/bootstrap/dist/js/bootstrap.min.js"
+        th:src="@{/static/node_modules/bootstrap/dist/js/bootstrap.min.js}"></script>
+<script src="../../static/node_modules/datatables/media/js/jquery.dataTables.js"
+        th:src="@{/static/node_modules/datatables/media/js/jquery.dataTables.js}"></script>
+<script src="../../static/node_modules/datatables/media/js/dataTables.bootstrap.js"
+        th:src="@{/static/node_modules/datatables/media/js/dataTables.bootstrap.js}"></script>
 <!-- Sweet alert -->
-<script src="../../static/js/plugins/sweetalert/sweetalert.min.js"></script>
-<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<script src="../../static/node_modules/sweetalert/dist/sweetalert.min.js"
+        th:src="@{/static/node_modules/sweetalert/dist/sweetalert.min.js}"></script>
+<script src="../../static/node_modules/jquery-ui/dist/jquery-ui.js"
+        th:src="@{/static/node_modules/jquery-ui/dist/jquery-ui.js}"></script>
 <!-- 新增和更新共享同一个模态框 -->
 <script type="text/javascript">
     $(function () {
@@ -263,7 +296,7 @@
             revert: true, //释放时，添加动画
             update: function (event, ui) { //更新排序之后
                 //记录sort后的id顺序数组
-                arr = $( ".orderBy" ).sortable('toArray');
+                arr = $(".orderBy").sortable('toArray');
                 console.log(arr);
                 //拖拽后利用localStorage记录顺序
                 localStorage.arr = arr;
@@ -271,11 +304,11 @@
         });
         //如果有localst记录则，按照这个进行排序元素
         var localSt = localStorage.arr;
-        if(localSt){
+        if (localSt) {
             var resArr = localSt.split(',');
             var resUl = $('.orderBy');
             //li 数组
-            for(var i = 0;i < resArr.length;i++){
+            for (var i = 0; i < resArr.length; i++) {
                 resUl.append($("#" + resArr[i]));
             }
         }
@@ -284,24 +317,28 @@
 // $.post("[[${#request.getContextPath()}]]/member/memberList.do", function (memberList) {
         $.post("detailClass.json", function (detailClassList) {
             console.log(detailClassList);
-            var count =0
+            var count = 0
             $('.table-striped').dataTable({
                 //注： 后面开发时，url的位置写 服务端控制器的 mapping值,服务端返回的将是json数据
-                "data":detailClassList ,
+                "data": detailClassList,
                 //行的定义
                 "columns": [
                     // {"data": "namePhone",bAutoWidth: "false", sWidth: "20%"},
-                    {"data": null,"render":function(data,type,row){
+                    {
+                        "data": null, "render": function (data, type, row) {
                             return ++count;
-                        }},
+                        }
+                    },
                     {"data": "name", bAutoWidth: "false"},
-                    {"data": "phone" },
-                    {"data": "identityCard" },
-                    {"data": "sex" ,"render":function(data,type,row){
-                            var html ="<span class='glyphicon glyphicon-user' style='color: red'></span>"+data+""
+                    {"data": "phone"},
+                    {"data": "identityCard"},
+                    {
+                        "data": "sex", "render": function (data, type, row) {
+                            var html = "<span class='glyphicon glyphicon-user' style='color: red'></span>" + data + ""
                             return html;
-                        }},
-                    {"data": "school" },
+                        }
+                    },
+                    {"data": "school"},
                     {"data": "profession"},
                     {"data": "degree"},
                     {"data": "note"},
@@ -319,13 +356,13 @@
                 "bPaginage": true,
                 "bAutoWidth": true,
                 lengthChange: false,
-                ordering:true,
+                ordering: true,
                 columnDefs: [{
                     targets: 4,//编辑取消排序
                     "orderable": false
                 }],
-                iDisplayLength:7,
-                lengthMenu :[ 7, 25, 50, 75, 100 ],//定义每页显示记录数，可更改每页显示行数
+                iDisplayLength: 7,
+                lengthMenu: [7, 25, 50, 75, 100],//定义每页显示记录数，可更改每页显示行数
                 language: {
                     "decimal": "",//小数的小数位符号  比如“，”作为数字的小数位符号
                     "emptyTable": "没有数据哟~~",//没有数据时要显示的字符串

@@ -5,32 +5,37 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 指定页面显示的图标 -->
-    <link rel="icon" href="../icon/tpcs.ico">
+    <link rel="icon" href="../../static/icon/tpcs.ico">
     <title>学员列表</title>
 
     <!-- Bootstrap -->
-    <link href="../../static/css/bootstrap.min.css?v=3.3.6" th:href="@{/static/css/bootstrap.min.css}"
+    <link href="../../static/node_modules/bootstrap/dist/css/bootstrap.min.css"
+          th:href="@{/static/node_modules/bootstrap/dist/css/bootstrap.min.css}"
           rel="stylesheet">
-    <link href="../../static/css/font-awesome.css?v=4.4.0" th:href="@{/static/css/font-awesome.css}"
-          rel="stylesheet">
-    <link href="../../static/css/animate.css" th:href="@{/static/css/animate.css}" rel="stylesheet">
+    <!--    <link href="../../static/custom_modules/css-prj/font-awesome.css" th:href="@{/static/css/font-awesome.css}"-->
+    <!--          rel="stylesheet">-->
+    <!--    <link href="../../static/custom_modules/css-prj/animate.css" th:href="@{/static/css/animate.css}" rel="stylesheet">-->
     <!--    <link href="../../static/css/plugins/jsTree/style.min.css" th:href="@{/static/css/plugins/jsTree/style.min.css}"-->
     <!--          rel="stylesheet">-->
     <!-- BootStrap Theme css -->
     <!--    <link href="../../static/css/bootstrap-theme.min.css" th:href="@{/static/css/bootstrap-theme.min.css}"-->
     <!--          rel="stylesheet">-->
     <!-- Data Tables -->
-    <link href="../../static/css/plugins/dataTables/dataTables.bootstrap.css"
+    <link href="../../static/node_modules/datatables/media/css/dataTables.bootstrap.css"
           th:href="@{/static/css/plugins/dataTables/dataTables.bootstrap.css}" rel="stylesheet">
 
     <!-- 导入相关的js -->
-    <script src="../../static/js/jquery.min.js" th:href="@{/static/js/jquery.min.js}"></script>
-    <script src="../../static/js/bootstrap.min.js" th:href="@{/static/js/bootstrap.min.js}"></script>
+    <script src="../../static/node_modules/jquery/jquery.min.js"
+            th:href="@{/static/node_modules/jquery/jquery.min.js}"></script>
+    <script src="../../static/node_modules/bootstrap/dist/js/bootstrap.min.js"
+            th:href="@{/static/node_modules/bootstrap/dist/js/bootstrap.min.js}"></script>
 
     <!--     此案例的自定义样式 -->
-    <link href="../../static/css-prj/main.css" th:href="@{/static/js/jquery.min.js}" rel="stylesheet">
+    <link href="../../static/custom_modules/css-prj/main.css" th:href="@{/static/custom_modules/css-prj/main.css}"
+          rel="stylesheet">
     <!-- 导入外部的js文件 -->
-    <script type="text/javascript" src="../../static/js-prj/main.js" th:src="@{/static/js-prj/main.js}"></script>
+    <script type="text/javascript" src="../../static/custom_modules/js-prj/main.js"
+            th:src="@{/static/custom_modules/js-prj/main.js}"></script>
 </head>
 <body>
 <!-- 导航栏区 -->
@@ -120,18 +125,21 @@
 </div>
 <!-- Data Tables -->
 <!-- 自定义js -->
-<script src="../../static/js/content.js" th:src="@{/static/js/content.js}"></script>
-<script src="../../static/js/plugins/jeditable/jquery.jeditable.js"
-        th:src="@{/static/js/plugins/jeditable/jquery.jeditable.js}"></script>
-<script src="../../static/js/plugins/dataTables/jquery.dataTables.js"
-        th:src="@{/static/js/plugins/dataTables/jquery.dataTables.js}"></script>
-<script src="../../static/js/plugins/dataTables/dataTables.bootstrap.js"
-        th:src="@{/static/js/plugins/dataTables/dataTables.bootstrap.js}"></script>
-<script src="../../static/js/header.js"></script>
+<script src="../../static/custom_modules/js-prj/content.js"
+        th:src="@{/static/js/content.js}"></script>
+<!--<script src="../../static/node_modules/jeditable/jquery.jeditable.js"-->
+<!--        th:src="@{/static/js/plugins/jeditable/jquery.jeditable.js}"></script>-->
+<script src="../../static/node_modules/datatables/media/js/jquery.dataTables.min.js"
+        th:src="@{/static/node_modules/datatables/media/js/jquery.dataTables.min.js}"></script>
+<!--<script src="../../static/node_modules/bootstrap/dist/js/bootstrap.min.js"-->
+<!--        th:src="@{/static/node_modules/bootstrap/dist/js/bootstrap.min.js}"></script>-->
+<script src="../../static/node_modules/datatables/media/js/dataTables.bootstrap.js"
+        th:src="@{/static/node_modules/datatables/media/js/dataTables.bootstrap.js}"></script>
+<script src="../../static/custom_modules/js-prj/header.js"
+        th:src="@{/static/custom_modules/js-prj/header.js}"></script>
 <script>
     $(document).ready(function () {
         $.post("../json/studentList.json", function (resp) {
-            console.log(resp);
             console.log(resp.data)
             $('.dataTables-example').dataTable({
                 'data': resp.data,
